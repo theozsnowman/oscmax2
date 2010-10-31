@@ -4,6 +4,7 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
 
   osCMax Power E-Commerce
   http://oscdox.com
+adapted for Hide products and categories from customer groups for SPPC 2008/08/02
 
   Copyright 2006 osCMax
 
@@ -16,7 +17,7 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
 // Set the level of error reporting
 //  error_reporting(E_ALL);
   error_reporting(E_ALL & ~E_NOTICE & ~'E_DEPRECATED');
-  
+
 // check support for register_globals
   if (function_exists('ini_get') && (ini_get('register_globals') == false) && (PHP_VERSION < 4.3) ) {
     exit('Server Requirement Error: register_globals is disabled in your PHP configuration. This can be enabled in your php.ini configuration file or in the .htaccess file in your catalog directory. Please use PHP 4.3+ if register_globals cannot be enabled on the server.');
@@ -29,14 +30,14 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
   require('includes/configure.php');
 
 // Define the project version
-  define('PROJECT_VERSION', 'osCMax v2.0.25');
+  define('PROJECT_VERSION', 'osCmax v2.5 Beta 1');
 
 // some code to solve compatibility issues
   require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
 // set php_self in the local scope
   $PHP_SELF = $_SERVER['PHP_SELF'];
-  
+
 // Used in the "Backup Manager" to compress backups
   define('LOCAL_EXE_GZIP', '/usr/bin/gzip');
   define('LOCAL_EXE_GUNZIP', '/usr/bin/gunzip');
@@ -64,7 +65,7 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
   tep_db_connect() or die('Unable to connect to database server!');
 
 // set application wide parameters
-  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION);
+  $configuration_query = tep_db_query('select distinct configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION);
   while ($configuration = tep_db_fetch_array($configuration_query)) {
     define($configuration['cfgKey'], $configuration['cfgValue']);
   }
@@ -81,15 +82,6 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
 
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
-
-// check to see if php implemented session management functions - if not, include php3/php4 compatible session class
-  if (!function_exists('session_start')) {
-    define('PHP_SESSION_NAME', 'osCAdminID');
-    define('PHP_SESSION_PATH', '/');
-    define('PHP_SESSION_SAVE_PATH', SESSION_WRITE_DIRECTORY);
-
-    include(DIR_WS_CLASSES . 'sessions.php');
-  }
 
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
@@ -114,7 +106,7 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
   }
 
 // set the language
-  if (!tep_session_is_registered('language') || isset($HTTP_GET_VARS['language'])) {
+  if (!tep_session_is_registered('language') || isset($_GET['language'])) {
     if (!tep_session_is_registered('language')) {
       tep_session_register('language');
       tep_session_register('languages_id');
@@ -123,8 +115,8 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
     include(DIR_WS_CLASSES . 'language.php');
     $lng = new language();
 
-    if (isset($HTTP_GET_VARS['language']) && tep_not_null($HTTP_GET_VARS['language'])) {
-      $lng->set_language($HTTP_GET_VARS['language']);
+    if (isset($_GET['language']) && tep_not_null($_GET['language'])) {
+      $lng->set_language($_GET['language']);
     } else {
       $lng->get_browser_language();
     }
@@ -134,11 +126,7 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
   }
 
 // include the language translations
-  require(DIR_WS_LANGUAGES . $language . '.php');
-  $current_page = basename($_SERVER['SCRIPT_FILENAME']);
-  if (file_exists(DIR_WS_LANGUAGES . $language . '/' . $current_page)) {
-    include(DIR_WS_LANGUAGES . $language . '/' . $current_page);
-  }
+// Code moved further below since messageStack class must be initiated first.
 
 // define our localization functions
   require(DIR_WS_FUNCTIONS . 'localization.php');
@@ -167,9 +155,34 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
 // file uploading class
   require(DIR_WS_CLASSES . 'upload.php');
 
+// include the language translations
+// BOF: [TiM's osC Solutions] Display english for missing language files
+  if (file_exists(DIR_WS_LANGUAGES . $language . '/core.php')) {
+    require_once(DIR_WS_LANGUAGES . $language . '/core.php');
+  } else {
+    if (file_exists(DIR_WS_LANGUAGES . $language . '/core.php')) {
+      $messageStack->add('Missing language file (' . DIR_WS_LANGUAGES . $language . '/core.php). Using english instead.', 'error');
+      require_once(DIR_WS_LANGUAGES . $language . '/core.php');
+    }
+  }
+
+  $current_page = basename($PHP_SELF);
+  if (file_exists(DIR_WS_LANGUAGES . $language . '/' . $current_page)) {
+    include_once(DIR_WS_LANGUAGES . $language . '/' . $current_page);
+  } else {
+    if (file_exists(DIR_WS_LANGUAGES . 'english/' . $current_page)) {
+      $messageStack->add('Missing language file ('. DIR_WS_LANGUAGES . $language . '/' . $current_page .'). Using english instead.', 'error');
+      include_once(DIR_WS_LANGUAGES . 'english/' . $current_page);
+    }
+  }
+// EOF: [TiM's osC Solutions] Display english for missing language files
+
+// LINE ADDED - CREDIT CLASS Gift Voucher Contribution
+require(DIR_WS_LANGUAGES . $language . '/add_ccgvdc.php');
+
 // calculate category path
-  if (isset($HTTP_GET_VARS['cPath'])) {
-    $cPath = $HTTP_GET_VARS['cPath'];
+  if (isset($_GET['cPath'])) {
+    $cPath = $_GET['cPath'];
   } else {
     $cPath = '';
   }
@@ -188,15 +201,20 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
     $selected_box = 'configuration';
   }
 
-  if (isset($HTTP_GET_VARS['selected_box'])) {
-    $selected_box = $HTTP_GET_VARS['selected_box'];
+  if (isset($_GET['selected_box'])) {
+    $selected_box = $_GET['selected_box'];
   }
 
 // the following cache blocks are used in the Tools->Cache section
 // ('language' in the filename is automatically replaced by available languages)
-  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box-language.cache', 'multiple' => true),
-                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
-                        array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
+//  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box-language.cache', 'multiple' => true),
+//                         array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language.cache', 'multiple' => true),
+//                         array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language.cache', 'multiple' => true)
+//                        );
+// adapted for Hide products and categories from groups
+  $cache_blocks = array(array('title' => TEXT_CACHE_CATEGORIES, 'code' => 'categories', 'file' => 'categories_box-language-cg', 'multiple' => true),
+                        array('title' => TEXT_CACHE_MANUFACTURERS, 'code' => 'manufacturers', 'file' => 'manufacturers_box-language', 'multiple' => true),
+                        array('title' => TEXT_CACHE_ALSO_PURCHASED, 'code' => 'also_purchased', 'file' => 'also_purchased-language-cg', 'multiple' => true)
                        );
 
 // check if a default currency is set
@@ -219,15 +237,18 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
   }
 // EOF: MOD - Admin w/access levels
 
+// LINE ADDED: MOD - OSC-AFFILIATE
+  require('includes/affiliate_application_top.php');
+
 // LINE ADDED: MOD - CREDIT CLASS Gift Voucher Contribution
   require(DIR_WS_INCLUDES . 'add_ccgvdc_application_top.php');
-  
+
 // LINE ADDED: MOD - articles functions
   require(DIR_WS_FUNCTIONS . 'articles.php');
 
 // BOF: MOD - Article Manager
-  if (isset($HTTP_GET_VARS['tPath'])) {
-    $tPath = $HTTP_GET_VARS['tPath'];
+  if (isset($_GET['tPath'])) {
+    $tPath = $_GET['tPath'];
   } else {
     $tPath = '';
   }
@@ -244,7 +265,4 @@ $Id: application_top.php 18 2006-08-04 19:02:36Z user $
 // BOF: FedEx Labels
   define('DIR_WS_FEDEX_LABELS', DIR_WS_IMAGES . 'fedex/');
 // EOF: FedEx Labels
-
-// Include OSC-AFFILIATE
-  require(DIR_WS_INCLUDES . 'affiliate_application_top.php');
 ?>

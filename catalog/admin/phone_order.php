@@ -11,8 +11,7 @@ Released under the GNU General Public License
 require('includes/application_top.php');
 
 // #### Get Available Customers
-if(isset($_POST['secu']))
-{
+if(isset($_POST['secu'])) {
 	$byfl='where customers_firstname like \''.$_POST['cust2'].'%\' or customers_lastname like \''.$_POST['cust2'].'%\''; 
 }else $byfl='';
 $query = tep_db_query("select customers_id, customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " ".$byfl." ORDER BY customers_lastname");
@@ -21,13 +20,13 @@ $result = $query;
 //require_once("../dBug.php");
 //new dBug($result);
 if (tep_db_num_rows($result) > 0){	// Query Successful
-	$SelectCustomerBox = "<select name='Customer' onChange='this.form.submit();'><option value=''>Select Customer</option>\n";
+	$SelectCustomerBox = "<select name='Customer' onChange='this.form.submit();'><option value=''>" . SELECT_CUSTOMER . "</option>\n";
 
 	while($db_Row = tep_db_fetch_array($result)){ 	
 
 		$SelectCustomerBox .= "<option value='" . $db_Row["customers_id"] . "'";
 
-	  	if(isset($HTTP_POST_VARS['Customer']) and $db_Row["customers_id"]==$HTTP_POST_VARS['Customer']){
+	  	if(isset($_POST['Customer']) and $db_Row["customers_id"]==$_POST['Customer']){
 	
 			$SelectCustomerBox .= " SELECTED ";
 			$CustomerEmail = $db_Row["customers_email_address"];
@@ -45,20 +44,12 @@ require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_PHONE_ORDER);
 <html <?php echo HTML_PARAMS; ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
-<?php
-// BOF: WebMakers.com Changed: Header Tag Controller v1.0
-// Replaced by header_tags.php
-if ( file_exists(DIR_WS_INCLUDES . 'header_tags.php') ) {
-require(DIR_WS_INCLUDES . 'header_tags.php');
-} else {
-	?>
-<title>Phone Order</title>
-
+<title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
-
+<link rel="stylesheet" type="text/css" href="includes/javascript/jquery-ui-1.8.2.custom.css">
+<script type="text/javascript" src="includes/general.js"></script>
 </head>
-
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0">
+<body>
 
 <!-- header //-->
 
@@ -97,7 +88,7 @@ require(DIR_WS_INCLUDES . 'header_tags.php');
 						<td>
 						<form action="<?php echo $PHP_SELF?>" method="post">
 							<input type="text" value="<?php echo $_POST['cust2']?>" name="cust2" />
-							<input type="submit" name="secu" value="Search" />
+							<input type="submit" name="secu" value="<?php echo SEARCH ?>" />
 						</form>
 						</td>
 					
@@ -105,23 +96,23 @@ require(DIR_WS_INCLUDES . 'header_tags.php');
 					<tr>
                       <td><?php
 					  	  echo '<form action="' . $PHP_SELF. '" method="POST">';
-                          echo '<font class="main"><b>Select Customer :</b></font><br><br>';
+                          echo '<font class="main"><b>' . SELECT_CUSTOMER . '</b></font><br><br>';
                           echo $SelectCustomerBox;
                           echo '</form>';
 						?>
 					
 						</td>
                       <td valign='bottom'><?php
-					  if(isset($HTTP_POST_VARS['Customer'])){
+					  if(isset($_POST['Customer'])){
 						  if (ENABLE_SSL_CATALOG == 'true') {
-							echo '<form action="'.DIR_WS_CATALOG.'login.php" method="POST" target="_blank">';
+							echo '<form action="' . HTTPS_CATALOG_SERVER . DIR_WS_CATALOG . 'login.php" method="POST" target="_blank">';
 						  } else {
-							echo '<form action="'.DIR_WS_CATALOG.'/login.php" method="POST" target="_blank">';
+							echo '<form action="' . HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'login.php" method="POST" target="_blank">';
 						  }
 						  echo '<input type="hidden" name="email_address" value="'.$CustomerEmail.'">';
 					  echo '<input type="hidden" name="action" value="process">';
 						  echo '<input type="hidden" name="phoneorder" value="order">';
-						  echo '<input type="submit" value="Submit"></form>';
+						  echo '<input type="submit" value="' . SUBMIT .'"></form>';
 					  }
 					  ?>
                       </td>
@@ -130,14 +121,14 @@ require(DIR_WS_INCLUDES . 'header_tags.php');
 
                   <?php
 				    if (ENABLE_SSL_CATALOG == 'true') {
-						echo '<form action="'.HTTP_CATALOG_SERVER.'/create_account.php" method="POST" target="_blank">';
+						echo '<form action="' . HTTPS_CATALOG_SERVER . DIR_WS_CATALOG  . 'create_account.php" method="POST" target="_blank">';
 				    } else {
-						echo '<form action="'.HTTP_CATALOG_SERVER.'/create_account.php" method="POST" target="_blank">';
+						echo '<form action="' . HTTP_CATALOG_SERVER . DIR_WS_CATALOG  . 'create_account.php" method="POST" target="_blank">';
 				    }
 					print "<table border='0'>\n";
 					print "<tr>\n";
-					print "<td><font class=main><b><br>Or Create New Customer :</b></font>";
-					print "<td valign='bottom'><input type='submit' value='New Customer'></td>\n";
+					print "<td><font class=main><b><br>" . CREATE_NEW . "</b></font>";
+					print "<td valign='bottom'><input type='submit' value='" . NEW_CUSTOMER . "'></td>\n";
 					print "</tr>\n";
 					print "</table>\n";
 					print "</form>\n";
@@ -157,9 +148,4 @@ require(DIR_WS_INCLUDES . 'header_tags.php');
 <br>
 </body>
 </html>
-
-<?php 
-	require(DIR_WS_INCLUDES . 'application_bottom.php'); 
-}
-?>
-
+<?php require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

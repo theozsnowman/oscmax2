@@ -36,7 +36,7 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
     $html_graph_string .= end_graph();
 
 // Set the error level back to where it was.
-    error_reporting($er);  
+    error_reporting($er);
 
     return $html_graph_string;
   }
@@ -86,12 +86,12 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
     if ( ($vals['vlabel']) || ($vals['hlabel']) ) {
       if ( ($vals['type'] == 0) || ($vals['type'] == 2) ) {
 // horizontal chart
-        $rowspan = sizeof($names) + 1; 
-        $colspan = 3; 
+        $rowspan = sizeof($names) + 1;
+        $colspan = 3;
       } elseif ( ($vals['type'] == 1) || ($vals['type'] == 3) ) {
 // vertical chart
         $rowspan = 3;
-        $colspan = sizeof($names) + 1; 
+        $colspan = sizeof($names) + 1;
       }
 
       $start_graph_string .= '  <tr>' . "\n" .
@@ -145,14 +145,14 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
 // prints out the actual data for the horizontal chart
   function horizontal_graph($names, $values, $bars, $vals) {
     $horizontal_graph_string = '';
-    for($i = 0, $n = sizeof($values); $i < $n; $i++) { 
+    for($i = 0, $n = sizeof($values); $i < $n; $i++) {
       $horizontal_graph_string .= '  <tr>' . "\n" .
                                   '    <td align="right"';
 // if a background was choosen don't print cell BGCOLOR
       if (!$vals['background']) $horizontal_graph_string .= ' bgcolor="' . $vals['namebgcolor'] . '"';
 
       $horizontal_graph_string .= '><font size="-1" color="' . $vals['namefcolor'] . '" style="' . $vals['namefstyle'] . '">' . $names[$i] . '</font></td>' . "\n" .
-                                  '    <td'; 
+                                  '    <td';
 
 // if a background was choosen don't print cell BGCOLOR
       if (!$vals['background']) $horizontal_graph_string .= ' bgcolor="' . $vals['valuebgcolor'] . '"';
@@ -160,7 +160,7 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
       $horizontal_graph_string .= '>';
 
 // decide if the value in bar is a color code or image.
-      if (ereg('^#', $bars[$i])) { 
+      if (preg_match('/^#/', $bars[$i])) {
         $horizontal_graph_string .= '<table cellpadding="0" cellspacing="0" bgcolor="' . $bars[$i] . '" width="' . ($values[$i] * $vals['scale']) . '">' . "\n" .
                                     '  <tr>' . "\n" .
                                     '    <td>&nbsp;</td>' . "\n" .
@@ -200,14 +200,14 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
 
       $vertical_graph_string .= '<img src="' . $bars[$i] . '" width="5" height="';
 
-// values of zero are displayed wrong because a image height of zero 
-// gives a strange behavior in Netscape. For this reason the height 
+// values of zero are displayed wrong because a image height of zero
+// gives a strange behavior in Netscape. For this reason the height
 // is set at 1 pixel if the value is zero. - Jan Diepens
       if ($values[$i] != 0) {
         $vertical_graph_string .= $values[$i] * $vals['scale'];
       } else {
         $vertical_graph_string .= '1';
-      } 
+      }
 
       $vertical_graph_string .= '"></td>' . "\n";
     } // endfor
@@ -251,7 +251,7 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
                                          '        <td';
 
 // set background to a color if it starts with # or an image otherwise.
-      if (ereg('^#', $dbars[$i])) {
+      if (preg_match('/^#/', $dbars[$i])) {
         $double_horizontal_graph_string .= ' bgcolor="' . $dbars[$i] . '">';
       } else {
         $double_horizontal_graph_string .= ' background="' . $dbars[$i] . '">';
@@ -260,7 +260,7 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
       $double_horizontal_graph_string .= '<nowrap>';
 
 // decide if the value in bar is a color code or image.
-      if (ereg('^#', $bars[$i])) { 
+      if (preg_match('/^#/', $bars[$i])) {
         $double_horizontal_graph_string .= '<table align="left" cellpadding="0" cellspacing="0" bgcolor="' . $bars[$i] . '" width="' . ($values[$i] * $vals['scale']) . '">' . "\n" .
                                            '  <tr>' . "\n" .
                                            '    <td>&nbsp;</td>' . "\n" .
@@ -268,7 +268,7 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
                                            '</table>';
       } else {
         $double_horizontal_graph_string .= '<img src="' . $bars[$i] . '" height="10" width="' . ($values[$i] * $vals['scale']) . '">';
-      }          
+      }
 
       if (!$vals['noshowvals']) {
         $double_horizontal_graph_string .= '<i><font size="-3" color="' . $vals['valuefcolor'] . '" style="' . $vals['valuefstyle'] . '">(' . $values[$i] . ')</font></i>';
@@ -380,8 +380,8 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
     $bars = array();
     $dbars = array();
     for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
-      $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
-      $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
+      $bars[$i] = DIR_WS_ICONS . 'graph_hbar_blue.gif';
+      $dbars[$i] = DIR_WS_ICONS . 'graph_hbar_red.gif';
     }
 
     $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
@@ -412,7 +412,7 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
 ////
 // draws a double vertical bar graph for the banner views vs clicks statistics
   function tep_banner_graph_yearly($banner_id) {
-    global $banner, $HTTP_GET_VARS;
+    global $banner, $_GET;
 
     $banner_stats_query = tep_db_query("select year(banners_history_date) as year, sum(banners_shown) as value, sum(banners_clicked) as dvalue from " . TABLE_BANNERS_HISTORY . " where banners_id = '" . $banner_id . "' group by year(banners_history_date)");
     while ($banner_stats = tep_db_fetch_array($banner_stats_query)) {
@@ -426,8 +426,8 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
     $bars = array();
     $dbars = array();
     for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
-      $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
-      $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
+      $bars[$i] = DIR_WS_ICONS . 'graph_hbar_blue.gif';
+      $dbars[$i] = DIR_WS_ICONS . 'graph_hbar_red.gif';
     }
 
     $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
@@ -458,9 +458,9 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
 ////
 // draws a double vertical bar graph for the banner views vs clicks statistics
   function tep_banner_graph_monthly($banner_id) {
-    global $banner, $HTTP_GET_VARS;
+    global $banner, $_GET;
 
-    $year = (($HTTP_GET_VARS['year']) ? $HTTP_GET_VARS['year'] : date('Y'));
+    $year = (($_GET['year']) ? $_GET['year'] : date('Y'));
 
     for ($i=1; $i<13; $i++) {
       $names[] = strftime('%b', mktime(0,0,0,$i));
@@ -480,8 +480,8 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
     $bars = array();
     $dbars = array();
     for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
-      $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
-      $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
+      $bars[$i] = DIR_WS_ICONS . 'graph_hbar_blue.gif';
+      $dbars[$i] = DIR_WS_ICONS . 'graph_hbar_red.gif';
     }
 
     $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,
@@ -512,10 +512,10 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
 ////
 // draws a double vertical bar graph for the banner views vs clicks statistics
   function tep_banner_graph_daily($banner_id) {
-    global $banner, $HTTP_GET_VARS;
+    global $banner, $_GET;
 
-    $year = (isset($HTTP_GET_VARS['year']) ? $HTTP_GET_VARS['year'] : date('Y'));
-    $month = (isset($HTTP_GET_VARS['month']) ? $HTTP_GET_VARS['month'] : date('n'));
+    $year = (isset($_GET['year']) ? $_GET['year'] : date('Y'));
+    $month = (isset($_GET['month']) ? $_GET['month'] : date('n'));
 
     $days = (date('t', mktime(0,0,0,$month))+1);
     $stats = array();
@@ -537,8 +537,8 @@ $Id: html_graphs.php 3 2006-05-27 04:59:07Z user $
     $bars = array();
     $dbars = array();
     for ($i = 0, $n = sizeof($values); $i < $n; $i++) {
-      $bars[$i] = DIR_WS_IMAGES . 'graph_hbar_blue.gif';
-      $dbars[$i] = DIR_WS_IMAGES . 'graph_hbar_red.gif';
+      $bars[$i] = DIR_WS_ICONS . 'graph_hbar_blue.gif';
+      $dbars[$i] = DIR_WS_ICONS . 'graph_hbar_red.gif';
     }
 
     $graph_vals = @array('vlabel'=>TEXT_BANNERS_DATA,

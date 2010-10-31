@@ -12,7 +12,7 @@ $Id: specials.php 3 2006-05-27 04:59:07Z user $
 
 // Most of this file is changed or moved to BTS - Basic Template System - format.
 
-  if (isset($HTTP_GET_VARS['products_id'])){
+  if (isset($_GET['products_id'])){
   	
 // BOF Separate Price per Customer
 /*  if ($random_product = tep_random_select("select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image, s.specials_new_products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_SPECIALS . " s where p.products_status = '1' and p.products_id = s.products_id and pd.products_id = s.products_id and pd.language_id = '" . (int)$languages_id . "' and s.status = '1' order by s.specials_date_added desc limit " . MAX_RANDOM_SELECT_SPECIALS)) { */
@@ -36,14 +36,17 @@ $Id: specials.php 3 2006-05-27 04:59:07Z user $
 ?>
 <!-- specials //-->
 <?php
-  $boxHeading = BOX_HEADING_SPECIALS;
-  $corner_left = 'square';
-  $corner_right = 'square';
+  $boxHeading = '<a href="' . tep_href_link(FILENAME_SPECIALS) . '">' . BOX_HEADING_SPECIALS . '</a>';
+  $corner_top_left = 'rounded';
+  $corner_top_right = 'rounded';
+  $corner_bottom_left = 'rounded';
+  $corner_bottom_right = 'rounded'; 
+  
   $boxContent_attributes = ' align="center"';
-  $boxLink = '<a href="' . tep_href_link(FILENAME_SPECIALS) . '"><img src="images/infobox/arrow_right.gif" border="0" alt="more" title=" more " width="12" height="10"></a>';
+  $boxLink = '<a href="' . tep_href_link(FILENAME_DEFAULT, "show_specials=1") . '"><img src="' . DIR_WS_TEMPLATES . 'images/infobox/arrow_right.png" border="0" alt="more" title=" more "></a>';
   $box_base_name = 'specials'; // for easy unique box template setup (added BTSv1.2)
-
   $box_id = $box_base_name . 'Box';  // for CSS styling paulm (editted BTSv1.2)
+  
   $boxContent = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product["products_id"]) . '">' . tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $random_product['products_image'], $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a><br><a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id']) . '">' . $random_product['products_name'] . '</a><br><span style="text-decoration:line-through">' . $currencies->display_price($random_product['products_price'], tep_get_tax_rate($random_product['products_tax_class_id'])) . '</span><br><span class="productSpecialPrice">' . $currencies->display_price($random_product['specials_new_products_price'], tep_get_tax_rate($random_product['products_tax_class_id'])) . '</span>';
 
 

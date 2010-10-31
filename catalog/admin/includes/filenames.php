@@ -54,6 +54,9 @@ $Id: filenames.php 14 2006-07-28 17:42:07Z user $
   define('FILENAME_WHOS_ONLINE', 'whos_online.php');
   define('FILENAME_ZONES', 'zones.php');
 
+// LINE ADDED - PGM - QUICK LINKS
+  define('FILENAME_QUICK_LINKS', 'quick_links.php');
+
 // BOF: MOD - Create & Edit Order & customers
   define('FILENAME_CREATE_ACCOUNT', 'create_account.php');
   define('FILENAME_CREATE_ACCOUNT_PROCESS', 'create_account_process.php');
@@ -113,11 +116,15 @@ $Id: filenames.php 14 2006-07-28 17:42:07Z user $
   define('FILENAME_RECOVER_CART_SALES', 'recover_cart_sales.php');
 // LINE ADDED
   define('FILENAME_STATS_RECOVER_CART_SALES', 'stats_recover_cart_sales.php');
+  define('FILENAME_CATALOG_PRODUCT_INFO', 'product_info.php');
+
 // BOF: MOD - QT Pro
   define('FILENAME_STATS_LOW_STOCK_ATTRIB', 'stats_low_stock_attrib.php');
   define('FILENAME_STOCK', 'stock.php');
   define('FILENAME_QTPRODOCTOR', 'qtprodoctor.php');
 // EOF: MOD - QT Pro
+  define('FILENAME_STATS_ADMIN_LOGGING', 'stats_admin_logging.php');
+  define('FILENAME_STATS_CUST_LOGGING', 'stats_cust_logging.php');
 
 // LINE ADDED: Special Price per Customer 4.0
   define('FILENAME_CUSTOMERS_GROUPS', 'customers_groups.php');
@@ -127,8 +134,65 @@ $Id: filenames.php 14 2006-07-28 17:42:07Z user $
   define('FILENAME_SHIP_FEDEX', 'ship_fedex.php');
   define('FILENAME_SHIPPING_MANIFEST', 'shipping_manifest.php');
 // EOF: MOD - fedex
+
 // LINE ADDED: CREDIT CLASS Gift Voucher Contribution
   define('FILENAME_STATS_CREDITS', 'stats_credits.php');
   
   define('FILENAME_UPS_BOXES_USED', 'ups_boxes_used.php');
+
+// BOF: PHONE ORDER
+  define('FILENAME_PHONE_ORDER', 'phone_order.php');
+// EOF: PHONE ORDER
+
+// BOF: EXPORT CUSTOMERS TO CSV
+  define('FILENAME_CUSTOMERS_EXPORT', 'customer_export.php');
+// EOF: EXPORT CUSTOMERS TO CSV
+
+// BOF: Http Error Log
+  define('FILENAME_STATS_HTTP_ERROR', 'stats_http_error.php');
+// EOF: Http Error Log 
+
+// BOF: Customers with purchases report
+  define('FILENAME_STATS_REGISTER_CUSTOMER_NO_PURCHASE', 'stats_register_customer_no_purchase.php');
+// EOF: Customers with purchases report
+
+// BOF: Google SiteMap
+  define('FILENAME_GOOGLE_SITEMAP', 'googlesitemap.php');
+// EOF: Google SiteMap
+
+// BOF: Feed Machine
+ define('FILENAME_FEEDMACHINE', 'feedmachine_admin.php');
+// EOF: Feed Machine
+
+// BOF QPBPP for SPPC v4.2 2008/03/07, QPBPP for SPPC v2.0 2008/09/05
+  define('FILENAME_DISCOUNT_CATEGORIES', 'discount_categories.php');
+  define('FILENAME_DISCOUNT_CATEGORIES_GROUPS_PP', 'discount_categories_groups_pp.php');
+// BOF QPBPP for SPPC
+
+// BOF: Canned Comments
+define('FILENAME_PREMADE', 'premade_comments.php');
+// EOF: Canned Comments
+
+//BOF: Page Modules
+define('FILENAME_PM_CONFIGURATION', 'page_modules_configuration.php');
+//EOF: Page Modules
+
+//BOF: Wishlist Report
+define('FILENAME_STATS_WISHLIST', 'stats_wishlist.php');
+//EOF: Wishlist Report
+
+//BOF: Slideshow
+define('FILENAME_SLIDESHOW', 'slideshow.php');
+//EOF: Slideshow
+
+//BOF: Extra Product Fields
+define('FILENAME_EXTRA_FIELDS', 'extra_fields.php');
+define('FILENAME_EXTRA_VALUES', 'extra_values.php');
+//EOF: Extra Product Fields
+
+define('FILENAME_IMAGES_REGEN', 'images_regen.php');
+
+// BOF: Information Pages Unlimited
+  define('FILENAME_INFORMATION_MANAGER', 'information_manager.php');
+// EOF: Information Pages Unlimited
 ?>

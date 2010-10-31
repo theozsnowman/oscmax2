@@ -2,18 +2,144 @@
 /*
 $Id: product_listing_col.php 14 2006-07-28 17:42:07Z user $
 */
-
-  $listing_split = new splitPageResults($listing_sql, MAX_DISPLAY_SEARCH_RESULTS, 'p.products_id');
-
-  if ( ($listing_split->number_of_rows > 0) && ( (PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3') ) ) {
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
-  <tr>
-    <td class="smallText"><?php echo $listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-    <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE . ' ' . $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
-  </tr>
-</table>
+<!-- PGM fix for Corner Banners in Internet Explorer -->
+<!--[if IE]>
+<style>
+img.corner_banner { display:inline-block; margin-left:-105px; margin-top:-7px; position:absolute; } 
+</style>
+<![endif]-->
+
+<!-- PGM SORT ORDER, NUMBER DISPLAY, GRID SWITCH -->
+
 <?php
+
+$thumbnail_view = (isset($_GET['list']) ? $_GET['list'] : 'list'); 
+
+if (tep_not_null($_GET['sort'])) $_GET['sort'] = $_GET['sort'];
+$max_results = (tep_not_null($_GET['max']) ? $_GET['max'] : MAX_DISPLAY_SEARCH_RESULTS);
+
+
+// sort order array
+for ($i=0, $n=sizeof($column_list); $i<$n; $i++) {
+      switch ($column_list[$i]) {
+        case 'PRODUCT_LIST_NAME':
+          $sort_array[] = array('id' => '2a', 'text' => 'Product Name (A-Z)');
+		  $sort_array[] = array('id' => '2d', 'text' => 'Product Name (Z-A)');
+          break;
+        case 'PRODUCT_LIST_PRICE':
+		  $sort_array[] = array('id' => '3a', 'text' => 'Price (Low - High)');
+		  $sort_array[] = array('id' => '3d', 'text' => 'Price (High - Low)');
+          break;	
+      }
+    }
+
+// Max Results Array		
+for ($i=1, $n=5; $i<$n; $i++) {		
+		$max_display[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS * $i, 'text' => MAX_DISPLAY_SEARCH_RESULTS * $i); 
+		}	
+		$max_display[] = array('id' => 1000000, 'text' => 'Show All');
+
+// store GET vars		
+$get_vars = '';
+    reset($_GET);
+    while (list($key, $value) = each($_GET)) {
+      if ( ($key != 'sort') && ($key != 'max') && ($key != tep_session_name()) && ($key != 'x') && ($key != 'y') ) {
+        $get_vars .= tep_draw_hidden_field($key, $value);
+      }
+    }
+
+// set gridlist session variable to list
+$_SESSION['gridlist'] = 'grid';
+
+$listing_split = new splitPageResults($listing_sql, $max_results, 'p.products_id');
+  if ( ($listing_split->number_of_rows > 0) && ( (PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3') ) ) {
+
+$list = '<table align="center"><tr><td width="20" align="center"><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('gridlist')). 'gridlist=list') . '"> ' . tep_image(DIR_WS_ICONS . 'list.png', 'View as List') . '</a></td><td width="80" class="smallText"><a class="filterbox" href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('gridlist')). 'gridlist=list') . '">View as List</a></td></tr></table>';
+
+$grid = '<table align="center"><tr><td width="20" align="center"><a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('gridlist')). 'gridlist=grid') . '"> ' . tep_image(DIR_WS_ICONS . 'grid.png', 'View as Grid') . '</a></td><td width="80" class="smallText"><a class="filterbox" href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('gridlist')). 'gridlist=grid') . '">View as Grid</a></td></tr></table>';
+
+// BOF SPPC Hide products and categories from groups
+  $page =  $_SERVER["SCRIPT_NAME"];
+  $break = Explode('/', $page);
+  $pfile = $break[count($break) - 1];
+  
+    if (PRODUCT_LIST_FILTER > 0) {
+        if (isset($_GET['manufacturers_id'])) {
+          $filterlist_sql = "select distinct c.categories_id as id, cd.categories_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES . " c, " . TABLE_CATEGORIES_DESCRIPTION . " cd where p.products_status = '1' and find_in_set('" . $customer_group_id . "', categories_hide_from_groups) = 0 and find_in_set('".$customer_group_id."', products_hide_from_groups) = 0 and p.products_id = p2c.products_id and p2c.categories_id = c.categories_id and p2c.categories_id = cd.categories_id and cd.language_id = '" . (int)$languages_id . "' and p.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' order by cd.categories_name";
+        } else {
+          $filterlist_sql= "select distinct m.manufacturers_id as id, m.manufacturers_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES . " using(categories_id), " . TABLE_MANUFACTURERS . " m where p.products_status = '1' and find_in_set('" . $customer_group_id . "', categories_hide_from_groups) = 0 and find_in_set('".$customer_group_id."', products_hide_from_groups) = 0 and p.manufacturers_id = m.manufacturers_id and p.products_id = p2c.products_id and p2c.categories_id = '" . (int)$current_category_id . "' order by m.manufacturers_name";
+        }
+// EOF SPPC Hide products and categories from groups
+
+	  $filter = '';
+      $filterlist_query = tep_db_query($filterlist_sql);
+      if ( (tep_db_num_rows($filterlist_query) > 1) && ($pfile != 'advanced_search_result.php') ) {
+        $filter .= tep_draw_form('filter', FILENAME_DEFAULT, 'get') . TEXT_SHOW . '&nbsp;';
+        if (isset($_GET['manufacturers_id'])) {
+        $filter .= tep_draw_hidden_field('manufacturers_id', $_GET['manufacturers_id']);
+          $options = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
+        } else {
+          $filter .= tep_draw_hidden_field('cPath', $cPath);
+          $options = array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS));
+        } // end if
+        $filter .= tep_draw_hidden_field('sort', $_GET['sort']);
+        while ($filterlist = tep_db_fetch_array($filterlist_query)) {
+          $options[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
+        } // end while
+        $filter .= tep_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'onchange="this.form.submit()"');
+        $filter .= tep_hide_session_id() . '</form>' . "\n";
+      } else {
+		$filter .= $listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS);
+	  }
+	} // end PRODUCT FILTER if
+
+$page_nav = '<table border="0" width="100%" cellspacing="0" cellpadding="2" class="filterbox"><tr><td class="smallText" width="33%">' .  $filter . '</td><td class="smallText" width="33%" align="center">' . $list . '</td><td class="smallText" width="33%" align="right">' . $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))) . '</td></tr>';
+
+$drop = '<tr><td class="smallText">Results/Page: '. tep_draw_form('maxdisplay', tep_href_link(basename($PHP_SELF), '', $request_type, false), 'get') . $get_vars . (isset($_GET['sort']) ? tep_draw_hidden_field('sort', $_GET['sort']) : '') .  tep_draw_pull_down_menu('max', $max_display, $_GET['max'], 'onChange="this.form.submit();"') . tep_hide_session_id().'</form></td><td align="center">' . $grid . '</td><td class="smallText" align="right">Sort Order: ' . tep_draw_form('sorting', tep_href_link(basename($PHP_SELF), '', $request_type, false), 'get') . $get_vars . (isset($_GET['max']) ? tep_draw_hidden_field('max', $_GET['max']) : '') . tep_draw_pull_down_menu('sort', $sort_array, $_GET['sort'], 'onChange="this.form.submit();"') . tep_hide_session_id().'</form></td></tr></table>';
+
+echo $page_nav;
+echo $drop;
+echo tep_draw_separator('pixel_trans.gif', '100%', '10');
+
+?>
+<!-- PGM SORT ORDER, NUMBER DISPLAY, GRID SWITCH -->
+<!-- begin extra product fields -->
+		
+            <?php
+            $epf_list = array();
+			$epf_number = count($epf);
+			if ($epf_number > 0) { // hide epf if blank ?>
+        	  <table border="0" width="100%" cellspacing="0" cellpadding="2" class="filterbox">
+          		<tr>
+            	  <td class="main" align="right" colspan="2">
+					<?php      
+                      foreach ($epf as $e) {
+                        if ($e['restrict']) $epf_list[] = $e['field'];
+                      }
+                      echo tep_draw_form('epf_restrict', FILENAME_DEFAULT, 'get');
+                      if (is_array($_GET) && (sizeof($_GET) > 0)) {
+                        reset($_GET);
+                        while (list($key, $value) = each($_GET)) {
+                          if ( (strlen($value) > 0) && ($key != tep_session_name()) && (!in_array($key, $epf_list)) ) {
+                            echo tep_draw_hidden_field($key, $value);
+                          }
+                        }
+                      }
+                      foreach ($epf as $e) {
+                        if ($e['restrict']) {
+                          echo sprintf(TEXT_RESTRICT_TO, $e['label'], tep_draw_pull_down_menu($e['field'], tep_build_epf_pulldown($e['id'], $languages_id, array(array('id' => '', 'text' => TEXT_ANY_VALUE))),'', 'onchange="this.form.submit()"')) . '<br>';
+                        }
+                      }
+                      ?>
+                      </form>
+            	  </td>
+          		</tr>
+        	  </table>
+           <?php } // end if to hide epf ?>
+<!-- end extra product fields -->
+<?php
+  echo tep_draw_separator('pixel_trans.gif', '100%', '10');
   }
 
   $list_box_contents = array();
@@ -120,18 +246,93 @@ for ($x = 0; $x < $no_of_listings; $x++) {
         $lc_align = '';
 
         switch ($column_list[$col]) {
+		  case 'PRODUCT_CORNER_BANNER':
+		  $lc_text = '';
+		  
+		  // Last Few Remaining Corner Banner
+		  if (CB_LAST_FEW == 'true') { 
+		    if ($listing[$x]['products_quantity'] <= CB_LAST_FEW_NO) {
+	 	      $lc_text = '<img class="corner_banner" src="' . DIR_WS_IMAGES . '/corner_banners/last_few.png" alt="">';
+            }	
+		  }
+		  // Top Rated Corner Banner
+		  if (CB_TOP_RATED == 'true') {
+		    $reviews_query = tep_db_query("select reviews_rating from " . TABLE_REVIEWS . " where products_id = '" . $listing[$x]['products_id'] . "'");
+              $reviews = tep_db_fetch_array($reviews_query);
+                if ($reviews['reviews_rating'] >= CB_TOP_RATED_NO) {
+                  $lc_text = '<img class="corner_banner" src="' . DIR_WS_IMAGES . '/corner_banners/top_rated.png" alt="">';
+                }
+		  }
+		  // Featured Product Corner Banner
+		  if (CB_FEATURED == 'true') {
+		    if ($listing[$x]['products_featured'] == 1) {
+	 	      $lc_text = '<img class="corner_banner" src="' . DIR_WS_IMAGES . '/corner_banners/featured.png" alt="">';
+            }	
+		  }
+		  // Special Offer Price Corner Banner
+		  if (CB_SPECIALS == 'true') {
+		    if (tep_not_null($listing[$x]['specials_new_products_price'])) {			 
+			  //Find out discount and round to nearest 5
+			  $fullprice = $listing[$x]['products_price'];
+			  $saleprice = $listing[$x]['specials_new_products_price'];
+			  $discount = ((($fullprice - $saleprice) / $fullprice) * 100);
+			  $rounded_discount = floor($discount / 5) * 5; 
+			    if ($rounded_discount >= CB_SPECIALS_NO) { 
+                  $lc_text = '<img class="corner_banner" src="' . DIR_WS_IMAGES . '/corner_banners/save' . $rounded_discount . '.png" alt="">';
+				}
+            } 
+		  }
+		  // Call for Price Corner Banner
+		  if (CB_CALL_FOR_PRICE == 'true') {
+		    if ($listing[$x]['products_price'] == CALL_FOR_PRICE_VALUE) {
+		      $lc_text = '<img class="corner_banner" src="' . DIR_WS_IMAGES . '/corner_banners/callforprice.png" alt="">';
+		    }
+		  }
+		  // Out of Stock Corner Banner
+		  if (CB_OUT_OF_STOCK == 'true') {
+		    if ($listing[$x]['products_quantity'] == 0) {
+		      $lc_text = '<img class="corner_banner" src="' . DIR_WS_IMAGES . '/corner_banners/out_of_stock.png" alt="">';
+		    }
+		  }	
+		  break;
           case 'PRODUCT_LIST_MODEL':
             $lc_align = '';
            $lc_text = '&nbsp;' . $listing[$x]['products_model'] . '&nbsp;';
             break;
           case 'PRODUCT_LIST_NAME':
+            // begin extra product fields
+            $extra = '';
+            foreach ($epf as $e) {
+              if ($e['listing']) {
+                $mt = ($e['uses_list'] && !$e['multi_select'] ? ($listing[$e['field']] == 0) : !tep_not_null($listing[$e['field']]));
+                if (!$mt) { // only list fields that aren't empty
+                  $extra .= '<br><b>' . $e['label'] . ': </b>';
+                  if ($e['uses_list']) {
+                    if ($e['multi_select']) {
+                      $epf_values = explode('|', trim($listing[$e['field']], '|'));
+                      $epf_string = '';
+                      foreach ($epf_values as $v) {
+                        $epf_string .= tep_get_extra_field_list_value($v) . ', ';
+                      }
+                      $extra .= trim($epf_string, ', ');
+                    } else {
+                      $extra .= tep_get_extra_field_list_value($listing[$e['field']],$e['show_chain'] == 1);
+                    }
+                  } else {
+                    $extra .= $listing[$e['field']];
+                  }
+                }
+              }
+            }
+            // end extra product fields
             $lc_align = '';
-            if (isset($HTTP_GET_VARS['manufacturers_id'])) {
-             $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing[$x]['products_id']) . '">' . $listing[$x]['products_name'] . '</a>';
+            if (isset($_GET['manufacturers_id'])) {
+              $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $_GET['manufacturers_id'] . '&products_id=' . $listing[$x]['products_id']) . '">' . $listing[$x]['products_name'] /*begin epf*/ . $extra /*end epf*/ . '</a>';
             } else {
-             $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing[$x]['products_id']) . '">' . $listing[$x]['products_name'] . '</a>&nbsp;';
+              $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing[$x]['products_id']) . '">' . $listing[$x]['products_name'] /*begin epf*/ . $extra /*end epf*/ . '</a>&nbsp;';
             }
             break;
+
           case 'PRODUCT_LIST_MANUFACTURER':
             $lc_align = '';
            $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $listing[$x]['manufacturers_id']) . '">' . $listing[$x]['manufacturers_name'] . '</a>&nbsp;';
@@ -141,7 +342,7 @@ for ($x = 0; $x < $no_of_listings; $x++) {
 
 
            if (tep_not_null($listing[$x]['specials_new_products_price'])) {
-             $lc_text = '&nbsp;<span style="text-decoration:line-through">' .  $currencies->display_price($listing[$x]['products_price'], tep_get_tax_rate($listing[$x]['products_tax_class_id'])) . '</span><br>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($listing[$x]['specials_new_products_price'], tep_get_tax_rate($listing[$x]['products_tax_class_id'])) . '</span>&nbsp;';
+             $lc_text = '&nbsp;<span style="text-decoration:line-through">' .  $currencies->display_price($listing[$x]['products_price'], tep_get_tax_rate($listing[$x]['products_tax_class_id'])) . '</span>&nbsp;&nbsp;<span class="productSpecialPrice">' . $currencies->display_price($listing[$x]['specials_new_products_price'], tep_get_tax_rate($listing[$x]['products_tax_class_id'])) . '</span>&nbsp;';
             } else {
              $lc_text = '&nbsp;' . $currencies->display_price($listing[$x]['products_price'], tep_get_tax_rate($listing[$x]['products_tax_class_id'])) . '&nbsp;';
             }
@@ -156,15 +357,22 @@ for ($x = 0; $x < $no_of_listings; $x++) {
             break;
           case 'PRODUCT_LIST_IMAGE':
             $lc_align = 'center';
-            if (isset($HTTP_GET_VARS['manufacturers_id'])) {
-             $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $HTTP_GET_VARS['manufacturers_id'] . '&products_id=' . $listing[$x]['products_id']) . '">' . tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $listing[$x]['products_image'], $listing[$x]['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>';
+            if (isset($_GET['manufacturers_id'])) {
+             $lc_text = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $_GET['manufacturers_id'] . '&products_id=' . $listing[$x]['products_id']) . '">' . tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $listing[$x]['products_image'], $listing[$x]['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>';
             } else {
              $lc_text = '&nbsp;<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing[$x]['products_id']) . '">' . tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $listing[$x]['products_image'], $listing[$x]['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>&nbsp;';
             }
            break; // EOF Separate Pricing per Customer
           case 'PRODUCT_LIST_BUY_NOW':
            $lc_align = 'center';
-           $lc_text = '<a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'pName')) . 'action=buy_now&products_id=' . $listing[$x]['products_id']) . '">' . tep_image_button('button_buy_now.gif', IMAGE_BUTTON_BUY_NOW) . '</a> ';
+		   if (SHOW_MORE_INFO == 'True') {
+			  $more_info = '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $listing[$x]['products_id']) . '">' . tep_image_button('button_more_info.gif', IMAGE_BUTTON_MORE_INFO) . '</a>';
+			}
+		   if ($listing[$x]['products_price'] == CALL_FOR_PRICE_VALUE){ //fix for call for price
+			  $lc_text = $more_info . ' <a href="' . tep_href_link(FILENAME_CONTACT_US, 'enquiry=Price Inquiry%0D%0A%0D%0AModel: ' . $listing[$x]['products_model'] . '%0D%0AProduct Name: ' . $listing[$x]['products_name'] . '%0D%0AProduct URL: ' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $listing[$x]['products_id'] .'%0D%0A%0D%0A') . '') . '">' . tep_image_submit('button_cfp.gif', IMAGE_BUTTON_CFP) . '</a>';
+			} else {
+              $lc_text = $more_info . ' <a href="' . tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action', 'pName')) . 'action=buy_now&products_id=' . $listing[$x]['products_id']) . '">' . tep_image_button('button_buy_now.gif', IMAGE_BUTTON_BUY_NOW) . '</a> ';
+			}
            break;
         }
         $product_contents[] = $lc_text;
@@ -174,19 +382,34 @@ for ($x = 0; $x < $no_of_listings; $x++) {
       $list_box_contents[$row][$column] = array('align' => 'center',
                                                 'params' => 'class="productListing-data"',
                                                 'text'  => $lc_text);
-      $column ++;
+	  
+	  $column ++;
+	  
+	  //Adds a spacer column between the product column - checks if it is the last column - if it is leave it out.
+	  if ($column != PRODUCT_LIST_NUM_COLUMNS + 2) { // Adds 2 to the column count to allow for spacers
+	  $list_box_contents[$row][$column] = array('align' => 'center',
+                                                'params' => 'class="productListing-data-spacer"',
+                                                'text'  => tep_draw_separator('pixel_trans.gif', '10', '10'));
+	  $column ++;
+	  }
 
-			if ($column >= PRODUCT_LIST_NUM_COLUMNS) {
-        $row ++;
-        $column = 0;
+			if ($column >= PRODUCT_LIST_NUM_COLUMNS + (PRODUCT_LIST_NUM_COLUMNS-1)) {
+        	  $row ++;
+			  // Add a row spacer between the product rows
+			  $list_box_contents[$row][0] = array('align' => 'center',
+                                                'params' => 'class="productListing-data-spacer"',
+                                                'text'  => tep_draw_separator('pixel_trans.gif', '10', '10'));
+			  
+			  $row ++;
+        	  $column = 0;
 			}
 
     } // line 102 (N of listing per current page)
     if ($column > 0){
-    	for ($x = $column; $x < PRODUCT_LIST_NUM_COLUMNS; $x++){
+    	for ($x = $column; $x < PRODUCT_LIST_NUM_COLUMNS + (PRODUCT_LIST_NUM_COLUMNS-1); $x++){ // Adds 2 to the column count to allow for spacers
     		
     		$list_box_contents[$row][$column] = array('align' => 'center',
-                                              'params' => 'class="productListing-data" ',
+                                              'params' => 'class="productListing-data-blank" ',
                                               'text'  => "&nbsp;");
  				$column++;
     		
@@ -200,18 +423,25 @@ for ($x = 0; $x < $no_of_listings; $x++) {
     $list_box_contents = array();
 
     $list_box_contents[0] = array('params' => 'class="productListing-odd"');
-    $list_box_contents[0][] = array('params' => 'class="productListing-data" yyyyyy',
-                                   'text' => TEXT_NO_PRODUCTS);
+    $list_box_contents[0][] = array('params' => 'class="productListing-data"',
+                                    'text' => TEXT_NO_PRODUCTS);
 
     new productListingBox($list_box_contents);
   }
 
   if ( ($listing_split->number_of_rows > 0) && ((PREV_NEXT_BAR_LOCATION == '2') || (PREV_NEXT_BAR_LOCATION == '3')) ) {
 ?>
-<table border="0" width="100%" cellspacing="0" cellpadding="2">
+
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+  <tr>
+    <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+  </tr>
+</table>
+
+<table class="filterbox" width="100%" cellpadding="2" cellspacing="0" border="0">
   <tr>
     <td class="smallText"><?php echo $listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS); ?></td>
-    <td class="smallText" align="right"><?php echo TEXT_RESULT_PAGE . ' ' . $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
+    <td class="smallText" align="right"><?php echo $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>
   </tr>
 </table>
 <?php

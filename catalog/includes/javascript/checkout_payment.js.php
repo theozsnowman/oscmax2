@@ -1,3 +1,20 @@
+<script src="http://www.google.com/jsapi"></script>
+<script>
+  // Load jQuery
+  google.load("jquery", "1.4.0");
+</script>
+
+<script language="javascript" type="text/javascript">
+/********************************
+*  Addition for Authorize.net Consolidated
+*  by Austin519 - CVV PopUp Window
+*  If using a custom checkout_payment.php
+*  paste the following lines into your file
+********************************/
+function CVVPopUpWindow(url) {
+	window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,copyhistory=no,width=600,height=233,screenX=150,screenY=150,top=150,left=150')
+}
+</script>
 <script language="javascript" type="text/javascript"><!--
 var selected;
 var submitter = null;
@@ -72,6 +89,29 @@ if ($gv_result['amount']>=$temp){ $coversAll=true;
     document.checkout_payment.cot_gv.checked=!document.checkout_payment.cot_gv.checked;
   }<?php } ?>
 //--></script>
+
 <?php // echo $payment_modules->javascript_validation(); ?>
 <?php echo $payment_modules->javascript_validation($coversAll); ?>
 <?php // End - CREDIT CLASS Gift Voucher Contribution ?>
+
+<script type="text/javascript">
+function switchMATC() { 
+	if($("#MATC").attr("checked")) {
+		$("#MATCtd").attr("class", "messageStackSuccess");
+		$('#disableMATC').hide();
+    	$('#enableMATC').show();
+	} else {
+		$("#MATCtd").attr("class", "messageStackAlert");
+		$('#disableMATC').show();
+    	$('#enableMATC').hide();
+	}
+}
+
+function warnMATC() {
+		$("#MATCtd").attr("class", "messageStackWarning");
+}
+
+$(document).ready(function(){
+	$('#enableMATC').hide();
+});
+</script>

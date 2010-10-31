@@ -20,8 +20,18 @@ $Id: server_info.php 3 2006-05-27 04:59:07Z user $
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>">
 <title><?php echo TITLE; ?></title>
 <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="includes/javascript/jquery-ui-1.8.2.custom.css">
+<style type="text/css">
+body, td, th {font-family: sans-serif; font-size: 10px;}
+.p {text-align: left;}
+.e {background-color: #ccccff; font-weight: bold;}
+.h {background-color: #9999cc; font-weight: bold;}
+.v {background-color: #cccccc;}
+i {color: #666666;}
+hr {display: none;}
+</style>
 </head>
-<body marginwidth="0" marginheight="0" topmargin="0" bottommargin="0" leftmargin="0" rightmargin="0" bgcolor="#FFFFFF">
+<body>
 <!-- header //-->
 <?php require(DIR_WS_INCLUDES . 'header.php'); ?>
 <!-- header_eof //-->
@@ -93,15 +103,7 @@ $Id: server_info.php 3 2006-05-27 04:59:07Z user $
 <?php
   if (function_exists('ob_start')) {
 ?>
-<style type="text/css">
-body, td, th {font-family: sans-serif; font-size: 10px;}
-.p {text-align: left;}
-.e {background-color: #ccccff; font-weight: bold;}
-.h {background-color: #9999cc; font-weight: bold;}
-.v {background-color: #cccccc;}
-i {color: #666666;}
-hr {display: none;}
-</style>
+
 <?php
     ob_start();
     phpinfo();

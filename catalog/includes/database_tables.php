@@ -95,4 +95,42 @@ $Id: database_tables.php 3 2006-05-27 04:59:07Z user $
 // LINE ADDED
   define('TABLE_PACKAGING', 'packaging');
   define('TABLE_UPS_BOXES_USED', 'ups_boxes_used');
+  
+// BOF: Customer Logging
+  define('TABLE_CUSTOMER_LOG','customer_log');
+// EOF: Customer Logging
+
+// BOF: Http Error Logging
+  define('TABLE_HTTP_ERROR', 'http_error');
+// EOF: Http Error Logging
+
+// BOF QPBPP for SPPC v4.2
+  define('TABLE_PRODUCTS_PRICE_BREAK', 'products_price_break');
+  define('TABLE_DISCOUNT_CATEGORIES', 'discount_categories');
+  define('TABLE_PRODUCTS_TO_DISCOUNT_CATEGORIES', 'products_to_discount_categories');
+// EOF QPBPP for SPPC v4.2
+
+// BOF: Page Module Controller
+  define('TABLE_PM_CONFIGURATION', 'pm_configuration');
+// EOF: Page Module Controller 
+
+// BOF: Page Module Slideshow
+define('TABLE_SLIDESHOW', 'slideshow');
+// EOF: Page Module Slideshow
+
+// BOF: Extra Product Fields
+define('TABLE_EPF', 'extra_product_fields');
+define('TABLE_EPF_LABELS', 'extra_field_labels');
+define('TABLE_EPF_VALUES', 'extra_field_values');
+define('TABLE_EPF_EXCLUDE', 'extra_value_exclude');
+// EOF: Extra Product Fields
+
+// BOF: Information Pages Unlimited
+  define('TABLE_INFORMATION', 'information');
+// EOF: Information Pages Unlimited
+
+// BOF: Product Option Types
+  define('TABLE_PRODUCTS_OPTIONS_TYPES', 'products_options_types');
+  define('TABLE_PRODUCTS_OPTIONS_DESCRIPTION', 'products_options_description');
+// EOF: Product Option Types
 ?>

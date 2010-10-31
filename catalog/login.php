@@ -25,24 +25,51 @@ $Id: login.php 3 2006-05-27 04:59:07Z user $
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_LOGIN);
 
   $error = false;
-  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'process')) {
-    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email_address']);
-    $password = tep_db_prepare_input($HTTP_POST_VARS['password']);
+  // BOF PHONE ORDER
+
+  //if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
+
+  if ((isset($_GET['action']) && ($_GET['action'] == 'process')) || ((isset($_POST['action']) && ($_POST['action'] == 'process')))) {
+
+  // EOF PHONE ORDER
+    $email_address = tep_db_prepare_input($_POST['email_address']);
+    $password = tep_db_prepare_input($_POST['password']);
 
 // Check if email exists
 // LINE CHANGED: MOD - Separate Pricing per Customer
 //  $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "'");
     $check_customer_query = tep_db_query("select customers_id, customers_firstname, customers_group_id, customers_password, customers_email_address, customers_default_address_id , guest_account from " . TABLE_CUSTOMERS . " where customers_email_address = '" . tep_db_input($email_address) . "' and guest_account='0'");
     if (!tep_db_num_rows($check_customer_query)) {
-      $error = true;
+      	$error = true;
+	  	//Added by PGM
+		tep_db_query("insert into " . TABLE_CUSTOMER_LOG . " values ('', '" . $email_address . "', '" . $_SERVER['REMOTE_ADDR'] . "', 'Wrong Username', '" . date('F j, Y, g:i a') . "')");
+
     } else {
       $check_customer = tep_db_fetch_array($check_customer_query);
 // Check that password is good
-      if (!tep_validate_password($password, $check_customer['customers_password'])) {
+      // BOF PHONE ORDER
+
+	  //if (!tep_validate_password($password, $check_customer['customers_password'])) {
+
+	  if (!tep_validate_password($password, $check_customer['customers_password']) && !isset($_POST['action'])) {
+
+	  
         $error = true;
+		//Added by PGM
+		tep_db_query("insert into " . TABLE_CUSTOMER_LOG . " values ('', '" . $email_address . "', '" . $_SERVER['REMOTE_ADDR'] . "', 'Wrong Password', '" . date('F j, Y, g:i a') . "')");
+
       } else {
-        if (SESSION_RECREATE == 'True') {
-          tep_session_recreate();
+        if (SESSION_RECREATE == 'True' && !isset($_POST['action'])) {
+
+		//echo "sdsd";
+		//Added by PGM
+		tep_db_query("insert into " . TABLE_CUSTOMER_LOG . " values ('', '" . $email_address . "', '" . $_SERVER['REMOTE_ADDR'] . "', 'Logged In', '" . date('F j, Y, g:i a') . "')");
+
+
+		if(isset($_POST['phoneorder']) && ($_POST['phoneorder'] == 'order')){
+          	tep_session_recreate();
+		}
+	// EOF PHONE ORDER	
         }
 // BOF: MOD - Separate Pricing Per Customer: choice for logging in under any customer_group_id
 // note that tax rates depend on your registered address!
@@ -57,7 +84,7 @@ $Id: login.php 3 2006-05-27 04:59:07Z user $
           echo (($request_type == 'SSL') ? HTTPS_SERVER : HTTP_SERVER) . DIR_WS_CATALOG;
           print ("\">\n<link rel=\"stylesheet\" type=\"text/css\" href=\"stylesheet.css\">\n");
           echo '<body bgcolor="#ffffff" style="margin:0">';
-          print ("\n<table border=\"0\" width=\"100%\" height=\"100%\">\n<tr>\n<td style=\"vertical-align: middle\" align=\"middle\">\n");
+          print ("\n<table border=\"0\" width=\"100%\">\n<tr>\n<td style=\"vertical-align: middle\" align=\"middle\">\n");
           echo tep_draw_form('login', tep_href_link(FILENAME_LOGIN, 'action=process&skip=true', 'SSL'));
           print ("\n<table border=\"0\" bgcolor=\"#f1f9fe\" cellspacing=\"10\" style=\"border: 1px solid #7b9ebd;\">\n<tr>\n<td class=\"main\">\n");
           $index = 0;
@@ -92,6 +119,13 @@ $Id: login.php 3 2006-05-27 04:59:07Z user $
         $customer_group_tax = tep_db_fetch_array($check_customer_group_tax);
         $sppc_customer_group_show_tax = (int)$customer_group_tax['customers_group_show_tax'];
         $sppc_customer_group_tax_exempt = (int)$customer_group_tax['customers_group_tax_exempt'];
+
+// PriceFormatterStore is already instantiated with the retail customer group id
+    if ($sppc_customer_group_id != 0) {
+      unset($pfs);
+      $pfs = new PriceFormatterStore;
+    }
+
 // EOF: MOD - Separate Pricing per Customer
         $customer_country_id = $check_country['entry_country_id'];
         $customer_zone_id = $check_country['entry_zone_id'];

@@ -1,7 +1,5 @@
 <?php
-/* 
-  
-  
+/*   
   osCMax Power E-Commerce
   http://oscdox.com
 
@@ -30,19 +28,15 @@ if ((!strstr($_SERVER['PHP_SELF'],'login.php')) && (!strstr($_SERVER['PHP_SELF']
 if (!tep_session_is_registered('customer_id')) {
 		
   $boxHeading = BOX_HEADING_LOGIN_BOX;
-  $corner_left = 'square';
-  $corner_right = 'square';
-  $box_base_name = 'loginbox'; // for easy unique box template setup (added BTSv1.2)
-
-  $box_id = $box_base_name . 'Box';  // for CSS styling paulm (editted BTSv1.2)
-//  $boxContent_attributes = ' align="center"';
+  $corner_top_left = 'rounded';
+  $corner_top_right = 'rounded';
+  $corner_bottom_left = 'rounded';
+  $corner_bottom_right = 'rounded';
   
-//    $boxContent = array();
-//    $boxContent[] = array('text'  => BOX_HEADING_LOGIN_BOX);
-
-//    new infoBoxHeading($boxContent, false, false);
-// WebMakers.com Added: Do not show if on login or create account or PWA screen
-
+  $boxContent_attributes = ' align="center"';
+  $boxLink = '';
+  $box_base_name = 'loginbox'; // for easy unique box template setup (added BTSv1.2)
+  $box_id = $box_base_name . 'Box';  // for CSS styling paulm (editted BTSv1.2)
 ?>
 <!-- loginbox bof //-->
 <?php
@@ -103,13 +97,16 @@ include (bts_select('boxes', $box_base_name)); // BTS 1.5
 //  new infoBoxHeading($boxContent, false, false);
 //  $boxContent = array();
 
-  $boxContent = '<a href="' . tep_href_link(FILENAME_PRODUCTS_NEW, '', 'SSL') . '">' . LOGIN_BOX_PRODUCTS_NEW . '</a><br>' .
-                '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . LOGIN_BOX_MY_ACCOUNT . '</a><br>' .
-                '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">' . LOGIN_BOX_ACCOUNT_HISTORY . '</a><br>' .
+  $boxContent = '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . LOGIN_BOX_MY_ACCOUNT . '</a><br>' .
                 '<a href="' . tep_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL') . '">' . LOGIN_BOX_ACCOUNT_EDIT . '</a><br>' .
-                '<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '">' . LOGIN_BOX_ADDRESS_BOOK . '</a><br>' .
+                '<a href="' . tep_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL') . '">' . LOGIN_BOX_ACCOUNT_HISTORY . '</a><br>' .
+				'<a href="' . tep_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL') . '">' . LOGIN_BOX_ADDRESS_BOOK . '</a><br>' .
                 '<a href="' . tep_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, '', 'NONSSL') . '">' . LOGIN_BOX_PRODUCT_NOTIFICATIONS . '</a><br>' .
-                '<a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '">' . LOGIN_BOX_LOGOFF . '</a>';
+				'<a href="' . tep_href_link(FILENAME_WISHLIST, '', 'SSL') . '">' . LOGIN_BOX_WISHLIST . '</a><br>' .
+				'<a href="' . tep_href_link(FILENAME_ACCOUNT_NEWSLETTERS, '', 'SSL') . '">' . LOGIN_BOX_NEWSLETTERS . '</a><br><br>' .
+                '<a href="' . tep_href_link(FILENAME_LOGOFF, '', 'NONSSL') . '">' . LOGIN_BOX_LOGOFF . '</a><br><br>' . 
+				'<a href="' . tep_href_link(FILENAME_DEFAULT, 'new_products=1', 'SSL') . '">' . LOGIN_BOX_PRODUCTS_NEW . '</a><br>' .
+				'<a href="' . tep_href_link(FILENAME_DEFAULT, 'show_specials=1', 'SSL') . '">' . LOGIN_BOX_SPECIALS . '</a><br>';
 
  // new infoBox($boxContent);
 

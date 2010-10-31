@@ -3,7 +3,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_login.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right">&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -41,17 +41,11 @@
   if (defined('PURCHASE_WITHOUT_ACCOUNT') && (PURCHASE_WITHOUT_ACCOUNT == 'ja' || PURCHASE_WITHOUT_ACCOUNT == 'yes')) {
 ?>
           <tr>
-            <td colspan="2" width="100%"><table border="0" width="100%" height="100%" cellspacing="1" cellpadding="2" class="infoBox">
-              <tr class="infoBoxContents">
-                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2">
-                  <tr>
-                    <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
-                  </tr>
+            <td colspan="2" width="100%"><table border="0" width="100%" cellspacing="1" cellpadding="2">
+              <tr>
+                <td class="login_boxes"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="main"><?php echo TEXT_GUEST_INTRODUCTION; ?></td>
-                  </tr>
-                  <tr>
-                    <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
                   <tr>
                     <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -75,9 +69,9 @@
             <td class="main" width="50%" valign="top"><b><?php echo HEADING_RETURNING_CUSTOMER; ?></b></td>
           </tr>
           <tr>
-            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="1" cellpadding="2" class="infoBox">
-              <tr class="infoBoxContents">
-                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2">
+            <td width="50%" height="100%" valign="top"><table border="0" width="100%" cellspacing="1" cellpadding="2">
+              <tr>
+                <td class="login_boxes"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
@@ -99,9 +93,9 @@
                 </table></td>
               </tr>
             </table></td>
-            <td width="50%" height="100%" valign="top"><table border="0" width="100%" height="100%" cellspacing="1" cellpadding="2" class="infoBox">
-              <tr class="infoBoxContents">
-                <td><table border="0" width="100%" height="100%" cellspacing="0" cellpadding="2">
+            <td width="50%" height="100%" valign="top"><table border="0" width="100%" cellspacing="1" cellpadding="2">
+              <tr>
+                <td class="login_boxes"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td colspan="2"><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
                   </tr>
@@ -141,6 +135,18 @@
               </tr>
             </table></td>
           </tr>
+       </form>
         </table></td>
       </tr>
-    </table></form>
+      <tr>
+        <td>
+<?php
+          // *** BEGIN GOOGLE CHECKOUT ***
+          if (defined('MODULE_PAYMENT_GOOGLECHECKOUT_STATUS') && MODULE_PAYMENT_GOOGLECHECKOUT_STATUS == 'True') {
+            include_once('googlecheckout/gcheckout.php');
+          }
+          // *** END GOOGLE CHECKOUT *** 
+?>
+        </td>
+      </tr>
+    </table>

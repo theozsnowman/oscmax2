@@ -17,8 +17,8 @@
   if (!tep_session_is_registered('customer_id')) {
     $snapshot = array('page' => 'ext/modules/payment/paypal/express_uk.php',
                       'mode' => $request_type,
-                      'get' => $HTTP_GET_VARS,
-                      'post' => $HTTP_POST_VARS);
+                      'get' => $_GET,
+                      'post' => $_POST);
 
     $navigation->set_snapshot($snapshot);
 
@@ -30,7 +30,7 @@
     tep_redirect(tep_href_link(FILENAME_SHOPPING_CART));
   }
 
-  require(DIR_WS_LANGUAGES . $language . '/modules/payment/paypal_uk_express.php');
+  require(DIR_WS_LANGUAGES . $language . '/paypal_uk_express.php');
   require('includes/modules/payment/paypal_uk_express.php');
 
   $paypal_uk_express = new paypal_uk_express();
@@ -69,10 +69,10 @@
                   'TENDER' => 'P',
                   'TRXTYPE' => ((MODULE_PAYMENT_PAYPAL_UK_EXPRESS_TRANSACTION_METHOD == 'Sale') ? 'S' : 'A'));
 
-  switch ($HTTP_GET_VARS['osC_Action']) {
+  switch ($_GET['osC_Action']) {
     case 'retrieve':
       $params['ACTION'] = 'G';
-      $params['TOKEN'] = $HTTP_GET_VARS['token'];
+      $params['TOKEN'] = $_GET['token'];
 
       $post_string = '';
 
@@ -159,7 +159,7 @@
             if ( ($pass == true) && ($order->info['total'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
               $free_shipping = true;
 
-              include(DIR_WS_LANGUAGES . $language . '/modules/order_total/ot_shipping.php');
+              include(DIR_WS_LANGUAGES . $language . '/ot_shipping.php');
             }
           }
 

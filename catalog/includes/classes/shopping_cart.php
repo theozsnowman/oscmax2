@@ -4,6 +4,7 @@ $Id: shopping_cart.php 14 2006-07-28 17:42:07Z user $
 
   osCMax Power E-Commerce
   http://oscdox.com
+  adapted for Separate Pricing Per Customer v4.2 2008/03/07, Hide products and categories from groups 2008/08/03
 
   Copyright 2006 osCMax
 
@@ -23,7 +24,7 @@ var $shiptotal;
     function restore_contents() {
 // BOF - MOD: CREDIT CLASS Gift Voucher Contribution
 //    global $customer_id;
-      global $customer_id, $gv_id, $REMOTE_ADDR;
+      global $customer_id, $gv_id, $REMOTE_ADDR, $languages_id; // languages_id needed for PriceFormatter - QPBPP
 // EOF - MOD: CREDIT CLASS Gift Voucher Contribution
 
       if (!tep_session_is_registered('customer_id')) return false;
@@ -33,6 +34,14 @@ var $shiptotal;
         reset($this->contents);
         while (list($products_id, ) = each($this->contents)) {
           $qty = $this->contents[$products_id]['qty'];
+
+// BOF QPBPP for SPPC adjust quantity blocks and min_order_qty for this customer group
+// warnings about this are raised in PriceFormatter
+      $pf = new PriceFormatter;
+      $pf->loadProduct(tep_get_prid($products_id), $languages_id);
+      $qty = $pf->adjustQty($qty);
+// EOF QPBPP for SPPC
+
           $product_query = tep_db_query("select products_id from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . (int)$customer_id . "' and products_id = '" . tep_db_input($products_id) . "'");
           if (!tep_db_num_rows($product_query)) {
             tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . (int)$customer_id . "', '" . tep_db_input($products_id) . "', '" . tep_db_input($qty) . "', '" . date('Ymd') . "')");
@@ -58,17 +67,66 @@ var $shiptotal;
 
 // reset per-session cart contents, but not the database contents
       $this->reset(false);
-
-      $products_query = tep_db_query("select products_id, customers_basket_quantity from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . (int)$customer_id . "'");
+// LINE MODED: QPBPP for SPPC v4.2$
+// BOF QPBPP for SPPC
+      $products_query = tep_db_query("select cb.products_id, ptdc.discount_categories_id, customers_basket_quantity from " . TABLE_CUSTOMERS_BASKET . " cb left join (select products_id, discount_categories_id from " . TABLE_PRODUCTS_TO_DISCOUNT_CATEGORIES . " where customers_group_id = '" . $this->cg_id . "') as ptdc on cb.products_id = ptdc.products_id where customers_id = '" . (int)$customer_id . "'");
       while ($products = tep_db_fetch_array($products_query)) {
-        $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity']);
-// attributes
-        $attributes_query = tep_db_query("select products_options_id, products_options_value_id from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int)$customer_id . "' and products_id = '" . tep_db_input($products['products_id']) . "'");
-        while ($attributes = tep_db_fetch_array($attributes_query)) {
-          $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
-        }
-      }
+        $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity'], 'discount_categories_id' => $products['discount_categories_id']);
+// EOF QPBPP for SPPC
+//			$products_query = tep_db_query("select products_id, customers_basket_quantity from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . (int)$customer_id . "'");
+//      while ($products = tep_db_fetch_array($products_query)) {
+//        $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity']);
 
+
+//      while ($products = tep_db_fetch_array($products_query)) {
+//         $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity']);
+// // attributes
+//         $attributes_query = tep_db_query("select products_options_id, products_options_value_id from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int)$customer_id . "' and products_id = '" . tep_db_input($products['products_id']) . "'");
+//         while ($attributes = tep_db_fetch_array($attributes_query)) {
+//           $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+//         }
+//       }
+// BOF SPPC Hide products and categories from groups
+          $no_of_products_in_basket = 0;
+      while ($_products = tep_db_fetch_array($products_query)) {
+        $temp_post_get_array[] = $_products['products_id'];
+            $products[] = $_products;
+            $no_of_products_in_basket += 1;
+       }
+  if ($no_of_products_in_basket > 0) {
+            $hide_status_products = array();
+            $hide_status_products = tep_get_hide_status($hide_status_products, $this->cg_id, $temp_post_get_array);
+            for ($i=0 ; $i < $no_of_products_in_basket; $i++) {
+              foreach($hide_status_products as $key => $subarray) {
+                if ($subarray['products_id'] == tep_get_prid($products[$i]['products_id']) && $subarray['hidden'] == '0') {
+// not hidden for this customer, can be added to the object shoppingCart
+// LINE MODED: QPDPP for SPCC v4.2
+        $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity'], 'discount_categories_id' => $products['discount_categories_id']);
+// attributes
+                   $attributes_query = tep_db_query("select products_options_id, products_options_value_id from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int)$customer_id . "' and products_id = '" . tep_db_input($products[$i]['products_id']) . "'");
+                   while ($attributes = tep_db_fetch_array($attributes_query)) {  $this->contents[$products[$i]['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+                   }
+                } elseif ($subarray['products_id'] == tep_get_prid($products[$i]['products_id']) && $subarray['hidden'] == '1') {
+// product is hidden for the customer, don't add to object shoppingCart, delete from db next
+                $products_to_delete_from_cb[] = $products[$i]['products_id'];
+                } // end if/elseif
+              }// end foreach ($hide_status_products as $key => $subarray)
+            } // end for ($i=0 ; $i < $no_of_products_in_basket; $i++)
+
+// delete from the database those products that are hidden from this customer
+      if (tep_not_null($products_to_delete_from_cb)) {
+         $no_of_iterations = count($products_to_delete_from_cb);
+// since the products_id in the table customer_basket and customer_basket_attributes can contain
+// attributes like 1{4}2{3}6 we need to delete them one by one for the two tables
+        for ($y = 0; $y < $no_of_iterations; $y++) {
+           tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET . " where customers_id = '" . (int)$customer_id . "' and (products_id = '" . (int)$products_to_delete_from_cb[$y] . "' or products_id REGEXP '^" .  (int)$products_to_delete_from_cb[$y] . "{');");
+           tep_db_query("delete from " . TABLE_CUSTOMERS_BASKET_ATTRIBUTES . " where customers_id = '" . (int)$customer_id . "' and (products_id = '" . (int)$products_to_delete_from_cb[$y] . "' or products_id REGEXP '^" .  (int)$products_to_delete_from_cb[$y] . "{');");
+         } // end for ($y = 0; $y < $no_of_iterations; $y++)
+      } // end if (tep_not_null($products_to_delete_from_cb))
+} // end if ($no_of_products_in_basket > 0)
+// EOF SPPC Hide products and categories from groups
+} //PGM fix to end while statement for QPBPP for SPPC v4.2
+	  
       $this->cleanup();
 // assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
       $this->cartID = $this->generate_cart_id();
@@ -103,6 +161,13 @@ var $shiptotal;
         $qty = MAX_QTY_IN_CART;
       }
 
+// BOF QPBPP for SPPC
+      $pf = new PriceFormatter;
+      $pf->loadProduct($products_id);
+      $qty = $pf->adjustQty($qty);
+      $discount_category = $pf->get_discount_category();
+// EOF QPBPP for SPPC
+
       $attributes_pass_check = true;
 
       if (is_array($attributes)) {
@@ -125,10 +190,12 @@ var $shiptotal;
             tep_session_register('new_products_id_in_cart');
           }
 
+// BOF QPBPP for SPPC
           if ($this->in_cart($products_id_string)) {
-            $this->update_quantity($products_id_string, $qty, $attributes);
+            $this->update_quantity($products_id_string, $qty, $attributes, $discount_category);
           } else {
-            $this->contents[$products_id_string] = array('qty' => (int)$qty);
+            $this->contents[$products_id_string] = array('qty' => (int)$qty, 'discount_categories_id' => $discount_category);
+// EOF QPBPP for SPPC
 // insert into database
             if (tep_session_is_registered('customer_id')) tep_db_query("insert into " . TABLE_CUSTOMERS_BASKET . " (customers_id, products_id, customers_basket_quantity, customers_basket_date_added) values ('" . (int)$customer_id . "', '" . tep_db_input($products_id_string) . "', '" . (int)$qty . "', '" . date('Ymd') . "')");
 
@@ -150,7 +217,9 @@ var $shiptotal;
       }
     }
 
-    function update_quantity($products_id, $quantity = '', $attributes = '') {
+// BOF QPBPP for SPPC
+    function update_quantity($products_id, $quantity = '', $attributes = '', $discount_categories_id = NULL) {
+// EOF QPBPP for SPPC
       global $customer_id;
 
       $products_id_string = tep_get_uprid($products_id, $attributes);
@@ -166,6 +235,7 @@ var $shiptotal;
         reset($attributes);
         while (list($option, $value) = each($attributes)) {
           if (!is_numeric($option) || !is_numeric($value)) {
+
             $attributes_pass_check = false;
             break;
           }
@@ -173,7 +243,9 @@ var $shiptotal;
       }
 
       if (is_numeric($products_id) && isset($this->contents[$products_id_string]) && is_numeric($quantity) && ($attributes_pass_check == true)) {
-        $this->contents[$products_id_string] = array('qty' => (int)$quantity);
+// BOF QPBPP for SPPC
+        $this->contents[$products_id_string] = array('qty' => (int)$quantity, 'discount_categories_id' => $discount_categories_id);
+// EOF QPBPP for SPPC
 // update database
         if (tep_session_is_registered('customer_id')) tep_db_query("update " . TABLE_CUSTOMERS_BASKET . " set customers_basket_quantity = '" . (int)$quantity . "' where customers_id = '" . (int)$customer_id . "' and products_id = '" . tep_db_input($products_id_string) . "'");
 
@@ -263,7 +335,7 @@ var $shiptotal;
     }
 
     function calculate() {
-      global $currencies;
+      global $currencies, $languages_id, $pfs; // for QPBPP added: $languages_id, $pfs
 
 //  LINE ADDED - MOD: CREDIT CLASS Gift Voucher Contribution
       $this->total_virtual = 0;
@@ -278,6 +350,16 @@ var $shiptotal;
       while (list($products_id, ) = each($this->contents)) {
         $qty = $this->contents[$products_id]['qty'];
 
+// BOF QPBPP for SPPC       
+      if (tep_not_null($this->contents[$products_id]['discount_categories_id'])) {
+        $nof_items_in_cart_same_cat = $discount_category_quantity[$this->contents[$products_id]['discount_categories_id']];
+        $nof_other_items_in_cart_same_cat = $nof_items_in_cart_same_cat - $qty;
+      } else {
+          $nof_other_items_in_cart_same_cat = 0;
+      }
+// EOF QPBPP for SPPC
+
+
 // BOF: MOD - Separate Pricing Per Customer
 // global variable (session) $sppc_customer_group_id -> class variable cg_id
         global $sppc_customer_group_id;
@@ -285,12 +367,31 @@ var $shiptotal;
           $this->cg_id = '0';
         } else {
           $this->cg_id = $sppc_customer_group_id;
+// BOF QPBPP for SPPC
+        $discount_category_quantity = array(); // calculates no of items per discount category in shopping basket
+      foreach ($this->contents as $products_id => $contents_array) {
+          if(tep_not_null($contents_array['discount_categories_id'])) {
+            if (!isset($discount_category_quantity[$contents_array['discount_categories_id']])) {
+                $discount_category_quantity[$contents_array['discount_categories_id']] = $contents_array['qty'];
+            } else {
+                $discount_category_quantity[$contents_array['discount_categories_id']] += $contents_array['qty'];
+            }
+          }
+      } // end foreach
+
+// EOF QPBPP for SPPC
+
         }
 // EOF: MOD - Separate Pricing Per Customer  
 
 // LINE MOFIFIED - Added "products_ship_price"
-        $product_query = tep_db_query("select products_id, products_price, products_ship_price, products_tax_class_id, products_weight from " . TABLE_PRODUCTS . " where products_id = '" . (int)$products_id . "'");
-        if ($product = tep_db_fetch_array($product_query)) {
+
+// LINE MODED: QPBPP for SPPC V4.2
+//      $product_query = tep_db_query("select products_id, products_price, products_ship_price, products_tax_class_id, products_weight from " . TABLE_PRODUCTS . " where products_id = '" . (int)$products_id . "'");
+//      if ($product = tep_db_fetch_array($product_query)) {
+	    $pf = new PriceFormatter;
+        $pf->loadProduct($products_id, $languages_id);
+        if ($product = $pfs->getPriceFormatterData($products_id)) {
 
 // BOF - MOD: CREDIT CLASS Gift Voucher Contribution
           $no_count = 1;
@@ -303,7 +404,9 @@ var $shiptotal;
 
           $prid = $product['products_id'];
           $products_tax = tep_get_tax_rate($product['products_tax_class_id']);
-          $products_price = $product['products_price'];
+// LINE MODED: QPBPP for SPPC V4.2		  
+//        $products_price = $product['products_price'];
+		  $products_price = $pf->computePrice($qty, $nof_other_items_in_cart_same_cat);
           $products_weight = $product['products_weight'];
           $products_length = $product['products_length'];
           $products_width = $product['products_width'];
@@ -312,13 +415,13 @@ var $shiptotal;
 //LINE ADDED - mod indvship
           $products_ship_price = $product['products_ship_price'];
 
-// BOF: MOD - Separate Price per Customer Mod
+// BOF: MOD - Separate Price per Customer Mod - EDIT FOR QPBPP FOR SPPC V4.2
 //          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . (int)$prid . "' and status = '1'");
 //          if (tep_db_num_rows ($specials_query)) {
 //            $specials = tep_db_fetch_array($specials_query);
 //            $products_price = $specials['specials_new_products_price'];
 //          }
-          $specials_price = tep_get_products_special_price((int)$prid);
+/*          $specials_price = tep_get_products_special_price((int)$prid);
           if (tep_not_null($specials_price)) {
             $products_price = $specials_price;
           } elseif ($this->cg_id != 0){
@@ -327,6 +430,10 @@ var $shiptotal;
               $products_price = $customer_group_price['customers_group_price'];
             }    
           }
+*/
+// EOF: MOD - Separate Price per Customer Mod
+
+
 // BOF - MOD: CREDIT CLASS Gift Voucher Contribution
           $this->total_virtual += tep_add_tax($products_price, $products_tax) * $qty * $no_count;// ICW CREDIT CLASS;
           $this->weight_virtual += ($qty * $products_weight) * $no_count;
@@ -342,13 +449,23 @@ var $shiptotal;
         if (isset($this->contents[$products_id]['attributes'])) {
           reset($this->contents[$products_id]['attributes']);
           while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
-            $attribute_price_query = tep_db_query("select options_values_price, price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int)$prid . "' and options_id = '" . (int)$option . "' and options_values_id = '" . (int)$value . "'");
+			// START: More Product Weight
+            // $attribute_price_query = tep_db_query("select options_values_price, price_prefix, options_values_weight from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int)$prid . "' and options_id = '" . (int)$option . "' and options_values_id = '" . (int)$value . "'");
+            $attribute_price_query = tep_db_query("select options_values_price, price_prefix, options_values_weight, weight_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int)$prid . "' and options_id = '" . (int)$option . "' and options_values_id = '" . (int)$value . "'");
+			// END: More Product Weight
             $attribute_price = tep_db_fetch_array($attribute_price_query);
             if ($attribute_price['price_prefix'] == '+') {
               $this->total += $currencies->calculate_price($attribute_price['options_values_price'], $products_tax, $qty);
             } else {
               $this->total -= $currencies->calculate_price($attribute_price['options_values_price'], $products_tax, $qty);
             }
+			// START: More Product Weight
+            if ($attribute_price['weight_prefix'] == '+') {
+              $this->weight += $qty * $attribute_price['options_values_weight'];
+            } else {
+              $this->weight -= $qty * $attribute_price['options_values_weight'];
+            }
+			// END: More Product Weight
           }
         }
       }
@@ -374,7 +491,7 @@ var $shiptotal;
     }
 
     function get_products() {
-      global $languages_id;
+      global $languages_id, $pfs; // PriceFormatterStore added;
 // BOF Separate Pricing Per Customer
 // global variable (session) $sppc_customer_group_id -> class variable cg_id
       global $sppc_customer_group_id;
@@ -386,6 +503,21 @@ var $shiptotal;
       } 
 // EOF Separate Pricing Per Customer
       if (!is_array($this->contents)) return false;
+	  
+// BOF QPBPP for SPPC
+      $discount_category_quantity = array();
+      foreach ($this->contents as $products_id => $contents_array) {
+          if(tep_not_null($contents_array['discount_categories_id'])) {
+            if (!isset($discount_category_quantity[$contents_array['discount_categories_id']])) {
+                $discount_category_quantity[$contents_array['discount_categories_id']] = $contents_array['qty'];
+            } else {
+                $discount_category_quantity[$contents_array['discount_categories_id']] += $contents_array['qty'];
+            }
+          }
+      } // end foreach
+      
+      $pf = new PriceFormatter;
+// EOF QPBPP for SPPC
 
       $products_array = array();
       reset($this->contents);
@@ -394,12 +526,7 @@ var $shiptotal;
         if ($products = tep_db_fetch_array($products_query)) {
           $prid = $products['products_id'];
           $products_price = $products['products_price'];
-// BOF Separate Pricing Per Customer
-/*          $specials_query = tep_db_query("select specials_new_products_price from " . TABLE_SPECIALS . " where products_id = '" . (int)$prid . "' and status = '1'");
-          if (tep_db_num_rows($specials_query)) {
-            $specials = tep_db_fetch_array($specials_query);
-            $products_price = $specials['specials_new_products_price'];
-          } */
+          }
           $specials_price = tep_get_products_special_price($prid);
           if (tep_not_null($specials_price)) {
             $products_price = $specials_price;
@@ -409,12 +536,55 @@ var $shiptotal;
             $products_price = $customer_group_price['customers_group_price'];
           }
         }
-// EOF Separate Pricing Per Customer
+// BOF QPBPP for SPPC
+      $pf->loadProduct($products_id, $languages_id); // does query if necessary and adds to 
+      // PriceFormatterStore or gets info from it next
+      if ($products = $pfs->getPriceFormatterData($products_id)) {
+       if (tep_not_null($this->contents[$products_id]['discount_categories_id'])) {
+          $nof_items_in_cart_same_cat =  $discount_category_quantity[$this->contents[$products_id]['discount_categories_id']];
+          $nof_other_items_in_cart_same_cat = $nof_items_in_cart_same_cat - $this->contents[$products_id]['qty'];
+        } else {
+          $nof_other_items_in_cart_same_cat = 0;
+        }
+          $products_price = $pf->computePrice($this->contents[$products_id]['qty'], $nof_other_items_in_cart_same_cat);
+// EOF QPBPP for SPPC
+//BOF Attribute Product Codes
+                $attribute_code_array = array();
+                if (is_array($this->contents[$products_id]['attributes'])) {
+                        $i = 0;
+                foreach ($this->contents[$products_id]['attributes'] as $attributes){
+                        $option = array_keys($this->contents[$products_id]['attributes']);
+                        $value = $this->contents[$products_id]['attributes'];
+                        $attribute_code_query = tep_db_query("select code_suffix, suffix_sort_order from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int)$prid . "' and options_id = '" . (int)$option[$i] . "' and options_values_id = '" . (int)$value[$option[$i]] . "' order by suffix_sort_order ASC");
+                  $attribute_code = tep_db_fetch_array($attribute_code_query);
+                  if (tep_not_null($attribute_code['code_suffix'])) {
+                        $attribute_code_array[(int)$attribute_code['suffix_sort_order']] = $attribute_code['code_suffix'];
+                        }
+                                  $i++;
+                }
+
+        $separator = '-';
+	//	if (count($attribute_code_array) > 1) {
+        //  	$separator = '-';
+        //} elseif (count($attribute_code_array) == 1) {
+        // 	$separator = '/';
+        //}
+               
+        $products_code = $products['products_model'] . $separator . implode("-", $attribute_code_array);
+	} else {
+$products_code = $products['products_model'];
+
+}
+// EOF Attribute Product Codes		 
 //        $products_array[] = array('id' => $products_id,
           $products_array[] = array('id' => tep_get_uprid($products_id, $this->contents[$products_id]['attributes']),
                                     'name' => $products['products_name'],
                                     'model' => $products['products_model'],
+				    'code' => $products_code,
                                     'image' => $products['products_image'],
+// BOF QPBPP for SPPC
+                                    'discount_categories_id' => $this->contents[$products_id]['discount_categories_id'],
+// EOF QPBPP for SPPC
                                     'price' => $products_price,
                                     'quantity' => $this->contents[$products_id]['qty'],
                                     'weight' => $products['products_weight'],

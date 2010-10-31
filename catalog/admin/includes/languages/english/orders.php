@@ -15,8 +15,11 @@ define('TABLE_HEADING_EDIT_ORDERS', 'To modify the order');
 define('HEADING_TITLE', 'Orders');
 define('HEADING_TITLE_SEARCH', 'Order ID:');
 define('HEADING_TITLE_STATUS', 'Status:');
-
+//BOF: Orders search by customers info
+define('HEADING_TITLE_SEARCH_ALL', 'Search (order id, customer or company name):');
+//EOF: Orders search by customers info
 define('TABLE_HEADING_COMMENTS', 'Comments');
+define('TABLE_HEADING_NEW_COMMENTS', 'Add New Comment');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
 define('TABLE_HEADING_ORDER_TOTAL', 'Order Total');
 define('TABLE_HEADING_DATE_PURCHASED', 'Date Purchased');
@@ -78,4 +81,17 @@ define('EMAIL_TEXT_COMMENTS_UPDATE', 'The comments for your order are' . "\n\n%s
 define('ERROR_ORDER_DOES_NOT_EXIST', 'Error: Order does not exist.');
 define('SUCCESS_ORDER_UPDATED', 'Success: Order has been successfully updated.');
 define('WARNING_ORDER_NOT_UPDATED', 'Warning: Nothing to change. The order was not updated.');
+
+define('HEADING_CANNED_COMMENTS_HELP', 'Premade Comments Help');
+define('TEXT_CANNED_COMMENTS_HELP', 'In order to create new premade comments please go to <b>Localization --> Premade Comments</b> menu and follow the onscreen instructions.  If you need further help please read the <b>Wiki</b>.');
+
+define('TABLE_HEADING_AUTHOR', 'Author');
+define('TABLE_HEADING_CUSTOMER_COMMENTS', 'Customer Comments');
+define('TEXT_ACTIVE', 'Active');
+define('TABLE_HEADING_ORDER_COMMENTS', 'Order Comments');
+define('TABLE_HEADING_NEW_ORDER_COMMENTS', 'Add New Order Comment');
+define('TEXT_ORDER_SUMMARY', 'Order Summary');
+
+define('TEXT_ORDER_ID', 'Order No:');
+define('TEXT_ORDER_DATE_TIME', 'Order Date &amp; Time');
 ?>

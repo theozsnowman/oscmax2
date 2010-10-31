@@ -7,7 +7,10 @@
 <?php
   //PWA BOF
   if (!tep_session_is_registered('customer_is_guest')){
-  //PWA BOF
+  //PWA EOF
+/* One Page Checkout - BEGIN */
+  if (tep_session_is_registered('customers_id')){
+/* One Page Checkout - END */
   if ($global['global_product_notifications'] != '1') {
     echo TEXT_NOTIFY_PRODUCTS . '<br><p class="productsNotifications">';
 
@@ -23,9 +26,12 @@
   } else {
     echo TEXT_SEE_ORDERS . '<br><br>' . TEXT_CONTACT_STORE_OWNER;
     }
+/* One Page Checkout - BEGIN */
+  }
+/* One Page Checkout - END */    
   //PWA BOF
   }
-  //PWA BOF
+  //PWA EOF
 ?>
             <h3><?php echo TEXT_THANKS_FOR_SHOPPING; ?></h3></td>
           </tr>
@@ -59,7 +65,7 @@
             <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
-                <td width="50%"><?php echo tep_image(DIR_WS_IMAGES . 'checkout_bullet.gif'); ?></td>
+                <td width="50%"><?php echo tep_image(DIR_WS_ICONS . 'checkout_bullet.gif'); ?></td>
               </tr>
             </table></td>
           </tr>

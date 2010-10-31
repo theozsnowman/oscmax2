@@ -70,7 +70,7 @@ $listing_split = new splitPageResults($listing_sql, MAX_ARTICLES_PER_PAGE);
       if (DISPLAY_DATE_ADDED_ARTICLE_LISTING == 'true') {
 ?>
           <tr>
-            <td class="smalltext" style="padding-left:15px"><?php echo TEXT_DATE_ADDED . ' ' . tep_date_long($articles_listing['articles_date_added']); ?></td>
+            <td class="smallText" style="padding-left:15px"><?php echo TEXT_DATE_ADDED . ' ' . tep_date_long($articles_listing['articles_date_added']); ?></td>
           </tr>
 <?php
       }
@@ -89,7 +89,7 @@ $listing_split = new splitPageResults($listing_sql, MAX_ARTICLES_PER_PAGE);
                                      echo $listing_no_article;
                                    } elseif ($topic_depth == 'articles') {
                                      echo TEXT_NO_ARTICLES;
-                                   } elseif (isset($HTTP_GET_VARS['authors_id'])) {
+                                   } elseif (isset($_GET['authors_id'])) {
                                     echo  TEXT_NO_ARTICLES2;
                                    } ?></td>
           </tr>
