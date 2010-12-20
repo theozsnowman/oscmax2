@@ -17,8 +17,8 @@
     $HTTP_SESSION_VARS =& $_SESSION;
     $HTTP_SERVER_VARS =& $_SERVER;
   } else {
-    if (!is_array($HTTP_GET_VARS)) $HTTP_GET_VARS = array();
-    if (!is_array($HTTP_POST_VARS)) $HTTP_POST_VARS = array();
+    if (!is_array($_GET)) $_GET = array();
+    if (!is_array($_POST)) $_POST = array();
     if (!is_array($HTTP_COOKIE_VARS)) $HTTP_COOKIE_VARS = array();
   }
 

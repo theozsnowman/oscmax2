@@ -39,6 +39,7 @@ $Id: filenames.php 3 2006-05-27 04:59:07Z user $
   define('CONTENT_INDEX_DEFAULT', 'index_default');
   define('CONTENT_INDEX_NESTED', 'index_nested');
   define('CONTENT_INDEX_PRODUCTS', 'index_products');
+  define('CONTENT_INFORMATION', 'information');
   define('CONTENT_INFO_SHOPPING_CART', 'info_shopping_cart');
   define('CONTENT_LOGIN', 'login');
   define('CONTENT_LOGOFF', 'logoff');
@@ -63,6 +64,8 @@ $Id: filenames.php 3 2006-05-27 04:59:07Z user $
   define('CONTENT_TELL_A_FRIEND', 'tell_a_friend');
   define('CONTENT_UPCOMING_PRODUCTS', 'upcoming_products');
   define('CONTENT_CHECKOUT_PROCESS', 'checkout_process');
+// LINE ADDED: Google Checkout
+  define('CONTENT_GC_RETURN', 'gc_return');
   define('CONTENT_GV_FAQ', 'gv_faq');
   define('CONTENT_GV_REDEEM', 'gv_redeem');
   define('CONTENT_GV_SEND', 'gv_send');
@@ -81,6 +84,9 @@ $Id: filenames.php 3 2006-05-27 04:59:07Z user $
   define('CONTENT_WISHLIST_HELP', 'wishlist_help');
   define('CONTENT_WISHLIST_PUBLIC', 'wishlist_public');
   define('CONTENT_WISHLIST_SEND', 'wishlist_email');
+  
+ // One Page Checkout
+  define('CONTENT_ONE_PAGE_CHECKOUT', 'checkout');   
 
 // LINE ADDED: WYSIWYG HTML Area
   define('FILENAME_DEFINE_MAINPAGE', 'mainpage.php');
@@ -110,6 +116,9 @@ $Id: filenames.php 3 2006-05-27 04:59:07Z user $
   define('FILENAME_ARTICLES_PXSELL', 'articles_pxsell.php');
   define('FILENAME_NEW_ARTICLES', 'new_articles.php');
   define('FILENAME_CATALOG_PRODUCTS_WITH_IMAGES', 'catalog_products_with_images.php'); // CATALOG_PRODUCTS_WITH_IMAGES_mod
+/* One Page Checkout - BEGIN */  
+  define('FILENAME_CHECKOUT', 'checkout.php');
+/* One Page Checkout - END */ 
   define('FILENAME_CHECKOUT_CONFIRMATION', CONTENT_CHECKOUT_CONFIRMATION . '.php');
   define('FILENAME_CHECKOUT_PAYMENT', CONTENT_CHECKOUT_PAYMENT . '.php');
   define('FILENAME_CHECKOUT_PAYMENT_ADDRESS', CONTENT_CHECKOUT_PAYMENT_ADDRESS . '.php');
@@ -127,6 +136,8 @@ $Id: filenames.php 3 2006-05-27 04:59:07Z user $
   define('FILENAME_DEFAULT', 'index.php');
   define('FILENAME_DEFAULT_SPECIALS', 'default_specials.php');
   define('FILENAME_DOWNLOAD', CONTENT_DOWNLOAD . '.php');
+// LINE ADDED: Google Checkout
+  define('FILENAME_GC_RETURN', CONTENT_GC_RETURN . '.php');
   define('FILENAME_INFO_SHOPPING_CART', CONTENT_INFO_SHOPPING_CART . '.php');
   define('FILENAME_LOGIN', CONTENT_LOGIN . '.php');
   define('FILENAME_LOGOFF', CONTENT_LOGOFF . '.php');
@@ -194,7 +205,6 @@ $Id: filenames.php 3 2006-05-27 04:59:07Z user $
 // BOF: MOD - Checkout Without Account Modifications
   define('FILENAME_PWA_PWA_LOGIN', 'login_pwa.php');
   define('FILENAME_PWA_ACC_LOGIN', 'login_acc.php');
-  define('FILENAME_CHECKOUT', 'Order_Info.php');
   define('FILENAME_ORDER_INFO', 'Order_Info.php');
   define('FILENAME_ORDER_INFO_PROCESS', 'Order_Info_Process.php');
 // EOF: MOD - Checkout Without Account Modifications
@@ -210,4 +220,37 @@ $Id: filenames.php 3 2006-05-27 04:59:07Z user $
   define('FILENAME_SHIP_FEDEX', 'ship_fedex.php');
   define('FILENAME_SHIPPING_MANIFEST', 'shipping_manifest.php');
 // EOF: MOD - FedEx
+
+// BOF: Http Error Log
+  define('FILENAME_HTTP_ERROR', 'http_error.php');
+// EOF: Http Error Log  
+
+// BOF: Google Sitmap
+  define('FILENAME_GOOGLE_SITEMAPS', 'sitemaps.index.php');
+// EOF: Google Sitmap
+
+// BOF: Page Module Controller
+  define('FILENAME_INDEX_PAGE_MODULES', 'index_page_modules.php');
+  define('FILENAME_PI_PAGE_MODULES', 'pi_page_modules.php');
+  define('FILENAME_COMMON_PAGE_MODULES', 'common_page_modules.php');
+// EOF: Page Module Controller  
+
+// BOF: Open Featured Sets
+  define('FILENAME_FEATURED_SETS', 'featured_sets.php');
+  define('FILENAME_FEATURED_SBOX_CATEGORIES', 'featured_sbox_categories.php');
+  define('FILENAME_FEATURED_SBOX_MANUFACTURER', 'featured_sbox_manufacturer.php');
+  define('FILENAME_FEATURED_SBOX_PRODUCTS', 'featured_sbox_products.php');
+  define('FILENAME_FEATURED_MANUFACTURERS', 'featured_manufacturers.php');
+  define('FILENAME_FEATURED_GBOX_CATEGORIES', 'featured_gbox_categories.php');
+  define('FILENAME_FEATURED_GBOX_MANUFACTURER', 'featured_gbox_manufacturer.php');
+  define('FILENAME_FEATURED_GBOX_PRODUCTS', 'featured_gbox_products.php');
+// EOF: Open Featured Sets
+
+// BOF: Information Pages Unlimited
+  define('FILENAME_INFORMATION', 'information.php');
+// EOF: Information Pages Unlimited
+
+// BOF - MOD: CREDIT CLASS Gift Voucher Contribution
+define('FILENAME_STATS_CREDITS', 'stats_credits.php');
+// EOF - MOD: CREDIT CLASS Gift Voucher Contribution
 ?>

@@ -96,7 +96,7 @@
 
       if (empty($comments)) {
         $confirmation = array('fields' => array(array('title' => MODULE_PAYMENT_PAYPAL_UK_EXPRESS_TEXT_COMMENTS,
-                                                      'field' => tep_draw_textarea_field('ppecomments', 'soft', '60', '5', $comments))));
+                                                      'field' => tep_draw_textarea_field('ppecomments', '60', '5', $comments))));
       }
 
       return $confirmation;
@@ -107,11 +107,11 @@
     }
 
     function before_process() {
-      global $order, $sendto, $ppeuk_token, $ppeuk_payerid, $HTTP_POST_VARS, $comments;
+      global $order, $sendto, $ppeuk_token, $ppeuk_payerid, $_POST, $comments;
 
       if (empty($comments)) {
-        if (isset($HTTP_POST_VARS['ppecomments']) && tep_not_null($HTTP_POST_VARS['ppecomments'])) {
-          $comments = tep_db_prepare_input($HTTP_POST_VARS['ppecomments']);
+        if (isset($_POST['ppecomments']) && tep_not_null($_POST['ppecomments'])) {
+          $comments = tep_db_prepare_input($_POST['ppecomments']);
 
           $order->info['comments'] = $comments;
         }

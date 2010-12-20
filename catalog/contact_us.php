@@ -19,6 +19,35 @@ $Id: contact_us.php 8 2006-06-22 02:48:59Z user $
 
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_CONTACT_US);
 
+// start modification for reCaptcha
+if (RECAPTCHA_ON == 'true') {
+  require_once('includes/classes/recaptchalib.php');
+  $publickey = RECAPTCHA_PUBLIC_KEY;
+  $privatekey = RECAPTCHA_PRIVATE_KEY;
+}
+// end modification for reCaptcha
+
+    $error = false;
+  if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
+    $name = tep_db_prepare_input($_POST['name']);
+    $email_address = tep_db_prepare_input($_POST['email']);
+    $enquiry = tep_db_prepare_input($_POST['enquiry']);
+
+// start modification for reCaptcha
+if (RECAPTCHA_ON == 'true') {
+
+	// the response from reCAPTCHA
+    $resp = null;
+
+	// was there a reCaptcha response?
+    $resp = recaptcha_check_answer ($privatekey,
+    $_SERVER["REMOTE_ADDR"],
+    $_POST["recaptcha_challenge_field"],
+    $_POST["recaptcha_response_field"]);
+}
+// end modification for reCaptcha
+
+
 // BOF: Added
 $_POST['email'] = preg_replace( "/\n/", " ", $_POST['email'] );
 $_POST['name'] = preg_replace( "/\n/", " ", $_POST['name'] );
@@ -29,11 +58,11 @@ $_POST['name'] = str_replace("Content-Type:","",$_POST['name']);
 // EOF: Added
 
   $error = false;
-  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'send')) {
-    $name = tep_db_prepare_input($HTTP_POST_VARS['name']);
-    $email_address = tep_db_prepare_input($HTTP_POST_VARS['email']);
-    $enquiry = tep_db_prepare_input($HTTP_POST_VARS['enquiry']);
-
+  if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
+    $name = tep_db_prepare_input($_POST['name']);
+    $email_address = tep_db_prepare_input($_POST['email']);
+    $enquiry = tep_db_prepare_input($_POST['enquiry']);
+  }
 
  // BOF: Remove blank emails
 // if (tep_validate_email($email_address)) {
@@ -51,12 +80,21 @@ $_POST['name'] = str_replace("Content-Type:","",$_POST['name']);
         $messageStack->add('contact', ENTRY_EMAIL_CONTENT_CHECK_ERROR);
     }
 
+// start modification for reCaptcha
+if (RECAPTCHA_ON == 'true') {
+	if (!$resp->is_valid) { 
+	    $error = true;
+        $messageStack->add('contact', ENTRY_SECURITY_CHECK_ERROR . " (reCAPTCHA output: " . $resp->error . ")");
+    }
+}
+// end modification for reCaptcha
+
     if ($error == false) {
       tep_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, EMAIL_SUBJECT, $enquiry, $name, $email_address);
       tep_redirect(tep_href_link(FILENAME_CONTACT_US, 'action=success'));
 // EOF: Remove blank emails
     }
-  }
+  }  
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_CONTACT_US));
 

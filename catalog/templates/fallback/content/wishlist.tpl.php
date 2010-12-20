@@ -6,7 +6,7 @@
           <table border="0" width="100%" cellspacing="0" cellpadding="0">
             <tr>
               <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-              <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_wishlist.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+              <td class="pageHeading" align="right">&nbsp;</td>
             </tr>
           </table>
         </td>
@@ -34,8 +34,9 @@
 ?>
       <tr>
         <td>
-          <table border="0" width="100%" cellspacing="0" cellpadding="3" class="productListing">
+          <table border="0" width="100%" cellspacing="0" cellpadding="3" class="productListing-list">
             <tr>
+              <td class="productListing-heading"><?php echo BOX_TEXT_REMOVE; ?></td>
               <td class="productListing-heading"><?php echo BOX_TEXT_IMAGE; ?></td>
               <td class="productListing-heading"><?php echo BOX_TEXT_PRODUCT; ?></td>
               <td class="productListing-heading"><?php echo BOX_TEXT_PRICE; ?></td>
@@ -60,8 +61,9 @@
 
 ?>
             <tr class="<?php echo $class; ?>">
-              <td valign="top" class="productListing-data" align="left"><a href="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $wishlist_id, 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $products['products_image'], $products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT); ?></a></td>
-              <td valign="top" class="productListing-data" align="left" class="main"><b><a href="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $wishlist_id, 'NONSSL'); ?>"><?php echo $products['products_name']; ?></a></b>
+              <td valign="middle" class="productListing-data-list" align="center"><?php echo '<a href="' . tep_href_link(FILENAME_WISHLIST, 'action=remove_product&wishlist_id=' . $wishlist_id . '', 'NONSSL').'">' . tep_image(DIR_WS_ICONS . 'basket_delete.png', IMAGE_BUTTON_REMOVE_PRODUCT, 16, 16) . '</a></td>'; ?>
+              <td valign="top" class="productListing-data-list" align="left"><a href="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $wishlist_id, 'NONSSL'); ?>"><?php echo tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $products['products_image'], $products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT); ?></a></td>
+              <td valign="top" class="productListing-data-list" align="left"><b><a href="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $wishlist_id, 'NONSSL'); ?>"><?php echo $products['products_name']; ?></a></b>
                 <input type="hidden" name="prod_link[]" value="<?php echo tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $wishlist_id, 'NONSSL'); ?>" />
                 <input type="hidden" name="prod_name[]" value="<?php echo $products['products_name']; ?>" />
 <?php
@@ -118,8 +120,8 @@
       $i++;
 ?>
             </td>
-            <td valign="top" class="productListing-data"><?php echo $products_price; ?></td>
-            <td valign="top" class="productListing-data" align="center">
+            <td valign="top" class="productListing-data-list"><?php echo $products_price; ?></td>
+            <td valign="top" class="productListing-data-list" align="center">
 <?php
 
 // PREVENT THE ITEM FROM BEING ADDED TO CART IF NO LONGER AVAILABLE
@@ -136,8 +138,30 @@
       </table>
       </td>
     </tr>
+    
     <tr>
-      <td align="right"><br /><?php echo tep_image_submit('button_delete.gif', 'Delete From Wishlist', 'name="delete_prod" value="delete_prod"') . " " . tep_image_submit('button_in_cart.gif', 'Add to Cart', 'name="add_prod" value="add_prod"'); ?></td>
+      <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
+    </tr>
+      
+    <tr>
+ 
+      <td class="productinfo_buttons">
+        <table border="0" width="100%" cellspacing="1" cellpadding="2">
+          <tr>
+            <td>
+              <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <tr>
+                  <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                  <td align="left" class="main"><?php echo '<a href="' . tep_href_link(FILENAME_WISHLIST, 'action=clear_wishlist', 'SSL') . '" onClick="var x=confirm(\'' . CLEAR_WISHLIST . '\'); if (x==false) { return false; }">' . tep_image_button('button_clear_wishlist.gif', 'Clear Wishlist'); ?></a></td>
+                  <td align="right" class="main"><?php echo tep_image_submit('button_delete.gif', 'Delete From Wishlist', 'name="delete_prod" value="delete_prod"') . " " . tep_image_submit('button_in_cart.gif', 'Add to Cart', 'name="add_prod" value="add_prod"'); ?></td>
+                  <td width="10"><?php echo tep_draw_separator('pixel_trans.gif', '10', '1'); ?></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+ 
     </tr>
   </table>
 <?php
@@ -158,7 +182,7 @@
       </tr>
     <tr>
       <td align="center">
-        <table border="0" width="400px" cellspacing="0" cellpadding="2">
+        <table border="0" width="400" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main" colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
@@ -172,6 +196,22 @@
                 <td class="main"><?php echo TEXT_YOUR_EMAIL; ?></td>
                 <td class="main"><?php echo tep_draw_input_field('your_email', $your_email); ?></td>
               </tr>
+<?php if (RECAPTCHA_ON == 'true') { ?>
+<!-- start modification for reCaptcha -->
+              <tr>
+                <td class="smalltext" colspan="2"><b><?php echo WISHLIST_SECURITY_CHECK; ?></b></td>
+              </tr>
+              <tr>
+								<script>
+								var RecaptchaOptions = {
+								   theme : 'white',
+								   tabindex : 3
+								};
+								</script>              	
+                <td class="main" align="center" colspan="2"><?php echo recaptcha_get_html($publickey); ?></td>
+              </tr>
+<!-- end modification for reCaptcha -->
+<?php } ?>
 				</table></td>
 			  </tr>
         <tr>
@@ -200,7 +240,7 @@
   </tr>
   <tr>
     <td align="center">
-      <table border="0" width="400px" cellspacing="0" cellpadding="2">
+      <table border="0" width="400" cellspacing="0" cellpadding="2">
 <?php
   }
 ?>
@@ -227,7 +267,7 @@
           <td colspan="2"><?php echo $message_error; ?></td>
         </tr>
         <tr>
-          <td colspan="2" class="main"><?php echo TEXT_MESSAGE .  tep_draw_textarea_field('message', 'soft', 45, 5); ?></td>
+          <td colspan="2" class="main"><?php echo TEXT_MESSAGE .  tep_draw_textarea_field('message', 45, 5); ?></td>
         </tr>
         <tr>
           <td colspan="2" align="right"><?php echo tep_image_submit('button_continue.gif', IMAGE_BUTTON_CONTINUE, 'name="email_prod" value="email_prod"'); ?></td>

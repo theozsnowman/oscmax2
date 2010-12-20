@@ -4,6 +4,7 @@ $Id: categories.php 3 2006-05-27 04:59:07Z user $
 
   osCMax Power E-Commerce
   http://oscdox.com
+  adapted for Separate Pricing Per Customer, Hide products and categories from groups 2008/08/04
 
   Copyright 2006 osCMax
 
@@ -12,52 +13,72 @@ $Id: categories.php 3 2006-05-27 04:59:07Z user $
 
 // Most of this file is changed or moved to BTS - Basic Template System - format.
 
+if(defined('FWR_SUCKERTREE_MENU_ON') && 'true' === FWR_SUCKERTREE_MENU_ON) {
+  include(DIR_WS_FUNCTIONS . 'fwr_categories.php');
+} else
+
    if ((USE_CACHE == 'true') && empty($SID)) {
      echo tep_cache_categories_box();
    } else {
 
-     if ( DISPLAY_DHTML_MENU == 'Dhtml' ) {
-       include(DIR_WS_BOXES . 'categories_dhtml.php');
-   } elseif (DISPLAY_DHTML_MENU == 'CoolMenu') {
- 	  include(DIR_WS_BOXES . 'coolmenu.php');
-   } else {
-
-
+  $catlevel = 0;
   $boxHeading = BOX_HEADING_CATEGORIES;
-  $corner_left = 'rounded';
-  $corner_right = 'square';
+  
+  $corner_top_left = 'rounded';
+  $corner_top_right = 'rounded';
+  $corner_bottom_left = 'rounded';
+  $corner_bottom_right = 'rounded';
+  
+  $boxContent_attributes = '';
+  $boxLink = '';
   $box_base_name = 'categories'; // for easy unique box template setup (added BTSv1.2)
-
   $box_id = $box_base_name . 'Box';  // for CSS styling paulm (editted BTSv1.2)
 
+  
   function tep_show_category($counter) {
-    
+  
+    $boxContent = '';
+    $boxContent .= '<table border="0" cellpadding="0" cellspacing="0" width="100%">';
+
 // BoF - Contribution Category Box Enhancement 1.1
     global $tree, $boxContent, $cPath_array, $cat_name;
 
-    for ($i=0; $i<$tree[$counter]['level']; $i++) {
+    $cPath_new = 'cPath=' . $tree[$counter]['path'];
+
+	$boxContent .= '<table border="0" cellpadding="0" cellspacing="0" width="100%"><tr';
+
+	for ($i=0; $i<$tree[$counter]['level']; $i++) {
+      $catlevel .= $i;
+    }	
+
+	$boxContent .=' class="level' . $catlevel . '"><td width="' . BOX_WIDTH_LEFT . '" class="boxText">';
+
+	for ($i=0; $i<$tree[$counter]['level']; $i++) {
       $boxContent .= "&nbsp;&nbsp;";
     }
-    $cPath_new = 'cPath=' . $tree[$counter]['path'];
-    $boxContent .= '<a href="';
-    $boxContent .= tep_href_link(FILENAME_DEFAULT, $cPath_new) . '">';
-   
+	
+	$boxContent .= '<a class="' . $catlevel .'level" href="';
+
+	$boxContent .= tep_href_link(FILENAME_DEFAULT, $cPath_new) . '">';
+   	
     if (tep_has_category_subcategories($counter)) {
-      $boxContent .= tep_image(DIR_WS_IMAGES . 'pointer_blue.gif', '');
+      $boxContent .= tep_image(DIR_WS_ICONS . 'pointer_blue.gif', '');
     }
     else {
-      $boxContent .= tep_image(DIR_WS_IMAGES . 'pointer_blue_light.gif', '');
+      $boxContent .= tep_image(DIR_WS_ICONS . 'pointer_blue_light.gif', '');
     }
+
+// highlights the active chain
 
     if (isset($cPath_array) && in_array($counter, $cPath_array)) {
       $boxContent .= '<b>';
     }
     
     if ($cat_name == $tree[$counter]['name']) {
-      $boxContent .= '<span class="SelectedCategory">';
+      $boxContent .= '<span class="selectedCat">';
     }
 
-// display category name
+// highlights the active category name when it is selected
     $boxContent .= $tree[$counter]['name'];
 
                 if ($cat_name == $tree[$counter]['name']) {
@@ -69,7 +90,22 @@ $Id: categories.php 3 2006-05-27 04:59:07Z user $
     }
 //         EoF Category Box Enhancement
 
-    $boxContent .= '</a>';
+    $boxContent .= '</a></td>';
+
+/////////////ADD IN PLUS SIGN ////////////////////////
+
+	 if (tep_has_category_subcategories($counter)) {
+      $boxContent .= '<td width="10">' . tep_image(DIR_WS_ICONS . 'plus.gif', '') . '</td>';
+    }
+    else {
+      $boxContent .= '<td width="10">&nbsp;</td>';
+    }
+	
+//////////////////////////////////////////////////////
+
+	$boxContent .= '</tr></table>';
+
+
 
     if (SHOW_COUNTS == 'true') {
       $products_in_category = tep_count_products_in_category($counter);
@@ -78,7 +114,7 @@ $Id: categories.php 3 2006-05-27 04:59:07Z user $
       }
     }
 
-    $boxContent .= '<br>';
+//    $boxContent .= '<br>';
 
     if ($tree[$counter]['next_id'] != false) {
       tep_show_category($tree[$counter]['next_id']);
@@ -162,5 +198,6 @@ $Id: categories.php 3 2006-05-27 04:59:07Z user $
 
 include (bts_select('boxes', $box_base_name)); // BTS 1.5
 }
-}
+
+	$boxContent .= '</table>';
 ?><!-- categories_eof //-->

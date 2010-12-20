@@ -20,6 +20,10 @@ define('TABLE_HEADING_OPT_NAME', 'Option Name');
 //LINE ADDED: MOD - QT Pro
 define('TABLE_HEADING_TRACK_STOCK', 'Track Stock?');
 define('TABLE_HEADING_OPT_VALUE', 'Option Value');
+// START: Attributes Product Codes
+define('TABLE_HEADING_OPT_CODE_SUFFIX', 'Code Suffix');
+define('TABLE_HEADING_OPT_CODE_ORDER', 'Suffix Order');
+// END: Attributes Product Codes
 define('TABLE_HEADING_OPT_PRICE', 'Value Price');
 define('TABLE_HEADING_OPT_PRICE_PREFIX', 'Prefix');
 define('TABLE_HEADING_ACTION', 'Action');
@@ -34,4 +38,11 @@ define('TEXT_WARNING_OF_DELETE', 'This option has products and values linked to 
 define('TEXT_OK_TO_DELETE', 'This option has no products and values linked to it - it is safe to delete it.');
 define('TEXT_OPTION_ID', 'Option ID');
 define('TEXT_OPTION_NAME', 'Option Name');
+
+define('TABLE_HEADING_OPT_TYPE', 'Type');
+define('TABLE_HEADING_OPT_LENGTH', 'Length');
+// START: More Product Weight
+define('TABLE_HEADING_OPT_WEIGHT', 'Option Weight');
+define('TABLE_HEADING_OPT_WEIGHT_PREFIX', 'Prefix');
+// END: More Product Weight
 ?>

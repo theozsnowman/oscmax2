@@ -19,19 +19,17 @@ $Id: shopping_cart.php 3 2006-05-27 04:59:07Z user $
       } else {
 ?>
 <!-- shopping_cart //-->
-
-<script language="javascript"><!--
-function couponpopupWindow(url) {
-window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,copyhistory=no,width=450,height=280,screenX=150,screenY=150,top=150,left=150')
-}
-//--></script> 
-
 <?php
 
-  $boxHeading = BOX_HEADING_SHOPPING_CART;
-  $corner_left = 'square';
-  $corner_right = 'rounded';
-  $boxLink = '<a href="' . tep_href_link(FILENAME_SHOPPING_CART) . '"><img src="images/infobox/arrow_right.gif" border="0" alt="more" title="more" width="12" height="10"></a>';
+  $boxHeading = '<a href="' . tep_href_link(FILENAME_SHOPPING_CART) . '">' . BOX_HEADING_SHOPPING_CART . '</a>';
+  
+  $corner_top_left = 'rounded';
+  $corner_top_right = 'rounded';
+  $corner_bottom_left = 'rounded';
+  $corner_bottom_right = 'rounded';
+  
+  $boxContent_attributes = '';    
+  $boxLink = '<a href="' . tep_href_link(FILENAME_SHOPPING_CART) . '"><img src="' . DIR_WS_TEMPLATES . 'images/infobox/arrow_right.png" border="0" alt="more" title="more"></a>';
   $box_base_name = 'shopping_cart'; // for easy unique box template setup (added BTSv1.2)
   $box_id = $box_base_name . 'Box';  // for CSS styling paulm (editted BTSv1.2)
 
@@ -56,11 +54,16 @@ window.open(url,'popupWindow','toolbar=no,location=no,directories=no,status=no,m
         $boxContent .= '<span class="infoBoxContents">';
       }
 
-      $boxContent .= $products[$i]['name'] . '</span></a></td></tr>';
+      $boxContent .= $products[$i]['name'] . '</span></a></td>';
 
       if ((tep_session_is_registered('new_products_id_in_cart')) && ($new_products_id_in_cart == $products[$i]['id'])) {
         tep_session_unregister('new_products_id_in_cart');
       }
+	  
+	  $boxContent .= '<td><a href="' . tep_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&products_id='.$products[$i]['id'].'', 'NONSSL').'">' . tep_image(DIR_WS_ICONS . 'basket_delete.png', IMAGE_BUTTON_REMOVE_PRODUCT, 16, 16) . '</a></td>';
+	  
+	  $boxContent .= '</tr>';
+	  
     }
     $boxContent .= '</table>';
   } else {

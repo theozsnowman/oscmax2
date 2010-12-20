@@ -173,13 +173,34 @@ return $facts_array;
 }
 
 function qtpro_doctor_formulate_database_investigation(){
-	print "<p>Sick products in the database:</p>";
-	$prod_query = tep_db_query("SELECT products_id FROM " . TABLE_PRODUCTS);
+	print "<table><tr><td>&nbsp;</td></tr><tr><td class='main'><b>Active sick products in the database:</b></td></tr></table>";
+	$count = 0;
+	$prod_query = tep_db_query("SELECT products_id FROM " . TABLE_PRODUCTS . " where products_status = '1'");
 	while($product = tep_db_fetch_array($prod_query)){
 		$investigation= qtpro_doctor_investigate_product($product['products_id']);
 		if($investigation['any_problems']){
-			print '<p class="messageStackWarning">Product with ID '.$product['products_id'].': '.qtpro_doctor_formulate_product_investigation($investigation, 'short_suggestion').'</p>';
+		print '<p class="messageStackWarning">' . tep_image(DIR_WS_ICONS . 'database_error.png') . '&nbsp;&nbsp;Product with ID '.$product['products_id'].': '.qtpro_doctor_formulate_product_investigation($investigation, 'short_suggestion').'</p>';
+			$count++;
 		}
+	}
+	if ($count == 0) {
+	  echo '<p class="messageStackSuccess">' . tep_image(DIR_WS_ICONS . 'tick.png') . '&nbsp;&nbsp;You currently do not have any sick active products</p>';	
+	}
+}
+
+function qtpro_doctor_formulate_inactive_database_investigation(){
+print "<table><tr><td>&nbsp;</td></tr><tr><td class='main'><b>Inactive sick products in the database:</b></td></tr></table>";
+	$count = 0;
+	$prod_query = tep_db_query("SELECT products_id FROM " . TABLE_PRODUCTS . " where products_status <> '1'");
+	while($product = tep_db_fetch_array($prod_query)){
+		$investigation= qtpro_doctor_investigate_product($product['products_id']);
+		if($investigation['any_problems']){
+		print '<p class="messageStackWarning">' . tep_image(DIR_WS_ICONS . 'database_error.png') . '&nbsp;&nbsp;Inactive Product with ID '.$product['products_id'].': '.qtpro_doctor_formulate_product_investigation($investigation, 'short_suggestion').'</p>';
+			$count++;
+		}
+	}
+	if ($count == 0) {
+	  echo '<p class="messageStackSuccess">' . tep_image(DIR_WS_ICONS . 'tick.png') . '&nbsp;&nbsp;You currently do not have any sick inactive products</p>';	
 	}
 }
 
@@ -189,11 +210,11 @@ $str_ret ='';
 		case 'short_suggestion':
 			if($facts_array['any_problems']){
 				if($facts_array['summary_and_calc_stock_match'] != true && $facts_array['stock_entries_healthy'] != true){
-					$str_ret ='The database entries for this products stock is messy and the summary stock calculation is wrong. Please take a look at this <a href="' . tep_href_link("stock.php", 'product_id=' . $facts_array['id']) . '" class="headerLink">products stock</a>.';
+					$str_ret ='The database entries for this products stock is messy and the summary stock calculation is wrong. Please take a look at this <a href="' . tep_href_link("stock.php", 'product_id=' . $facts_array['id']) . '"><b>products stock</b></a>.';
 				}elseif(!$facts_array['summary_and_calc_stock_match']){
-					$str_ret ='The summary stock calculation is wrong. Please take a look at this <a href="' . tep_href_link("stock.php", 'product_id=' . $facts_array['id']) . ' " class="headerLink">products stock</a>.';
+					$str_ret ='The summary stock calculation is wrong. Please take a look at this <a href="' . tep_href_link("stock.php", 'product_id=' . $facts_array['id']) . ' "><b>products stock</b></a>.';
 				}elseif(!$facts_array['stock_entries_healthy']){
-					$str_ret ='The database entries for this products stock is messy. Please take a look at this <a href="' . tep_href_link("stock.php", 'product_id=' . $facts_array['id']) . ' " class="headerLink">products stock</a>.';
+					$str_ret ='The database entries for this products stock is messy. Please take a look at this <a href="' . tep_href_link("stock.php", 'product_id=' . $facts_array['id']) . ' "><b>products stock</b></a>.';
 				}else{
 					$str_ret ="Errorcatsh 754780+94322354678";
 				}
@@ -213,13 +234,13 @@ $str_ret ='';
 			//Talk about summary and calc stock
 			if($facts_array['summary_and_calc_stock_match']){
 				$str_ret .='<span style="color:green; font-weight: bold; font-size:1.2em;">The stock quantity summary is ok</span><br />
-				This means that the current summary of this products quantity, which is in the database, is the value we get if we calculates it from scratch right now.<br />
+				This means that the current summary of this products quantity, which is in the database, is the value we get if we calculate it from scratch right now.<br />
 				<b>The Summary stock is: '. $facts_array['summary_stock'] .'</b><br /><br />';
 			}else{
 				$str_ret .='<span style="color:red; font-weight: bold; font-size:1.2em;">The stock quantity summary is NOT ok</span><br />
-				This means that the current summary of this products quantity, which is in the database, isn\'t the value we get if we calculates it from scratch right now.<br />
+				This means that the current summary of this products quantity, which is in the database, isn\'t the value we get if we calculate it from scratch right now.<br />
 				<b>The current summary stock is: '. $facts_array['summary_stock'] .'</b><br />
-				<b>If we calculates it we get: '. $facts_array['calc_stock'] .'</b><br /><br />';
+				<b>If we calculate it we get: '. $facts_array['calc_stock'] .'</b><br /><br />';
 			}
 
 			//Talk about the health of the stock entries
@@ -509,7 +530,12 @@ return $trash_count_ret;
 //-------------------------//
 
 function qtpro_normal_product_count(){
-	$prod_query = tep_db_query("SELECT products_id FROM " . TABLE_PRODUCTS);
+	$prod_query = tep_db_query("SELECT products_id FROM " . TABLE_PRODUCTS . " where products_status = '1'");
+	return tep_db_num_rows($prod_query);
+}
+
+function qtpro_inactive_product_count(){
+	$prod_query = tep_db_query("SELECT products_id FROM " . TABLE_PRODUCTS . " where products_status <> '1'");
 	return tep_db_num_rows($prod_query);
 }
 
@@ -521,8 +547,18 @@ $count_ret = 0;
 			$count_ret++;
 		}	
 	}
+  return $count_ret;
+}
 
-return $count_ret;
+function qtpro_inactive_tracked_product_count(){
+$count_ret_in = 0;
+	$prod_query = tep_db_query("SELECT products_id FROM " . TABLE_PRODUCTS);
+	while($product = tep_db_fetch_array($prod_query)){
+		if(qtpro_product_has_tracked_options($product['products_id'])){
+			$count_ret_in++;
+		}	
+	}
+  return $count_ret_in;
 }
 
 function qtpro_sick_product_count(){
