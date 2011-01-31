@@ -1,15 +1,11 @@
 <?php
 /*
-$Id: affiliate_summary.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -28,7 +24,6 @@ define('TEXT_PAYPERSALE_RATE', 'Provision pro Verkauf: ');
 define('TEXT_CLICKTHROUGH_RATE', 'Pay per Klick: ');
 define('TEXT_COMMISSION', 'Provisionsbetrag: ');
 define('TEXT_SUMMARY_HELP', '[?]');
-define('TEXT_SUMMARY', 'Klicken Sie auf [?] um eine Beschreibung zu jeder Kategorie zu lesen.');
 define('HEADING_SUMMARY_HELP', 'Hilfe');
 define('TEXT_IMPRESSIONS_HELP', '<b>Banner Impressionen</b> zeigt an, wie oft ein Banner im vorgegebenen Zeitraum angezeigt wurde.');
 define('TEXT_VISITS_HELP', '<b>Besucher</b> zeigt an, wie viele Klicks von Besuchern, welche &uuml;ber Ihre Webseite gekommen sind, vorgenommen wurden.');
@@ -45,4 +40,8 @@ define('TEXT_CLOSE_WINDOW', 'Fenster schliessen [x]');
 define('IMAGE_BANNERS','Partner Banner');
 define('IMAGE_CLICKTHROUGHS','Bericht &uuml;ber Klicks');
 define('IMAGE_SALES','Bericht &uuml;ber Verk&auml;ufe');
+define('TEXT_SUMMARY_1','Klicken Sie auf');
+
+define('TEXT_SUMMARY_2','eine Beschreibung der einzelnen Kategorien zu sehen.');
+
 ?>

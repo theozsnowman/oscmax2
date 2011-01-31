@@ -1,3 +1,15 @@
+<?php
+/*
+$Id$
+
+  osCmax e-Commerce
+  http://www.osCmax.com
+
+  Copyright 2000 - 2011 osCmax
+
+  Released under the GNU General Public License
+*/
+?>
 <table width="100%" border="0" cellspacing="2" cellpadding="1">
   <tr>
     <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -15,7 +27,7 @@
         <tr> 
           <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr> 
-                <td class="main"><?php echo TEXT_INFORMATION; ?></td>
+                <td class="main"><?php echo TEXT_INFORMATION . '<a href="' . tep_href_link(FILENAME_INFORMATION, 'info_id=9', 'NONSSL') . '">' . GV_FAQ . '.</a>';?></td>
               </tr>
               <?php
 // if we get here then either the url gv_no was not set or it was invalid

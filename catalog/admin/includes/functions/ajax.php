@@ -1,4 +1,15 @@
 <?php
+/*
+$Id$
+
+  osCmax e-Commerce
+  http://www.oscmax.com
+
+  Copyright 2000 - 2011 osCmax
+
+  Released under the GNU General Public License
+*/
+
 	function ajax_get_zones_html($country, $default_zone = '', $ajax_output = true) {
 		$output = '';
 
@@ -14,7 +25,7 @@
 		} else {
 			$output .= tep_draw_input_field('state', 'N/A');
 		}  
-		if (tep_not_null(ENTRY_STATE_TEXT)) $output .= '&nbsp;<span class="inputRequirement">' . ENTRY_STATE_TEXT;			
+		if (tep_not_null(ENTRY_STATE_TEXT)) $output .= '&nbsp;<span class="inputRequirement">' . ENTRY_STATE_TEXT . '</span>';			
 		
 		if ($ajax_output) {
 			header('Content-type: text/html; charset='.CHARSET);

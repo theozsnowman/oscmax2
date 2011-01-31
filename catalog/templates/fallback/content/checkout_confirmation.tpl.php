@@ -1,4 +1,15 @@
-    <?php
+<?php
+/*
+$Id$
+
+  osCmax e-Commerce
+  http://www.osCmax.com
+
+  Copyright 2000 - 2011 osCmax
+
+  Released under the GNU General Public License
+*/
+
   	  	  	if (isset($$payment->form_action_url)) {
   	  	  	$form_action_url = $$payment->form_action_url;
   	  	  	  } else {
@@ -7,7 +18,7 @@
   	  	  	
   	  	  	  echo tep_draw_form('checkout_confirmation', $form_action_url, 'post');
 // Start - CREDIT CLASS Gift Voucher Contribution
-  echo tep_draw_hidden_field('gv_redeem_code', $HTTP_POST_VARS['gv_redeem_code']); 
+  echo tep_draw_hidden_field('gv_redeem_code', $_POST['gv_redeem_code']); 
 // End - CREDIT CLASS Gift Voucher Contribution
   	 ?>
     <table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -15,7 +26,7 @@
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo HEADING_TITLE; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_confirmation.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right">&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -239,7 +250,7 @@
             <td width="25%"><table border="0" width="100%" cellspacing="0" cellpadding="0">
               <tr>
                 <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
-                <td><?php echo tep_image(DIR_WS_IMAGES . 'checkout_bullet.gif'); ?></td>
+                <td><?php echo tep_image(DIR_WS_ICONS . 'checkout_bullet.gif'); ?></td>
                 <td width="50%"><?php echo tep_draw_separator('pixel_silver.gif', '100%', '1'); ?></td>
               </tr>
             </table></td>

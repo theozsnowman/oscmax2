@@ -1,3 +1,15 @@
+<?php
+/*
+$Id$
+
+  osCmax e-Commerce
+  http://www.osCmax.com
+
+  Copyright 2000 - 2011 osCmax
+
+  Released under the GNU General Public License
+*/
+?>
 <!-- body_text //-->
     <?php echo tep_draw_form('wishlist_form', tep_href_link(FILENAME_WISHLIST_PUBLIC)); ?>
 	  <table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -6,7 +18,7 @@
 		  <table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"><?php echo $customer['customers_firstname'] .  HEADING_TITLE2; ?></td>
-            <td class="pageHeading" align="right"><?php echo tep_image(DIR_WS_IMAGES . 'table_background_wishlist.gif', HEADING_TITLE, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?></td>
+            <td class="pageHeading" align="right">&nbsp;</td>
           </tr>
           </table>
 		</td>

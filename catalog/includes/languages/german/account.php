@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: account.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -24,8 +24,11 @@ define('MY_ACCOUNT_PASSWORD', 'Mein Passwort &auml;ndern');
 
 define('MY_ORDERS_TITLE', 'Meine Bestellungen');
 define('MY_ORDERS_VIEW', 'Meine bisherigen Bestellungen anzeigen');
+define('MY_WISH_LIST', 'Meine Wunschliste anzeigen oder &auml;ndern');
+define('MY_ACCOUNT_LOG_OFF', 'Abmelden');
 
 define('EMAIL_NOTIFICATIONS_TITLE', 'E-Mail Benachrichtigungen');
 define('EMAIL_NOTIFICATIONS_NEWSLETTERS', 'Newsletter abonnieren oder abbestellen.');
 define('EMAIL_NOTIFICATIONS_PRODUCTS', 'Meine Produktbenachrichtigungen anzeigen oder &auml;ndern.');
+
 ?>

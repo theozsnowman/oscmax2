@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: database.php 14 2006-07-28 17:42:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -18,6 +18,17 @@ $Id: database.php 14 2006-07-28 17:42:07Z user $
     } else {
       $$link = mysql_connect($server, $username, $password);
     }
+
+  // BOF: [TiM's osC Solutions] ISO-8859-1/UTF-8 dual support
+    switch (strtolower(CHARSET)) {
+      case 'utf-8':
+        mysql_query("set character set utf-8", $$link);
+        break;
+      case 'iso-8859-1':
+        mysql_query("set character set latin1", $$link);
+        break;
+    }
+  // EOF: [TiM's osC Solutions] ISO-8859-1/UTF-8 dual support
 
     if ($$link) mysql_select_db($database);
 

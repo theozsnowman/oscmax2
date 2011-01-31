@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: backup.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -46,4 +46,8 @@ define('SUCCESS_LAST_RESTORE_CLEARED', 'Exito: La fecha de ultima restauraci&oac
 define('SUCCESS_DATABASE_SAVED', 'Exito: Se ha guardado la base de datos.');
 define('SUCCESS_DATABASE_RESTORED', 'Exito: Se ha restaurado la base de datos.');
 define('SUCCESS_BACKUP_DELETED', 'Exito: Se ha eliminado la copia de seguridad.');
+define('HEADING_NO_BACKUP','<b>N de copia de seguridad Disponible</b>');
+
+define('TEXT_NO_BACKUP','Por favor, asegúrese de haber hecho una copia de su tienda. Haga clic en el botón <b>de copia de seguridad</b> para crear una.');
+
 ?>

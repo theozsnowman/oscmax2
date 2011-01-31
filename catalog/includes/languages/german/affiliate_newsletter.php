@@ -1,27 +1,23 @@
 <?php
 /*
-  $Id: affiliate_banners.php,v 2.00 2003/10/12
+$Id$
+  
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  OSC-Affiliate
-
-  Contribution based on:
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 - 2003 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Affiliate Program');
-define('NAVBAR_TITLE_2', 'Newsletter Subscriptions');
+define('NAVBAR_TITLE_1', 'Werbepartner');
+define('NAVBAR_TITLE_2', 'Abonnierte Newsletter');
 
-define('HEADING_TITLE', 'Newsletter Subscriptions');
+define('HEADING_TITLE', 'Abonnierte Newsletter');
 
-define('MY_NEWSLETTERS_TITLE', 'My Newsletter Subscriptions');
-define('MY_NEWSLETTERS_AFFILIATE_NEWSLETTER', 'Affiliate Newsletter');
-define('MY_NEWSLETTERS_AFFILIATE_NEWSLETTER_DESCRIPTION', 'Including affiliate news, new products, special offers, and other promotional announcements.');
+define('MY_NEWSLETTERS_TITLE', 'Meine abonnierten Newslette');
+define('MY_NEWSLETTERS_AFFILIATE_NEWSLETTER', 'Werbepartner-Newsletter');
+define('MY_NEWSLETTERS_AFFILIATE_NEWSLETTER_DESCRIPTION', 'beinhaltet interessante Neuigkeiten zu Werbepartnernews, Produktneuigkeiten, Sonderangeboten und andere Ank&uuml;ndigungen.');
 
-define('SUCCESS_NEWSLETTER_UPDATED', 'Your newsletter subscriptions have been successfully updated.');
+define('SUCCESS_NEWSLETTER_UPDATED', 'Ihre Newslettereinstellungen wurden ge&auml;ndert.');
 ?>

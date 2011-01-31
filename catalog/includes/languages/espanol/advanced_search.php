@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: advanced_search.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -55,4 +55,12 @@ define('ERROR_PRICE_FROM_MUST_BE_NUM', 'El Precio Desde debe ser n&uacute;merico
 define('ERROR_PRICE_TO_MUST_BE_NUM', 'El Precio Hasta debe ser n&uacute;merico');
 define('ERROR_PRICE_TO_LESS_THAN_PRICE_FROM', 'Precio Hasta debe ser mayor o igual que Precio Desde');
 define('ERROR_INVALID_KEYWORDS', 'Palabras clave incorrectas');
+define('TEXT_OPTIONAL','Las entradas en los siguientes campos son opcionales a menos que el criterio de búsqueda se deja en blanco. En este caso, por debajo de al menos un campo debe tener una entrada.');
+
+define('TEXT_FOR_FIELD','Para este campo coincidente');
+
+define('TEXT_MATCH_ANY','Cualquier valor seleccionado o');
+
+define('TEXT_MATCH_ALL','TODOS los valores seleccionados');
+
 ?>

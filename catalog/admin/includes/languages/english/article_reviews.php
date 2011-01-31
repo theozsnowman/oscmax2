@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: article_reviews.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -48,4 +48,7 @@ define('TEXT_YES', 'Yes') ;
 define('TEXT_NO', 'No') ;
 /* </Mav was here!> */
 
+define('HEADING_NO_ARTICLE_REVIEWS', 'Article Reviews');
+define('TEXT_NO_ARTICLE_REVIEWS', 'There are currently no review of any of your articles.  <br><br>When a customer reviews one you will see it displayed to the left.  You will then need to a approve/reject the article before it is displayed in your store.');
+define('TEXT_CUSTOMER_RATING', 'Customer Rating:');
 ?>

@@ -1,21 +1,17 @@
 <?php
 /*
-$Id: affiliate_faq.php 14 2006-07-28 17:42:07Z user $
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'Affiliate Program FAQ');
-define('HEADING_TITLE', 'Affiliate Program - Frequently Asked Questions');
+define('NAVBAR_TITLE','Afiliado FAQ del Programa');
+define('HEADING_TITLE','Programa de Afiliados - Preguntas más frecuentes');
 
 define('TEXT_INFORMATION', '' . STORE_NAME . ' has compiled this info so that you may be better informed about our affiliate program.<br>
  If you have any questions please <a href="' . tep_href_link(FILENAME_AFFILIATE_CONTACT). '">' . BOX_AFFILIATE_CONTACT . '</a> for more information.<br>

@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: articles.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -27,7 +27,7 @@ define('TEXT_SUBTOPICS', 'Subtopics:');
 define('TEXT_ARTICLES', 'Articles:');
 define('TEXT_ARTICLES_AVERAGE_RATING', 'Average Rating:');
 define('TEXT_ARTICLES_HEAD_TITLE_TAG', 'HTML Page Title:');
-define('TEXT_ARTICLES_HEAD_DESC_TAG', 'Meta Description:<br><small>(Article Abstract =<br>first %s charachters)</small>');
+define('TEXT_ARTICLES_HEAD_DESC_TAG', 'Meta Description:<br><small>(Article Abstract =<br>first %s characters)</small>');
 define('TEXT_ARTICLES_HEAD_KEYWORDS_TAG', 'Meta Keywords:');
 define('TEXT_DATE_ADDED', 'Date Added:');
 define('TEXT_DATE_AVAILABLE', 'Date Expected:');
@@ -90,5 +90,13 @@ define('ERROR_CANNOT_LINK_TO_SAME_TOPIC', 'Error: Can not link articles in the s
 define('ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE', 'Error: Catalog images directory is not writeable: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images directory does not exist: ' . DIR_FS_CATALOG_IMAGES);
 define('ERROR_CANNOT_MOVE_TOPIC_TO_PARENT', 'Error: Topic cannot be moved into child topic.');
+
+define('TEXT_ARTICLES_SHOW_ON_INDEX','Zeigen Sie diesen Artikel auf Ihrer Homepage?');
+
+define('DO_SHOW_ON_INDEX','Ja');
+
+define('DO_NOT_SHOW_ON_INDEX','Nein');
+
+define('IMAGE_SHOW_ON_INDEX','Dieser Artikel basiert auf Ihrer Homepage angezeigt.');
 
 ?>

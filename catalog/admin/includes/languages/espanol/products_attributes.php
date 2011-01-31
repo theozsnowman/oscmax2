@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: products_attributes.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -34,4 +34,12 @@ define('TEXT_WARNING_OF_DELETE', 'Esta opcion tiene productos y valores - no es 
 define('TEXT_OK_TO_DELETE', 'Esta opcion no esta en uso - es seguro eliminarla.');
 define('TEXT_OPTION_ID', 'ID de Opci&oacute;n');
 define('TEXT_OPTION_NAME', 'Nombre de Opci&oacute;n');
+
+define('TABLE_HEADING_OPT_TYPE', 'Type');
+define('TABLE_HEADING_OPT_LENGTH', 'Length');
+// START: More Product Weight
+define('TABLE_HEADING_OPT_WEIGHT', 'Peso');
+define('TABLE_HEADING_OPT_WEIGHT_PREFIX', 'Prefijo');
+// END: More Product Weight
+
 ?>

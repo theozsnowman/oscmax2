@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: index.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -25,7 +25,7 @@ define('BOX_ENTRY_CVS_REPOSITORY', 'Repositorio CVS');
 define('BOX_ENTRY_INFORMATION_PORTAL', 'Portal');
 define('BOX_ENTRY_OSCDOX', 'osCDox.com');
 
-define('BOX_ENTRY_AABOX', 'osCMax Hosting<br>$12.99/mo');
+define('BOX_ENTRY_AABOX', 'osCmax Hosting<br>$12.99/mo');
 define('BOX_ENTRY_PAYPAL', 'Paypal Account Signup');
 define('BOX_ENTRY_MERCHANT', 'Get A Merchant Account');
 define('BOX_ENTRY_DOMAINS', 'Purchase Domains');
@@ -47,4 +47,10 @@ define('REPORTS_ORDERS', 'Pedidos');
 define('TOOLS_BACKUP', 'Copias');
 define('TOOLS_BANNERS', 'Banners');
 define('TOOLS_FILES', 'Ficheros');
+
+define('TEXT_TAB1', 'Venta');
+define('TEXT_TAB2', 'Productos');
+define('TEXT_TAB3', 'Admin Log');
+define('TEXT_TAB4', 'Customer Log');
+define('TEXT_TAB5', 'HTTP Error Log');
 ?>

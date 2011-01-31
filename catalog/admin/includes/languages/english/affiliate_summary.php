@@ -1,15 +1,11 @@
 <?php
 /*
-$Id: affiliate_summary.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -28,7 +24,8 @@ define('TEXT_PAYPERSALE_RATE', 'Default Pay Per Sale Rate: ');
 define('TEXT_CLICKTHROUGH_RATE', 'Default Clickthrough Rate: ');
 define('TEXT_COMMISSION', 'Total Affiliate Commission : ');
 define('TEXT_SUMMARY_HELP', '[?]');
-define('TEXT_SUMMARY', 'Click on [?] to see a description of each category.');
+define('TEXT_SUMMARY_1', 'Click on ');
+define('TEXT_SUMMARY_2', ' to see a description of each category.');
 define('HEADING_SUMMARY_HELP', 'Affiliate Help');
 define('TEXT_IMPRESSIONS_HELP', '<i>Total Banner Impressions</i> displays the total number of times a banner or link has been displayed in the given time period.');
 define('TEXT_VISITS_HELP', '<i>Total Affiliate Visits</i> represents the total number of click-throughs by visitors from your website.');

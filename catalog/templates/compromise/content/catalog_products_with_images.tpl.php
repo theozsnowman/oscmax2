@@ -17,8 +17,8 @@
           <tr>
             <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <?php
-	  if (isset($HTTP_GET_VARS['listing'])) { 
-	  	$listing = $HTTP_GET_VARS['listing'];
+	  if (isset($_GET['listing'])) { 
+	  	$listing = $_GET['listing'];
 	  }
           switch ($listing) {
               case "image":
@@ -303,12 +303,12 @@
 
 <?php
   if (strlen($listing)>0) { $sort = $listing; } else { $sort = ""; }
-  if ($HTTP_GET_VARS['page'] > 1) {
-          $rows = $HTTP_GET_VARS['page'] * 20 - 20;
-          $page = $HTTP_GET_VARS['page'];
+  if ($_GET['page'] > 1) {
+          $rows = $_GET['page'] * 20 - 20;
+          $page = $_GET['page'];
   }
-  if ($HTTP_GET_VARS['page']<= 0) ($page --);
-  if ($HTTP_GET_VARS['page']== 1) ($page ++);
+  if ($_GET['page']<= 0) ($page --);
+  if ($_GET['page']== 1) ($page ++);
   if ($page <=0 ) $page = 1;
 
     $customers_group_id = '0';
@@ -347,11 +347,7 @@
 
               <tr class="tableRow">
 <?PHP if (PRODUCT_LIST_CATALOG_IMAGE == 'show') { ?>
-<?PHP if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') { ?>
-               <td class="main" align="center"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $products['products_image'], $products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>'; ?>&nbsp;</td>
-<?PHP } else { ?>
                <td class="main" align="center"><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, '&products_id=' . $products['products_id'], 'NONSSL') . '">' . tep_image(DIR_WS_IMAGES . DYNAMIC_MOPICS_THUMBS_DIR . $products['products_image'], $products['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '</a>'; ?>&nbsp;</td>
-<?PHP } ?>
 <?PHP } ?>
 <?PHP if (PRODUCT_LIST_CATALOG_OPTIONS == 'show') { ?>
                 <td class="main" align="left">
@@ -412,11 +408,7 @@
                 <td class="main" align="center"><div align=left><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, '&products_id=' . $products['products_id'], 'NONSSL') . '">' . $products['manufacturers_name'] . '</a>'; ?>&nbsp;</div></td>
 <?PHP } ?>
 <?PHP if (PRODUCT_LIST_CATALOG_NAME == 'show') { ?>
-<?PHP if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') { ?>
-                <td class="main" align="center"><div align=left><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products['products_id'], 'NONSSL') . '">' . $products['products_name'] . '</a>'; ?>&nbsp;</div></td>
-<?PHP } else { ?>
                 <td class="main" align="center"><div align=left><?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, '&products_id=' . $products['products_id'], 'NONSSL') . '">' . $products['products_name'] . '</a>'; ?>&nbsp;</div></td>
-<?PHP } ?>
 <?PHP } ?>
 <?PHP if (PRODUCT_LIST_CATALOG_DESCRIPTION == 'show') { ?>
                <td class="main" align="center"><?php echo substr(nl2br($products['products_description']), 0, $description_length); ?>...&nbsp;<?php echo '<a href="' . tep_href_link(FILENAME_PRODUCT_INFO, '&products_id=' . $products['products_id'], 'NONSSL') . '"><i>More Info</i>...</a>'; ?></td>

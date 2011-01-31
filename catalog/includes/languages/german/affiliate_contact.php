@@ -1,26 +1,22 @@
 <?php
 /*
-$Id: affiliate_contact.php 14 2006-07-28 17:42:07Z user $
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'Partnerprogramm');
-define('HEADING_TITLE', 'Partnerprogramm - Kontaktformular');
+define('NAVBAR_TITLE', 'Werbepartner');
+define('HEADING_TITLE', 'Werbepartner - Kontaktformular');
 
 define('TEXT_SUCCESS', 'Ihre Nachricht wurde erfolgreich an uns gesendet.');
 
-define('EMAIL_SUBJECT', 'Partnerprogramm');
-define('ENTRY_NAME', 'Vor- und Nachname:');
-define('ENTRY_EMAIL', 'eMail-Adresse:');
+define('EMAIL_SUBJECT', 'Werbepartner');
+define('ENTRY_NAME', 'Ihr Vor- und Nachname:');
+define('ENTRY_EMAIL', 'Ihre eMail-Adresse:');
 define('ENTRY_ENQUIRY', 'Ihre Nachricht:');
 ?>

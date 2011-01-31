@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: articles.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -13,7 +13,7 @@ $Id: articles.php 3 2006-05-27 04:59:07Z user $
 define('TEXT_MAIN', '');
 define('TABLE_HEADING_NEW_ARTICLES', 'Nuevas noticias en %s');
 
-if ( ($topic_depth == 'articles') || (isset($HTTP_GET_VARS['authors_id'])) ) {
+if ( ($topic_depth == 'articles') || (isset($_GET['authors_id'])) ) {
   define('HEADING_TITLE', $topics['topics_name']);
   define('TABLE_HEADING_ARTICLES', 'Noticias');
   define('TABLE_HEADING_AUTHOR', 'Autor');
@@ -48,5 +48,7 @@ if ( ($topic_depth == 'articles') || (isset($HTTP_GET_VARS['authors_id'])) ) {
 } elseif ($topic_depth == 'nested') {
   define('HEADING_TITLE', 'Noticias');
 }
+
+define('NAVBAR_TITLE_1','Artículos');
 
 ?>

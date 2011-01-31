@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: manufacturers.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -39,4 +39,34 @@ define('TEXT_DELETE_WARNING_PRODUCTS', '<b>WARNUNG:</b> Es existieren noch %s Ar
 
 define('ERROR_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Verzeichnis %s ist schreibgesch&uuml;tzt. Bitte korrigieren Sie die Zugriffsrechte zu diesem Verzeichnis!');
 define('ERROR_DIRECTORY_DOES_NOT_EXIST', 'Fehler: Das Verzeichnis %s existiert nicht!');
+define('TABLE_HEADING_MANUFACTURER_FEATURED','Hersteller mit Produkten');
+
+define('TABLE_HEADING_MANUFACTURERS_FEATURED','Ausgewählte Hersteller');
+
+define('TEXT_MANUFACTURER_FEATURED','Ausgewählte Hersteller');
+
+define('TEXT_MANUFACTURER_YES','Ja');
+
+define('TEXT_MANUFACTURER_NO','Nein');
+
+define('TEXT_MANUFACTURER_FEATURED_DATE','Featured Bis Datum');
+
+define('TEXT_MANUFACTURERS_FEATURED','Ausgewählte Hersteller');
+
+define('TEXT_MANUFACTURERS_YES','Ja');
+
+define('TEXT_MANUFACTURERS_NO','Nein');
+
+define('TEXT_MANUFACTURERS_FEATURED_DATE','Featured Bis Datum');
+
+define('TEXT_MANUFACTURERS_DESCRIPTION','Beschreibung:');
+
+define('MANUFACTURERS_FEATURED_HELP','Ausgewählte Hersteller');
+
+define('MANUFACTURERS_FEATURED_HELP_TEXT','Diese Einstellung wird dieses Herstellers zu einer Gruppe hinzuzufügen anderer Hersteller auf die Index-Seite Ihres Shops');
+
+define('MANUFACTURER_FEATURED_HELP','Ausgewählte Hersteller');
+
+define('MANUFACTURER_FEATURED_HELP_TEXT','Diese Einstellung wird eine neue Infobox auf der Index-Seite mit diesem Hersteller und einige der Produkte in Ihrem Geschäft dieses Herstellers.');
+
 ?>

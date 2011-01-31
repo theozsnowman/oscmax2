@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: article_listing.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -70,7 +70,7 @@ $listing_split = new splitPageResults($listing_sql, MAX_ARTICLES_PER_PAGE);
       if (DISPLAY_DATE_ADDED_ARTICLE_LISTING == 'true') {
 ?>
           <tr>
-            <td class="smalltext" style="padding-left:15px"><?php echo TEXT_DATE_ADDED . ' ' . tep_date_long($articles_listing['articles_date_added']); ?></td>
+            <td class="smallText" style="padding-left:15px"><?php echo TEXT_DATE_ADDED . ' ' . tep_date_long($articles_listing['articles_date_added']); ?></td>
           </tr>
 <?php
       }
@@ -85,11 +85,11 @@ $listing_split = new splitPageResults($listing_sql, MAX_ARTICLES_PER_PAGE);
   } else {
 ?>
           <tr>
-            <td class="main"><?php if ($listing_no_article<>'') {
+            <td class="main"><?php if (isset($listing_no_article)<>'') {
                                      echo $listing_no_article;
                                    } elseif ($topic_depth == 'articles') {
                                      echo TEXT_NO_ARTICLES;
-                                   } elseif (isset($HTTP_GET_VARS['authors_id'])) {
+                                   } elseif (isset($_GET['authors_id'])) {
                                     echo  TEXT_NO_ARTICLES2;
                                    } ?></td>
           </tr>
@@ -108,7 +108,7 @@ $listing_split = new splitPageResults($listing_sql, MAX_ARTICLES_PER_PAGE);
   if (($listing_split->number_of_rows > 0) && ((ARTICLE_PREV_NEXT_BAR_LOCATION == 'bottom') || (ARTICLE_PREV_NEXT_BAR_LOCATION == 'both'))) {
 ?>
       <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+        <td><table border="0" width="100%" cellspacing="0" cellpadding="2" class="filterbox">
           <tr>
             <td class="smallText"><?php echo $listing_split->display_count(TEXT_DISPLAY_NUMBER_OF_ARTICLES); ?></td>
             <td align="right" class="smallText"><?php echo TEXT_RESULT_PAGE . ' ' . $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(array('page', 'info', 'x', 'y'))); ?></td>

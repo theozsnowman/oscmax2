@@ -1,16 +1,16 @@
 <?php
 /*
-$Id: login.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2008 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
 
-if ($HTTP_GET_VARS['origin'] == FILENAME_CHECKOUT_PAYMENT) {
+if ($_GET['origin'] == FILENAME_CHECKOUT_PAYMENT) {
   define('NAVBAR_TITLE', 'Order');
   define('HEADING_TITLE', 'Ordering online is easy.');
   define('TEXT_STEP_BY_STEP', 'We\'ll walk you through the process, step by step.');
@@ -26,7 +26,6 @@ define('TEXT_RETURNING_ADMIN', 'Solo Staff!');
 define('ENTRY_EMAIL_ADDRESS', 'Direccion E-Mail:');
 define('ENTRY_PASSWORD', 'Password:');
 define('ENTRY_FIRSTNAME', 'Nombre:');
-define('IMAGE_BUTTON_LOGIN', 'Submit');
 
 define('TEXT_PASSWORD_FORGOTTEN', 'Password olvidada?');
 

@@ -1,14 +1,15 @@
+<script language="javascript" type="text/javascript">
 /*
-$Id: general.js 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
-
+</script>
 function SetFocus(TargetFormName) {
   var target = 0;
   if (TargetFormName != "") {

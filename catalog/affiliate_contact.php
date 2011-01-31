@@ -1,15 +1,11 @@
 <?php
 /*
-$Id: affiliate_contact.php 14 2006-07-28 17:42:07Z user $
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -29,9 +25,9 @@ $Id: affiliate_contact.php 14 2006-07-28 17:42:07Z user $
   require(DIR_WS_LANGUAGES . $language . '/' . FILENAME_AFFILIATE_CONTACT);
 
   $error = false;
-  if (isset($HTTP_GET_VARS['action']) && ($HTTP_GET_VARS['action'] == 'send')) {
-    if (tep_validate_email(trim($HTTP_POST_VARS['email']))) {
-      tep_mail(STORE_OWNER, AFFILIATE_EMAIL_ADDRESS, EMAIL_SUBJECT, $HTTP_POST_VARS['enquiry'], $HTTP_POST_VARS['name'], $HTTP_POST_VARS['email']);
+  if (isset($_GET['action']) && ($_GET['action'] == 'send')) {
+    if (tep_validate_email(trim($_POST['email']))) {
+      tep_mail(STORE_OWNER, AFFILIATE_EMAIL_ADDRESS, EMAIL_SUBJECT, $_POST['enquiry'], $_POST['name'], $_POST['email']);
       tep_redirect(tep_href_link(FILENAME_AFFILIATE_CONTACT, 'action=success'));
     } else {
       $error = true;
@@ -45,7 +41,8 @@ $Id: affiliate_contact.php 14 2006-07-28 17:42:07Z user $
 
   $content = affiliate_contact; 
 
-  include (bts_select('main', $content_template)); // BTSv1.5
+  include (bts_select('main')); // BTSv1.5
+
 
   require(DIR_WS_INCLUDES . 'application_bottom.php'); 
 ?>

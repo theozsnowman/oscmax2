@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: wishlist_help.php,v 1 2002/11/09
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -13,7 +13,7 @@
 define('NAVBAR_TITLE', 'My Wishlist F.A.Q.');
 define('HEADING_TITLE', 'My Wishlist F.A.Q.');
 
-define('TEXT_CLOSE_WINDOW', '<u>Close Window</u> [x]');
+define('TEXT_CLOSE_WINDOW','<u>Cerrar Ventana</u> [x]');
 
 define('TEXT_INFORMATION', '<b>What is ' . BOX_HEADING_CUSTOMER_WISHLIST . '?</b><br>' .
 BOX_HEADING_CUSTOMER_WISHLIST . ' is a convenient way for you to save a reminder of an item you would like to purchase later or an item that is not currently in stock.
@@ -50,4 +50,6 @@ Sorry. Currently ' . BOX_HEADING_CUSTOMER_WISHLIST . ' is only accessible when y
 <!-- EoF Modification by: Talon177 & Rob Woodgate-->
 <br>
 <br>');
+define('NAVBAR_TITLE_1','Wishlist F.A.Q.');
+
 ?>

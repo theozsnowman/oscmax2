@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: banner_manager.php 3 2006-05-27 04:59:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax2005 osCMax, 2002 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -64,4 +64,6 @@ define('ERROR_UNKNOWN_STATUS_FLAG', 'Error: Unknown status flag.');
 
 define('ERROR_GRAPHS_DIRECTORY_DOES_NOT_EXIST', 'Error: Graphs directory does not exist. Please create a \'graphs\' directory inside \'images\'.');
 define('ERROR_GRAPHS_DIRECTORY_NOT_WRITEABLE', 'Error: Graphs directory is not writeable.');
+
+define('TEXT_BANNERS_HELP', 'Banner Manager Help');
 ?>

@@ -1,9 +1,18 @@
 <?php
+/*
+$Id$
 
+  osCmax e-Commerce
+  http://www.osCmax.com
+
+  Copyright 2000 - 2011 osCmax
+
+  Released under the GNU General Public License
+*/
   require('includes/application_top.php');
 	
-	$oID = $HTTP_GET_VARS['oID'];
-	$active = $HTTP_GET_VARS['active'];
+	$oID = $_GET['oID'];
+	$active = $_GET['active'];
 	
 	// check to see if there are multiple packages in this shipment
 	$packages_query = tep_db_query("select multiple from " . TABLE_SHIPPING_MANIFEST . " where orders_id = " . $oID . " order by multiple asc");
@@ -38,7 +47,7 @@
 		$tracking_num = tep_manifest_data($oID,$active);
 		}
 	elseif (!$multiple) {
-		$tracking_num = $HTTP_GET_VARS['num'];
+		$tracking_num = $_GET['num'];
 		}
 
 ?>
