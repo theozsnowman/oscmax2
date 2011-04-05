@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: shipping.php,v 2.00 2003/10/12
+$Id: shipping.php,v 2.00 2003/10/12
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -21,5 +21,6 @@
 
   $breadcrumb->add(NAVBAR_TITLE, tep_href_link(FILENAME_AFFILIATE_REPORTS));
   $content = affiliate_reports; 
-  include (bts_select('main', $content_template)); // BTSv1.5
+  include (bts_select('main')); // BTSv1.5
+
    require(DIR_WS_INCLUDES . 'application_bottom.php'); ?>

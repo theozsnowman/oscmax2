@@ -1,13 +1,11 @@
 <?php
 /*
-  $Id: whos_online.php,v 3.5 2008/08/21 SteveDallas Exp $
-  
-  2009 Oct 11 v3.6.6 MarcusDesign
+$Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  osCmax e-Commerce
+  http://www.osCmax.com
 
-  Copyright (c) 2003 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -56,13 +54,13 @@
   $show_type[] = array('id' => 'cust', 'text' => TEXT_CUSTOMERS);
 
 // Images used for status lights
-  $status_active_cart = 'icon_status_cart.gif'; // replace word cart with green if you don't want the new icon.
-  $status_active_cart_top = 'icon_status_cart_top.gif';
-  $status_inactive_cart = 'icon_status_cart_red.gif';
-  $status_active_nocart = 'summary_customers.gif';
-  $status_inactive_nocart = 'summary_customers_red.gif';
-  $status_active_bot = 'icon_status_green_border_light.gif';
-  $status_inactive_bot = 'icon_status_red_border_light.gif';
+  $status_active_cart = 'icons/icon_status_cart.gif'; // replace word cart with green if you don't want the new icon.
+  $status_active_cart_top = 'icons/icon_status_cart_top.gif';
+  $status_inactive_cart = 'icons/icon_status_cart_red.gif';
+  $status_active_nocart = 'icons/summary_customers.gif';
+  $status_inactive_nocart = 'icons/summary_customers_red.gif';
+  $status_active_bot = 'icons/icon_status_green_border_light.gif';
+  $status_inactive_bot = 'icons/icon_status_red_border_light.gif';
 
 // Text color used for table entries - different colored text for different users
 //   Named colors and Hex values should work fine here
@@ -315,6 +313,7 @@ echo '<b>' . TABLE_HEADING_IP_ADDRESS . ':</b> ' . "<a href=http://www.ipinfodb.
 
     <title><?php echo TITLE; ?></title>
     <link rel="stylesheet" type="text/css" href="includes/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="includes/javascript/jquery-ui-1.8.2.custom.css">
     <script type="text/javascript" language="javascript" src="includes/general.js"></script>
     <script type="text/javascript" language="javascript" src="boxover.js"></SCRIPT>
 	<?php

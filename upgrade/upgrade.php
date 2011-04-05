@@ -1,5 +1,15 @@
 <?php
 /*
+$Id$
+
+  osCmax e-Commerce
+  http://www.oscmax.com
+
+  Copyright 2000 - 2011 osCmax
+
+  Released under the GNU General Public License
+*/  
+/*
  * SQLimport -- Version 01-Oct-2006
  *
  * Execute SQL statements from a file on a MySQL database.
@@ -19,8 +29,6 @@
  *   - 20-Mar-2003: initial release
  *   - 01-Oct-2006: use of XHTML/CSS, superglobals and code cleanup
  */
-
-  error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
 
 # Check if variable is a non-empty, non-whitespace string.
 function is_param($var) {
@@ -48,7 +56,7 @@ header('Pragma: no-cache');                                    # HTTP/1.0
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>osCMax Database Update - v2.0.4 to v2.0.15</title>
+  <title>osCmax Database Update - RC3 to 2.0 Stable</title>
   <style type="text/css">
     body {
       font-family: Verdana, Arial, sans-serif;
@@ -70,7 +78,7 @@ header('Pragma: no-cache');                                    # HTTP/1.0
 </head>
 <body>
 
-<h2>osCMax 2.0.4 to 2.0.15 Stable<br>Database Upgrade Script</h2>
+<h2>osCmax RC3 to 2.0 Stable<br>Database Upgrade Script</h2>
 <p><strong>Before proceeding, please make a backup of your database.</strong><br>Do not run this updater more than once, <br>or you will get duplicate entries in your database</p>
 <p>Specify the correct settings<br />to connect to your database.</p>
 
@@ -97,7 +105,7 @@ if (is_param($_POST['hostname'])
         and is_param($_POST['username'])        
         and is_param($_POST['database'])
         ) {
-    $file = '2.0.4_to_2.0.15.sql';
+    $file = 'rc3_to_stable.sql';
     if (! file_exists($file)) {
         show_error(sprintf('File "%s" does not exist.', $file));
     } else if (! is_file($file)) {
@@ -137,7 +145,7 @@ if (is_param($_POST['hostname'])
                 mysql_check_error();
             }
         }
-        echo "<center><p>You have successfully upgraded your osCMax 2.0.4 database to osCMax 2.0.15 format.</p><br><br><strong>Delete this file from your server now!</strong></center>\n";
+        echo "<center><p>You have successfully upgraded your osCmax RC3 database to osCmax 2.0 Stable format.</p><br><br><strong>Delete this file from your server now!</strong></center>\n";
     }
 }
 ?>
@@ -145,7 +153,7 @@ if (is_param($_POST['hostname'])
 
 <p>( <a href="<?php echo $_SERVER['PHP_SELF']; ?>">new</a> )</p>
 
-<p><small>Copyright &copy; 2010 <a href="http://www.oscmax.com/">osCMax</a></small></p>
+<p><small>Copyright &copy; 2009 <a href="http://www.oscmax.com/">osCmax</a></small></p>
 
 </body>
 </html>

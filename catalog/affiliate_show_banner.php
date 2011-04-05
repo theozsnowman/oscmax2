@@ -1,15 +1,11 @@
 <?php
 /*
-$Id: affiliate_show_banner.php 14 2006-07-28 17:42:07Z user $
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -27,14 +23,14 @@ $Id: affiliate_show_banner.php 14 2006-07-28 17:42:07Z user $
 // cause then whois online registers it also as visitor
 //
 
-  define('TABLE_AFFILIATE_BANNERS_HISTORY', 'affiliate_banners_history');
-  define('TABLE_AFFILIATE_BANNERS', 'affiliate_banners');
-  define('TABLE_PRODUCTS', 'products');
+//  define('TABLE_AFFILIATE_BANNERS_HISTORY', 'affiliate_banners_history');
+//  define('TABLE_AFFILIATE_BANNERS', 'affiliate_banners');
+//  define('TABLE_PRODUCTS', 'products');
 
 // Set the local configuration parameters - mainly for developers
-  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
+//  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
   require('includes/configure.php');
-  if (file_exists('includes/local/affiliate_configure.php')) include('includes/local/affiliate_configure.php');
+//  if (file_exists('includes/local/affiliate_configure.php')) include('includes/local/affiliate_configure.php');
 //  require('includes/affiliate_configure.php');
 
 // include the database functions

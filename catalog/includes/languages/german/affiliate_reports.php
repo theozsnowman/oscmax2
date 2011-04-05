@@ -1,35 +1,30 @@
 <?php
 /*
-  $Id: affiliate_reports.php,v 2.00 2003/10/12
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
-
-  Copyright (c) 2002 - 2003 osCommerce
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'Affiliate Program');
-define('HEADING_TITLE', 'Affiliate Program: Affiliate Reports');
+define('NAVBAR_TITLE', 'Affiliateprogramm');
+define('HEADING_TITLE', 'Affiliateprogramm:	Berichte');
 
-define('TEXT_INFORMATION', 'Obtain affiliate links that you can display on your website.');
+define('TEXT_INFORMATION', 'Informieren Sie sich über Ihre Klickstatistik und Ihre Provision.');
 
-define('TEXT_AFFILIATE_CLICKS', 'Clickthrough Report');
-define('TEXT_AFFILIATE_SALES', 'Sales Report');
-define('TEXT_AFFILIATE_PAYMENT', 'Payment Report');
+define('TEXT_AFFILIATE_CLICKS', 'Klickbericht');
+define('TEXT_AFFILIATE_SALES', 'Umsatzbericht');
+define('TEXT_AFFILIATE_PAYMENT', 'Provisionsbericht');
 
 
-define('TEXT_INFORMATION_CLICKS', 'View Clickthrough information from your website');
-define('TEXT_INFORMATION_SALES', 'View your current and previous Affiliate Sales');
-define('TEXT_INFORMATION_PAYMENT', 'View all affiliate payments made to you');
+define('TEXT_INFORMATION_CLICKS', 'Meinen Klickbericht anzeigen');
+define('TEXT_INFORMATION_SALES', 'Meinen Umsatzbericht anzeigen');
+define('TEXT_INFORMATION_PAYMENT', 'Meinen Provisionsbericht anzeigen');
 
-define('IMAGE_CLICKS','Clickthrough Report');
-define('IMAGE_SALES','Sales Report');
-define('IMAGE_PAYMENT','Payment Report');
-
+define('IMAGE_CLICKS','Klickbericht');
+define('IMAGE_SALES','Umsatzbericht');
+define('IMAGE_PAYMENT','Provisionsbericht');
 ?>

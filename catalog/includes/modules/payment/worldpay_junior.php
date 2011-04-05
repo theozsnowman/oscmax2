@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id: worldpay_junior.php 1807 2008-01-13 00:50:08Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2008 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -322,7 +322,7 @@
         if ($check['orders_status'] == MODULE_PAYMENT_WORLDPAY_JUNIOR_PREPARE_ORDER_STATUS_ID) {
           $hash_result = false;
 
-          if (isset($HTTP_GET_VARS['hash']) && !empty($HTTP_GET_VARS['hash']) && ($HTTP_GET_VARS['hash'] == md5(tep_session_name() . $customer_id . $order_id . $language . number_format($order->info['total'], 2) . MODULE_PAYMENT_WORLDPAY_JUNIOR_MD5_PASSWORD))) {
+          if (isset($_GET['hash']) && !empty($_GET['hash']) && ($_GET['hash'] == md5(tep_session_name() . $customer_id . $order_id . $language . number_format($order->info['total'], 2) . MODULE_PAYMENT_WORLDPAY_JUNIOR_MD5_PASSWORD))) {
             $hash_result = true;
           }
 

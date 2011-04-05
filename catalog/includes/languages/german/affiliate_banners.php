@@ -1,36 +1,32 @@
 <?php
 /*
-$Id: affiliate_banners.php 14 2006-07-28 17:42:07Z user $
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'Partner programm');
-define('HEADING_TITLE', 'Partner programm: Banner');
+define('NAVBAR_TITLE', 'Affiliateprogramm');
+define('HEADING_TITLE', 'Affiliateprogramm: Affiliatelinks');
 
-define('TEXT_INFORMATION', 'W&auml;hlen Sie den Banner oder den Link aus den untenhalb angebotenen M&ouml;glichkeiten, den Sie auf Ihrer Webseite publizieren m&ouml;chten.');
+define('TEXT_INFORMATION', 'Wählen Sie das Banner oder den Link, den Sie auf Ihrer Webseite publizieren möchten.');
 
-define('TEXT_AFFILIATE_BANNERS', 'Banner Name: ');
-define('TEXT_AFFILIATE_BANNERS_BUILD', 'BUILD-A-LINK');
-define('TEXT_AFFILIATE_BANNERS_PRODUCT', 'Product Links');
-define('TEXT_AFFILIATE_BANNERS_TEXT', 'Text Links');
+define('TEXT_AFFILIATE_BANNERS', 'Bannerlinks: ');
+define('TEXT_AFFILIATE_BANNERS_BUILD', 'Link erzeugen');
+define('TEXT_AFFILIATE_BANNERS_PRODUCT', 'Produktlinks');
+define('TEXT_AFFILIATE_BANNERS_TEXT', 'Textlinks');
 
-define('TEXT_INFORMATION_BANNERS_BANNERS', 'Kopieren Sie den HTML Code und f&uuml;gen Sie diesen in Ihrer Webseite ein.');
-define('TEXT_INFORMATION_BANNERS_BUILD', 'Link für einen Produkt Banner erzeugen');
-define('TEXT_INFORMATION_BANNERS_PRODUCT', 'Recommend specific products to your visitors by linking directly to a particular product.');
-define('TEXT_INFORMATION_BANNERS_TEXT', 'Geben Sie die Produkt-ID (in der URL sichtbar) von dem Produkt ein, das Sie auf Ihrer Webseite anbieten m&ouml;chten und bet&auml;tigen Sie den Button "Build a Link"');
+define('TEXT_INFORMATION_BANNERS_BANNERS', 'Vorgefertigte Banner');
+define('TEXT_INFORMATION_BANNERS_BUILD', 'Banner oder Textlink auf eine Produkt eigener Wahl erzeugen');
+define('TEXT_INFORMATION_BANNERS_PRODUCT', 'Werben Sie für ein bestimmtes Produkt mit einem Direktlink.');
+define('TEXT_INFORMATION_BANNERS_TEXT', 'Generieren Sie Höchstumsätze mit bewährten und einfachen Textlinks.');
 
-define('IMAGE_BANNERS','Banners');
-define('IMAGE_PRODUCT','Product Links');
-define('IMAGE_BUILD','Build a Link');
-define('IMAGE_TEXT','Text Links');
+define('IMAGE_BANNERS','Banner');
+define('IMAGE_PRODUCT','Produktlinks');
+define('IMAGE_BUILD','Link erzeugen');
+define('IMAGE_TEXT','Textlinks');
 ?>

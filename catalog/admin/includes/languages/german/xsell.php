@@ -1,35 +1,44 @@
 <?php
-$Id: xsell.php 3 2006-05-27 04:59:07Z user $ 
+/*
+$Id$
 
-osCMax Power E-Commerce 
-http://oscdox.com 
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-Copyright 2006 osCMax2005 osCMax, 2002 osCommerce 
+  Copyright 2000 - 2011 osCmax
 
-Released under the GNU General Public License 
+  Released under the GNU General Public License
+*/
 
-xsell.php
-Original Idea From Isaac Mualem im@imwebdesigning.com <mailto:im@imwebdesigning.com> 
-Complete Recoding From Stephen Walker admin@snjcomputers.com
-*/ 
-
-define('CROSS_SELL_SUCCESS', 'Cross Sell Items Successfully Update For Cross Sell Product #'.$_GET['add_related_product_ID']);
-define('SORT_CROSS_SELL_SUCCESS', 'Sort Order Successfully Update For Cross Sell Product #'.$_GET['add_related_product_ID']);
-define('HEADING_TITLE', 'Cross-Sell (X-Sell) Admin');
-define('TABLE_HEADING_PRODUCT_ID', 'Product Id');
-define('TABLE_HEADING_PRODUCT_MODEL', 'Product Model');
-define('TABLE_HEADING_PRODUCT_NAME', 'Product Name');
-define('TABLE_HEADING_CURRENT_SELLS', 'Current Cross-Sells');
-define('TABLE_HEADING_UPDATE_SELLS', 'Update Cross-Sells');
-define('TABLE_HEADING_PRODUCT_IMAGE', 'Product Image');
-define('TABLE_HEADING_PRODUCT_PRICE', 'Product Price');
-define('TABLE_HEADING_CROSS_SELL_THIS', 'Cross-Sell This?');
-define('TEXT_EDIT_SELLS', 'Edit');
-define('TEXT_SORT', 'Prioritize');
-define('TEXT_SETTING_SELLS', 'Setting Cross-Sells For');
-define('TEXT_PRODUCT_ID', 'Product Id');
-define('TEXT_MODEL', 'Model');
-define('TABLE_HEADING_PRODUCT_SORT', 'Sort Order');
-define('TEXT_NO_IMAGE', 'No Image');
+define('CROSS_SELL_SUCCESS', 'Cross-Sell Produkten erfolgreich aktualisiert für Cross-Sell Produkt #'.$_GET['add_related_product_ID']);
+define('SORT_CROSS_SELL_SUCCESS', 'Sortierung erfolgreich aktualisiert für Cross-Sell Produkt #'.$_GET['add_related_product_ID']);
+define('HEADING_TITLE', 'Cross-Sell (X-Sell) Verwaltung');
+define('TABLE_HEADING_PRODUCT_ID', 'Produkt Id');
+define('TABLE_HEADING_PRODUCT_MODEL', 'Art-Nr');
+define('TABLE_HEADING_PRODUCT_NAME', 'Produktname');
+define('TABLE_HEADING_CROSS_PRODUCTS', 'Cross-Associated Products');
+define('TABLE_HEADING_CROSS_SELL_ACTIONS', 'Cross Sell Aktionen');
+define('TABLE_HEADING_CURRENT_SELLS', 'Aktuelle Cross-Sells');
+define('TABLE_HEADING_UPDATE_SELLS', 'Cross-Sells aktualisieren');
+define('TABLE_HEADING_PRODUCT_IMAGE', 'Produktbild');
+define('TABLE_HEADING_PRODUCT_PRICE', 'Produktpreis');
+define('TABLE_HEADING_CROSS_SELL_THIS', 'Produkt verknüpfen?');
+define('TABLE_HEADING_NAME', 'Name');
+define('TABLE_HEADING_PRICE', 'Preis');
+define('TABLE_HEADING_ITEM_NO', 'Produkt-Nr.');
+define('TABLE_HEADING_ITEM_NAME', 'Item Name');
+define('TEXT_EDIT_SELLS', 'Bearbeiten');
+define('TEXT_SORT', 'Sortierung');
+define('TEXT_SETTING_SELLS', 'Cross-Sells bearbeiten für');
+define('TEXT_PRODUCT_ID', 'Produkt-ID');
+define('TEXT_MODEL', 'Art-Nr');
+define('TABLE_HEADING_PRODUCT_SORT', 'Sortierung');
+define('TEXT_NO_IMAGE', 'Kein Bild');
 define('TEXT_CROSS_SELL', 'Cross-Sell');
+define('TEXT_NEW_CROSS_SELL', 'Hier klicken für neuen Cross-Sale');
+define('TEXT_CROSS_SELL_ADD', 'Hinzufügen');
+define('TEXT_CROSS_SELL_REMOVE', 'Entfernen');
+define('TEXT_CROSS_SELL_SORT', 'Sortieren');
+define('TEXT_CROSS_SELL_ORDER', 'Sortierung - 1=Top');
+define('TEXT_SEARCH_XSELL', 'Suchen: ');
 ?>

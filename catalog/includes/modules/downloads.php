@@ -1,11 +1,11 @@
 <?php
 /*
-$Id: downloads.php 14 2006-07-28 17:42:07Z user $
+$Id$
 
-  osCMax Power E-Commerce
-  http://oscdox.com
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -18,7 +18,7 @@ $Id: downloads.php 14 2006-07-28 17:42:07Z user $
     $orders = tep_db_fetch_array($orders_query);
     $last_order = $orders['orders_id'];
   } else {
-    $last_order = $HTTP_GET_VARS['order_id'];
+    $last_order = $_GET['order_id'];
   }
 
 // Now get all downloadable products in that order
@@ -84,7 +84,7 @@ $Id: downloads.php 14 2006-07-28 17:42:07Z user $
         <td><?php echo tep_draw_separator('pixel_trans.gif', '100%', '10'); ?></td>
       </tr>
       <tr>
-        <td class="smalltext" colspan="4"><p><?php printf(FOOTER_DOWNLOAD, '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . HEADER_TITLE_MY_ACCOUNT . '</a>'); ?></p></td>
+        <td class="smallText" colspan="4"><p><?php printf(FOOTER_DOWNLOAD, '<a href="' . tep_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . HEADER_TITLE_MY_ACCOUNT . '</a>'); ?></p></td>
       </tr>
 <?php
     }

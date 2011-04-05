@@ -1,15 +1,11 @@
 <?php
 /*
-  $Id: affiliate_account_details.php,v 2.0 2002/09/29 SDK
+$Id$
 
-  OSC-Affiliate
+  osCmax e-Commerce
+  http://www.oscmax.com
 
-  Contribution based on:
-
-  osCMax Power E-Commerce
-  http://oscdox.com
-
-  Copyright 2006 osCMax
+  Copyright 2000 - 2011 osCmax
 
   Released under the GNU General Public License
 */
@@ -22,9 +18,12 @@
     <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
   </tr>
   <tr>
-    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBox">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
+<!-- // +Country-State Selector -->
+		<div id="indicator"><?php echo tep_image(DIR_WS_IMAGES . 'indicator.gif'); ?></div>			
+<!-- // -Country-State Selector -->
 <?php
   if (ACCOUNT_GENDER == 'true') {
     $male = ($affiliate['affiliate_gender'] == 'm') ? true : false;
@@ -65,7 +64,7 @@
       echo $a_firstname . tep_draw_hidden_field('a_firstname');
     }
   } else {
-    echo tep_draw_input_field('a_firstname', $affiliate['affiliate_firstname']) . '&nbsp;' . ENTRY_FIRST_NAME_TEXT;
+    echo tep_draw_input_field('a_firstname', $affiliate['affiliate_firstname']) . '&nbsp;<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>';
   }
 ?>
             </td>
@@ -83,7 +82,7 @@
       echo $a_lastname . tep_draw_hidden_field('a_lastname');
     }
   } else {
-    echo tep_draw_input_field('a_lastname', $affiliate['affiliate_lastname']) . '&nbsp;' . ENTRY_FIRST_NAME_TEXT;
+    echo tep_draw_input_field('a_lastname', $affiliate['affiliate_lastname']) . '&nbsp;<span class="inputRequirement">' . ENTRY_FIRST_NAME_TEXT . '</span>';
   }
 ?>
             </td>
@@ -104,7 +103,7 @@
         echo $a_dob . tep_draw_hidden_field('a_dob');
       }
     } else {
-      echo tep_draw_input_field('a_dob', tep_date_short($affiliate['affiliate_dob'])) . '&nbsp;' . ENTRY_DATE_OF_BIRTH_TEXT;
+      echo tep_draw_input_field('a_dob', tep_date_short($affiliate['affiliate_dob'])) . '&nbsp;<span class="inputRequirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>';
     }
 ?>
             </td>
@@ -129,7 +128,7 @@
       echo $a_email_address . tep_draw_hidden_field('a_email_address');
     }
   } else {
-    echo tep_draw_input_field('a_email_address', $affiliate['affiliate_email_address']) . '&nbsp;' . ENTRY_EMAIL_ADDRESS_TEXT;
+    echo tep_draw_input_field('a_email_address', $affiliate['affiliate_email_address']) . '&nbsp;<span class="inputRequirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>';
   }
 ?>
             </td>
@@ -145,7 +144,7 @@
     <td class="formAreaTitle"><br><?php echo CATEGORY_COMPANY; ?></td>
   </tr>
   <tr>
-    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBox">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
           <tr>
@@ -161,7 +160,7 @@
         echo $a_company . tep_draw_hidden_field('a_company');
       }
     } else {
-      echo tep_draw_input_field('a_company', $affiliate['affiliate_company']) . '&nbsp;' . ENTRY_AFFILIATE_COMPANY_TEXT;
+      echo tep_draw_input_field('a_company', $affiliate['affiliate_company']) . '&nbsp;<span class="inputRequirement">' . ENTRY_AFFILIATE_COMPANY_TEXT . '</span>';
     }
 ?>
             </td>
@@ -179,7 +178,7 @@
         echo $a_company_taxid . tep_draw_hidden_field('a_company_taxid');
       }
     } else {
-      echo tep_draw_input_field('a_company_taxid', $affiliate['affiliate_company_taxid']) . '&nbsp;' . ENTRY_AFFILIATE_COMPANY_TAXID_TEXT;
+      echo tep_draw_input_field('a_company_taxid', $affiliate['affiliate_company_taxid']) . '&nbsp;<span class="inputRequirement">' . ENTRY_AFFILIATE_COMPANY_TAXID_TEXT . '</span>';
     }
 ?>
             </td>
@@ -195,7 +194,7 @@
     <td class="formAreaTitle"><br><?php echo CATEGORY_PAYMENT_DETAILS; ?></td>
   </tr>
   <tr>
-    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBox">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
 <?php
@@ -214,7 +213,7 @@
         echo $a_payment_check . tep_draw_hidden_field('a_payment_check');
       }
     } else {
-      echo tep_draw_input_field('a_payment_check', $affiliate['affiliate_payment_check']) . '&nbsp;' . ENTRY_AFFILIATE_PAYMENT_CHECK_TEXT;
+      echo tep_draw_input_field('a_payment_check', $affiliate['affiliate_payment_check']) . '&nbsp;<span class="inputRequirement">' . ENTRY_AFFILIATE_PAYMENT_CHECK_TEXT . '</span>';
     }
 ?>
             </td>
@@ -236,7 +235,7 @@
         echo $a_payment_paypal . tep_draw_hidden_field('a_payment_paypal');
       }
     } else {
-      echo tep_draw_input_field('a_payment_paypal', $affiliate['affiliate_payment_paypal']) . '&nbsp;' . ENTRY_AFFILIATE_PAYMENT_PAYPAL_TEXT;
+      echo tep_draw_input_field('a_payment_paypal', $affiliate['affiliate_payment_paypal']) . '&nbsp;<span class="inputRequirement">' . ENTRY_AFFILIATE_PAYMENT_PAYPAL_TEXT . '</span>';
     }
 ?>
             </td>
@@ -258,7 +257,7 @@
         echo $a_payment_bank_name . tep_draw_hidden_field('a_payment_bank_name');
       }
     } else {
-      echo tep_draw_input_field('a_payment_bank_name', $affiliate['affiliate_payment_bank_name']) . '&nbsp;' . ENTRY_AFFILIATE_PAYMENT_BANK_NAME_TEXT;
+      echo tep_draw_input_field('a_payment_bank_name', $affiliate['affiliate_payment_bank_name']) . '&nbsp;<span class="inputRequirement">' . ENTRY_AFFILIATE_PAYMENT_BANK_NAME_TEXT . '</span>';
     }
 ?>
             </td>
@@ -346,7 +345,7 @@
     <td class="formAreaTitle"><br><?php echo CATEGORY_ADDRESS; ?></td>
   </tr>
   <tr>
-    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBox">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
           <tr>
@@ -362,7 +361,7 @@
       echo $a_street_address . tep_draw_hidden_field('a_street_address');
     }
   } else {
-    echo tep_draw_input_field('a_street_address', $affiliate['affiliate_street_address']) . '&nbsp;' . ENTRY_STREET_ADDRESS_TEXT;
+    echo tep_draw_input_field('a_street_address', $affiliate['affiliate_street_address']) . '&nbsp;<span class="inputRequirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>';
   }
 ?>
             </td>
@@ -383,7 +382,7 @@
         echo $a_suburb . tep_draw_hidden_field('a_suburb');
       }
     } else {
-      echo tep_draw_input_field('a_suburb', $affiliate['affiliate_suburb']) . '&nbsp;' . ENTRY_SUBURB_TEXT;
+      echo tep_draw_input_field('a_suburb', $affiliate['affiliate_suburb']) . '&nbsp;<span class="inputRequirement">' . ENTRY_SUBURB_TEXT . '</span>';
     }
 ?>
             </td>
@@ -404,7 +403,7 @@
       echo $a_postcode . tep_draw_hidden_field('a_postcode');
     }
   } else {
-    echo tep_draw_input_field('a_postcode', $affiliate['affiliate_postcode']) . '&nbsp;' . ENTRY_POST_CODE_TEXT;
+    echo tep_draw_input_field('a_postcode', $affiliate['affiliate_postcode']) . '&nbsp;<span class="inputRequirement">' . ENTRY_POST_CODE_TEXT . '</span>';
   }
 ?>
             </td>
@@ -422,30 +421,12 @@
       echo $a_city . tep_draw_hidden_field('a_city');
     }
   } else {
-    echo tep_draw_input_field('a_city', $affiliate['affiliate_city']) . '&nbsp;' . ENTRY_CITY_TEXT;
+    echo tep_draw_input_field('a_city', $affiliate['affiliate_city']) . '&nbsp;<span class="inputRequirement">' . ENTRY_CITY_TEXT . '</span>';
   }
 ?>
             </td>
           </tr>
-          <tr>
-            <td class="main">&nbsp;<?php echo ENTRY_COUNTRY; ?></td>
-            <td class="main">&nbsp;
-<?php
-  if ($is_read_only == true) {
-    echo tep_get_country_name($affiliate['affiliate_country_id']);
-  } elseif ($error == true) {
-    if ($entry_country_error == true) {
-      echo tep_get_country_list('a_country') . '&nbsp;' . ENTRY_COUNTRY_ERROR;
-    } else {
-      echo tep_get_country_name($a_country) . tep_draw_hidden_field('a_country');
-    }
-  } else {
-    echo tep_get_country_list('a_country', $affiliate['affiliate_country_id']) . '&nbsp;' . ENTRY_COUNTRY_TEXT;
-  }
-?>
-            </td>
-          </tr>
-<?php
+	  <?php
   if (ACCOUNT_STATE == 'true') {
 ?>
           <tr>
@@ -463,10 +444,25 @@
   }
 ?>
           <tr>
-            <td class="main"><?php echo ENTRY_COUNTRY; ?><span id="indicator"><?php echo tep_image(DIR_WS_IMAGES . 'ajax-loader.gif'); ?></span></td>
-			<?php // +Country-State Selector ?>
-            <td class="main"><?php echo tep_get_country_list('country', $entry['entry_country_id'],'onChange="getStates(this.value,\'states\');"') . '&nbsp;' . (tep_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">' . ENTRY_COUNTRY_TEXT . '</span>': ''); ?></td>
-            <?php // -Country-State Selector ?>
+            <td class="main">&nbsp;<?php echo ENTRY_COUNTRY; ?></td>
+	    <td class="main">
+	    <?php
+  if ($is_read_only == true) {
+    echo tep_get_country_name($affiliate['affiliate_country_id']);
+  } elseif ($error == true) {
+    if ($entry_country_error == true) {
+      echo tep_get_country_list('a_country') . '&nbsp;' . ENTRY_COUNTRY_ERROR;
+    } else {
+      echo tep_get_country_name($a_country) . tep_draw_hidden_field('a_country');
+    }
+  } else {
+    // +Country-State Selector
+    echo tep_get_country_list('country', $entry['entry_country_id'],'onChange="getStates(this.value,\'states\');"') . '&nbsp;' . (tep_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="inputRequirement">' . ENTRY_COUNTRY_TEXT . '</span>': '');
+   // -Country-State Selector
+  }
+?>
+
+
           </tr>
         </table></td>
       </tr>
@@ -476,7 +472,7 @@
     <td class="formAreaTitle"><br><?php echo CATEGORY_CONTACT; ?></td>
   </tr>
   <tr>
-    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBox">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
           <tr>
@@ -492,7 +488,7 @@
       echo $a_telephone . tep_draw_hidden_field('a_telephone');
     }
   } else {
-    echo tep_draw_input_field('a_telephone', $affiliate['affiliate_telephone']) . '&nbsp;' . ENTRY_TELEPHONE_NUMBER_TEXT;
+    echo tep_draw_input_field('a_telephone', $affiliate['affiliate_telephone']) . '&nbsp;<span class="inputRequirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>';
   }
 ?>
             </td>
@@ -528,7 +524,7 @@
       echo $a_homepage . tep_draw_hidden_field('a_homepage');
     }
   } else {
-    echo tep_draw_input_field('a_homepage', $affiliate['affiliate_homepage']) . '&nbsp;' . ENTRY_AFFILIATE_HOMEPAGE_TEXT;
+    echo tep_draw_input_field('a_homepage', $affiliate['affiliate_homepage']) . '&nbsp;<span class="inputRequirement">' . ENTRY_AFFILIATE_HOMEPAGE_TEXT . '</span>';
   }
 ?>
             </td>
@@ -544,7 +540,7 @@
     <td class="formAreaTitle"><br><?php echo CATEGORY_PASSWORD; ?></td>
   </tr>
   <tr>
-    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
+    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="infoBox">
       <tr>
         <td class="main"><table border="0" cellspacing="0" cellpadding="2">
           <tr>
@@ -558,7 +554,7 @@
         echo PASSWORD_HIDDEN . tep_draw_hidden_field('a_password') . tep_draw_hidden_field('a_confirmation');
       }
     } else {
-      echo tep_draw_password_field('a_password') . '&nbsp;' . ENTRY_PASSWORD_TEXT;
+      echo tep_draw_password_field('a_password') . '&nbsp;<span class="inputRequirement">' . ENTRY_PASSWORD_TEXT . '</span>';
     }
 ?>
             </td>
@@ -570,7 +566,7 @@
             <td class="main">&nbsp;<?php echo ENTRY_PASSWORD_CONFIRMATION; ?></td>
             <td class="main">&nbsp;
 <?php
-      echo tep_draw_password_field('a_confirmation') . '&nbsp;' . ENTRY_PASSWORD_CONFIRMATION_TEXT;
+      echo tep_draw_password_field('a_confirmation') . '&nbsp;<span class="inputRequirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>';
 ?>
             </td>
           </tr>
