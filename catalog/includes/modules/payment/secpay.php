@@ -162,13 +162,13 @@ $Id$
 	$DIGEST_PASSWORD = MODULE_PAYMENT_SECPAY_READERS_DIGEST ;
         list($REQUEST_URI, $CHECK_SUM) = split("hash=", $_SERVER['REQUEST_URI']) ; 
 	
-        if ($HTTP_GET_VARS['hash'] != MD5($REQUEST_URI.$DIGEST_PASSWORD)) {
-           tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_GET_VARS[tep_session_name()] . '&payment_error=' . $this->code ."&detail=hash", 'SSL', false, false));
+        if ($_GET['hash'] != MD5($REQUEST_URI.$DIGEST_PASSWORD)) {
+           tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $_GET[tep_session_name()] . '&payment_error=' . $this->code ."&detail=hash", 'SSL', false, false));
         }
 	}
 
     else {
-          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $HTTP_GET_VARS[tep_session_name()] . '&payment_error=' . $this->code, 'SSL', false, false));
+          tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, tep_session_name() . '=' . $_GET[tep_session_name()] . '&payment_error=' . $this->code, 'SSL', false, false));
       }
     }
 

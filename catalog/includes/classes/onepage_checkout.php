@@ -1088,7 +1088,7 @@ class osC_onePageCheckout {
       // Start - CREDIT CLASS Gift Voucher Contribution
       if ($credit_covers) $paymentMethod = 'credit_covers';
       unset($_POST['gv_redeem_code']);
-      unset($HTTP_POST_VARS['gv_redeem_code']);
+      unset($_POST['gv_redeem_code']);
       $order_total_modules->collect_posts();
       $order_total_modules->pre_confirmation_check();
       // End - CREDIT CLASS Gift Voucher Contribution
@@ -1570,9 +1570,9 @@ class osC_onePageCheckout {
 
   function decode_post_vars()
   {
-    global $HTTP_POST_VARS;
+    global $_POST;
     $_POST = $this->decode_inputs($_POST);
-    $HTTP_POST_VARS = $this->decode_inputs($HTTP_POST_VARS);
+    $_POST = $this->decode_inputs($_POST);
   }
 
   function decode_inputs($inputs)

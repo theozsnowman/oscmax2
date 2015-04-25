@@ -52,7 +52,7 @@ if ($num_rows != 0) {
 $customer_notified = isset($customer_notified)?$customer_notified:'0';
 if (isset($_POST['notify']) && ($_POST['notify'] == 'on')) {
   $notify_comments = '';
-  if (isset($HTTP_POST_VARS['notify_comments']) && ($HTTP_POST_VARS['notify_comments'] == 'on')) {
+  if (isset($_POST['notify_comments']) && ($_POST['notify_comments'] == 'on')) {
     $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
   }
   $force_email = false;

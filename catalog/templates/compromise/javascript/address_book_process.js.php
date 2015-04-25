@@ -10,7 +10,7 @@ $Id$
   Released under the GNU General Public License
 */
 
-  if (!isset($HTTP_GET_VARS['delete'])) {
+  if (!isset($_GET['delete'])) {
 ?>  
 <script language="javascript" type="text/javascript"><!--
 var form = "";

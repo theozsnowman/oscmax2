@@ -56,7 +56,7 @@ $Id$
 
 // If an order is deleted delete the sale too (optional)
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
-  if ($action == 'deleteconfirm' && basename($HTTP_SERVER_VARS['SCRIPT_FILENAME']) == FILENAME_ORDERS && AFFILIATE_DELETE_ORDERS == 'true') {
+  if ($action == 'deleteconfirm' && basename($_SERVER['SCRIPT_FILENAME']) == FILENAME_ORDERS && AFFILIATE_DELETE_ORDERS == 'true') {
     $affiliate_oID = tep_db_prepare_input($_GET['oID']);
     tep_db_query("delete from " . TABLE_AFFILIATE_SALES . " where affiliate_orders_id = '" . tep_db_input($affiliate_oID) . "' and affiliate_billing_status != 1");
   }

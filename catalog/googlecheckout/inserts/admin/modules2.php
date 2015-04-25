@@ -36,9 +36,9 @@ $Id$
  */
 
 // fix configuration no saving -
-reset($HTTP_POST_VARS['configuration']);
+reset($_POST['configuration']);
 // end fix    
-while (list($key, $value) = each($HTTP_POST_VARS['configuration'])) {
+while (list($key, $value) = each($_POST['configuration'])) {
   // Checks if module is of type google checkout and also verfies if this configuration is 
   // for the check boxes for the shipping options           
   if (is_array($value)) {

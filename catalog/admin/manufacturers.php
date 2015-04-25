@@ -67,7 +67,7 @@ $Id$
         $languages = tep_get_languages();
         for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
           $manufacturers_url_array = $_POST['manufacturers_url'];
-          $manufacturers_description_array = $HTTP_POST_VARS['manufacturers_description'];
+          $manufacturers_description_array = $_POST['manufacturers_description'];
           $language_id = $languages[$i]['id'];
 
           $sql_data_array = array('manufacturers_url' => tep_db_prepare_input($manufacturers_url_array[$language_id]));

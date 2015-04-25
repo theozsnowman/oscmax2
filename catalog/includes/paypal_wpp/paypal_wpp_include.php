@@ -233,8 +233,6 @@ $Id$
     return true;
   }
   
-  //if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') $_GET &= $HTTP_GET_VARS;
-  
   $action = (isset($_GET['action']) ? $_GET['action'] : ''); 
   
   switch($action) {

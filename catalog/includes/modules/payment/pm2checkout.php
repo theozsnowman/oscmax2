@@ -90,7 +90,7 @@ $Id$
         }
 
         function confirmation() {
-            global $HTTP_POST_VARS;
+            global $_POST;
             if (DEFAULT_CURRENCY <> 'USD')
             $title = $this->title . MODULE_PAYMENT_2CHECKOUT_CURRENCY_CONVERSITION;
             else
@@ -101,7 +101,7 @@ $Id$
         }
 
         function process_button() {
-            global $HTTP_POST_VARS, $order, $currency, $currencies, $demo;
+            global $_POST, $order, $currency, $currencies, $demo;
             global $i, $n, $shipping, $text, $languages_id;
 
 
@@ -191,15 +191,15 @@ $Id$
         }
 
         function before_process() {
-            global $HTTP_POST_VARS;
+            global $_POST;
 
             if ($this->check_hash == true) {
-            $compare_string = $this->secret_word . $this->login_id . $HTTP_POST_VARS['x_trans_id'] . $HTTP_POST_VARS['x_amount'];
+            $compare_string = $this->secret_word . $this->login_id . $_POST['x_trans_id'] . $_POST['x_amount'];
             // make it md5
             $compare_hash1 = md5($compare_string);
             // make all upper
             $compare_hash1 = strtoupper($compare_hash1);
-            $compare_hash2 = $HTTP_POST_VARS['x_MD5_Hash'];
+            $compare_hash2 = $_POST['x_MD5_Hash'];
             if ($compare_hash1 != $compare_hash2) {
             tep_redirect(tep_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR_HASH_MESSAGE), 'SSL', true, false));
             }
@@ -213,10 +213,10 @@ $Id$
         }
 
         function get_error() {
-            global $HTTP_GET_VARS;
+            global $_GET;
 
             $error = array('title' => MODULE_PAYMENT_2CHECKOUT_TEXT_ERROR,
-                'error' => stripslashes(urldecode($HTTP_GET_VARS['error'])));
+                'error' => stripslashes(urldecode($_GET['error'])));
 
             return $error;
         }

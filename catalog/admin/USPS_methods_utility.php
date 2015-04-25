@@ -21,8 +21,8 @@ if ( !function_exists('htmlspecialchars_decode') ) {
     return strtr($text, array_flip(get_html_translation_table(HTML_SPECIALCHARS)));
   }
 }
-  $action = (isset($HTTP_GET_VARS['action']) ? $HTTP_GET_VARS['action'] : '');
-  $id = (isset($HTTP_POST_VARS['id']) ? tep_db_prepare_input($HTTP_POST_VARS['id']) : '');
+  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+  $id = (isset($_POST['id']) ? tep_db_prepare_input($_POST['id']) : '');
   if (defined('MODULE_SHIPPING_USPS_USERID') && (MODULE_SHIPPING_USPS_USERID != 'NONE')) {
     $action = 'process';
     $id = MODULE_SHIPPING_USPS_USERID;

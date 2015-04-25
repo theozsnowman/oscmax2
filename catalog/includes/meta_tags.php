@@ -95,7 +95,7 @@ define('TERTIARY_SECTION', ',  ');
     	break;
 // END UPDATE
 	case CONTENT_ARTICLES: 
-       $mt_articles_query = tep_db_query("select articles_id, language_id, articles_head_title_tag, articles_head_desc_tag, articles_head_keywords_tag from " . TABLE_ARTICLES_DESCRIPTION . " where articles_id = '" . (int)$HTTP_GET_VARS['articles_id'] . "' and language_id = '" . (int)$languages_id . "'"); 
+       $mt_articles_query = tep_db_query("select articles_id, language_id, articles_head_title_tag, articles_head_desc_tag, articles_head_keywords_tag from " . TABLE_ARTICLES_DESCRIPTION . " where articles_id = '" . (int)$_GET['articles_id'] . "' and language_id = '" . (int)$languages_id . "'"); 
        $mt_articles = tep_db_fetch_array($mt_articles_query); 
 	   
 	   define('META_TAG_TITLE', $mt_articles['articles_head_title_tag'] . PRIMARY_SECTION . TITLE . $web_site_tagline);  

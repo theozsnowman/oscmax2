@@ -341,8 +341,8 @@ define('TEXT_UNKNOWN_TAX_RATE', 'Impuesto desconocido');
 define('TEXT_REQUIRED', '<span class="errorText">Obligatorio</span>');
 
 define('ERROR_TEP_MAIL', '<span class="errorText"><b><small>Error:</small> No se ha podido enviar el email con el servidor SMTP especificado. Revisa la configuración del archivo php.ini y corrija el servidor SMTP si es necesario.</b></span>');
-define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Advertencia: El directorio de instalación existe en: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Por razones de seguridad, elimine este directorio completamente.');
-define('WARNING_CONFIG_FILE_WRITEABLE', 'Advertencia: Se puede escribir en el fichero de configuración: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. En determinadas circunstancias esto puede suponer un riesgo de seguridad - por favor corrija los permisos de este fichero.');
+define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Advertencia: El directorio de instalación existe en: ' . dirname($_SERVER['SCRIPT_FILENAME']) . '/install. Por razones de seguridad, elimine este directorio completamente.');
+define('WARNING_CONFIG_FILE_WRITEABLE', 'Advertencia: Se puede escribir en el fichero de configuración: ' . dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/configure.php. En determinadas circunstancias esto puede suponer un riesgo de seguridad - por favor corrija los permisos de este fichero.');
 define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Advertencia: El directorio para guardar datos de sesión no existe: ' . tep_session_save_path() . '. Las sesiones no funcionarán hasta que no se cree el directorio.');
 define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Advertencia: No puedo escribir en el directorio para datos de sesión: ' . tep_session_save_path() . '. Las sesiones no funcionarán hasta que no se establezcan correctamente los permisos del directorio.');
 define('WARNING_SEO_PHP_VERSION_LOW', 'Advertencia: Tu servidor web está funcionando con la versión de PHP ' . PHP_VERSION . ' que no es suficiente para el funcionamiento de SEO URLs. Por favor deshabilita este módulo hasta que hayas actualizado la versión de PHP.');

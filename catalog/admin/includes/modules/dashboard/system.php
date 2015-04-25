@@ -126,7 +126,7 @@ $system_permission_warnings = 0;
   
   <!-- Start check for configure file -->
   <?php
-  if ( (file_exists(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) && (is_writeable(dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php')) ) { $system_permission_errors++; ?>
+  if ( (file_exists(dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/configure.php')) && (is_writeable(dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/configure.php')) ) { $system_permission_errors++; ?>
   <tr>
 	<td class="messageStackError"><?php echo tep_image(DIR_WS_ICONS . 'error.gif') . ' ' . WARNING_ADMIN_CONFIG_FILE_WRITEABLE; ?></td>
   </tr>

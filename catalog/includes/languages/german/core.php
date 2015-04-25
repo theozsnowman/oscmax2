@@ -328,8 +328,8 @@ define('TEXT_UNKNOWN_TAX_RATE', 'Unbekannter Steuersatz');
 define('TEXT_REQUIRED', '<span class="errorText">Pflichtfeld</span>');
 
 define('ERROR_TEP_MAIL', '<font face="Verdana, Arial" size="2" color="#ff0000"><b><small>TEP Fehler:</small> Die E-Mail kann nicht über den angegebenen SMTP-Server verschickt werden. Bitte kontrollieren Sie die Einstellungen in der php.ini Datei und führen Sie notwendige Korrekturen durch!</b></font>');
-define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/install. Bitte löschen Sie das Verzeichnis aus Sicherheitsgründen!');
-define('WARNING_CONFIG_FILE_WRITEABLE', 'Warnung: Ihre Konfigurationsdatei ist beschreibbar: ' . dirname($HTTP_SERVER_VARS['SCRIPT_FILENAME']) . '/includes/configure.php. Dies stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!');
+define('WARNING_INSTALL_DIRECTORY_EXISTS', 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname($_SERVER['SCRIPT_FILENAME']) . '/install. Bitte löschen Sie das Verzeichnis aus Sicherheitsgründen!');
+define('WARNING_CONFIG_FILE_WRITEABLE', 'Warnung: Ihre Konfigurationsdatei ist beschreibbar: ' . dirname($_SERVER['SCRIPT_FILENAME']) . '/includes/configure.php. Dies stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!');
 define('WARNING_SESSION_DIRECTORY_NON_EXISTENT', 'Warnung: Das Sessions-Verzeichnis existiert nicht: ' . tep_session_save_path() . '. Sessions funktionieren nicht, solange das Verzeichnis nicht existiert!');
 define('WARNING_SESSION_DIRECTORY_NOT_WRITEABLE', 'Warnung: Das Sessions-Verzeichnis ist schreibgeschützt: ' . tep_session_save_path() . '. Sessions funktionieren nicht, solange die richtigen Benutzerberechtigungen nicht gesetzt wurden!');
 define('WARNING_SEO_PHP_VERSION_LOW', 'Warnung: Auf Ihrem Webserver läuft ' . PHP_VERSION . ' , welches inkompatibel für den Betrieb der SEO URLs ist. Bitte deaktivieren Sie dieses Modul, bis Sie Ihre Version von PHP aktualisiert haben.');

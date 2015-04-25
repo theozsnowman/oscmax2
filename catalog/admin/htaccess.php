@@ -48,9 +48,9 @@ $Id$
  * 
 [CODE]
 	//Parse the HTTP header to verify the source.
-		if(isset($HTTP_SERVER_VARS['PHP_AUTH_USER']) && isset($HTTP_SERVER_VARS['PHP_AUTH_PW'])) {
-		  $compare_mer_id = $HTTP_SERVER_VARS['PHP_AUTH_USER']; 
-		  $compare_mer_key = $HTTP_SERVER_VARS['PHP_AUTH_PW'];
+		if(isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+		  $compare_mer_id = $_SERVER['PHP_AUTH_USER']; 
+		  $compare_mer_key = $_SERVER['PHP_AUTH_PW'];
 		}
 		else {
 		  error_func("HTTP Basic Authentication failed.\n");

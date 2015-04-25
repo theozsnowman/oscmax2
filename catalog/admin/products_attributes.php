@@ -27,8 +27,8 @@ $Id$
 		
 	  // BOF: Attribute Sort with Clone Tool
 	  case 'clone_attributes':
-		$clone_product_id_from = $HTTP_POST_VARS['clone_products_id_from'];
-		$clone_product_id_to = $HTTP_POST_VARS['clone_products_id_to'];
+		$clone_product_id_from = $_POST['clone_products_id_from'];
+		$clone_product_id_to = $_POST['clone_products_id_to'];
 		tep_db_query("delete from ".TABLE_PRODUCTS_ATTRIBUTES." WHERE products_id='".$clone_product_id_to."'");
 		$attributes = tep_db_query("select products_id, options_id, options_values_id, options_values_price, price_prefix, weight_prefix, options_values_weight, products_options_sort_order from " . TABLE_PRODUCTS_ATTRIBUTES ." where products_id='".$clone_product_id_from."'");
 		while($attributes_values = tep_db_fetch_array($attributes)) {	

@@ -243,10 +243,10 @@ $Id$
         }
         break;
       case 'update': // validate form
-        $all_cats = ($HTTP_POST_VARS['all_cats'] == '0') ? 0 : 1;
+        $all_cats = ($_POST['all_cats'] == '0') ? 0 : 1;
         $app_cats = array();
         foreach ($categories as $cat) {
-          if (isset($HTTP_POST_VARS['usecat' . $cat['id']]) && ($HTTP_POST_VARS['usecat' . $cat['id']] == $cat['id'])) $app_cats[] = $cat['id'];
+          if (isset($_POST['usecat' . $cat['id']]) && ($_POST['usecat' . $cat['id']] == $cat['id'])) $app_cats[] = $cat['id'];
         }
         if (empty($app_cats) || in_array(0, $app_cats)) $all_cats = 1; // if no categories selected or TOP category selected set all categories to true
         if ($all_cats)  $app_cats = array(); // force applicable categories to empty if all categories selected

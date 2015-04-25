@@ -44,7 +44,7 @@ $Id$
 */
   require('includes/application_top.php');
 
-  if ($HTTP_SERVER_VARS['REQUEST_METHOD']=="GET") {
+  if ($_SERVER['REQUEST_METHOD']=="GET") {
     $VARS=$_GET;
   } else {
     $VARS=$_POST;
