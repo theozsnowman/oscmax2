@@ -32,7 +32,7 @@ define('AM_AJAX_TRACK_STOCK_IMGALT', '¿Seguimiento de existencias de este atribu
 
 define('AM_AJAX_ENTER_NEW_OPTION_NAME', 'Por favor introduce el nombre de la nueva opción');
 define('AM_AJAX_ENTER_NEW_OPTION_VALUE_NAME', 'Por favor introduce el valor de la nueva opción');
-define('AM_AJAX_ENTER_NEW_OPTION_VALUE_NAME_TO_ADD_TO', 'Por facor introduce un nombre para el valor de la opción que se va a añadir a %s');
+define('AM_AJAX_ENTER_NEW_OPTION_VALUE_NAME_TO_ADD_TO', 'Por favor introduce un nombre para el valor de la opción que se va a añadir a %s');
 
 define('AM_AJAX_PROMPT_REMOVE_OPTION_AND_ALL_VALUES', '¿Seguro que quieres quitar %s y todos sus valores para este producto?');
 define('AM_AJAX_PROMPT_REMOVE_OPTION', '¿Seguro que quieres quitar %s de este producto?');
