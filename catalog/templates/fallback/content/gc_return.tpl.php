@@ -63,7 +63,7 @@ $Id$
       if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
 // BOF Separate Price per Customer
 
-        $scustomer_group_price_query = tep_db_query("select customers_group_price from " . TABLE_PRODUCTS_GROUPS . " where products_id = '" . (int)$HTTP_GET_VARS['products_id']. "' and customers_group_id =  '" . $customer_group_id . "'");
+        $scustomer_group_price_query = tep_db_query("select customers_group_price from " . TABLE_PRODUCTS_GROUPS . " where products_id = '" . (int)$_GET['products_id']. "' and customers_group_id =  '" . $customer_group_id . "'");
         if ($scustomer_group_price = tep_db_fetch_array($scustomer_group_price_query)) {
         $product_info['products_price']= $scustomer_group_price['customers_group_price'];
 	}
@@ -71,7 +71,7 @@ $Id$
         $products_price = '<s>' . $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id'])) . '</s> <span class="productSpecialPrice">' . $currencies->display_price($new_price, tep_get_tax_rate($product_info['products_tax_class_id'])) . '</span>';
       } else {
 // BOF Separate Price per Customer
-        $scustomer_group_price_query = tep_db_query("select customers_group_price from " . TABLE_PRODUCTS_GROUPS . " where products_id = '" . (int)$HTTP_GET_VARS['products_id']. "' and customers_group_id =  '" . $customer_group_id . "'");
+        $scustomer_group_price_query = tep_db_query("select customers_group_price from " . TABLE_PRODUCTS_GROUPS . " where products_id = '" . (int)$_GET['products_id']. "' and customers_group_id =  '" . $customer_group_id . "'");
         if ($scustomer_group_price = tep_db_fetch_array($scustomer_group_price_query)) {
         $product_info['products_price']= $scustomer_group_price['customers_group_price'];
 	}
