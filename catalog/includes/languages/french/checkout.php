@@ -73,7 +73,7 @@ define('EMAIL_SUBJECT', 'Bien venu à ' . STORE_NAME);
 define('EMAIL_GREET_MR', 'Monsieur, %s,' . "\n\n");
 define('EMAIL_GREET_MS', 'Madame, %s,' . "\n\n");
 define('EMAIL_GREET_NONE', 'Bonjour %s' . "\n\n");
-define('EMAIL_WELCOME', 'Bien venu au <b>' . STORE_NAME . '</b>.' . "\n\n");
+define('EMAIL_WELCOME', 'Bien venu au <b>' . STORE_NAME . '</b>.' . "\n\n" . 'Vous pouvez vous connecter à votre compte en utilisant le suivant' . "\n\n");
 define('EMAIL_TEXT', 'Nous vous offrons <b>différents services</b>. Certains de ces services incluent:' . "\n\n" . '<li><b>un panier permanent:</b> - Tout les produits ajoutés à votre panier en ligne  y restent jusqu\'à ce que vous les supprimiez, ou passer commande.' . "\n" . '<li><b>Carnet d\'adresses</b> - Nous pouvons maintenant livrer vos commande à une autre adresse que la vôtre! C\'est parfait pour envoyer des cadeaux d\'anniversaire par exemple, directement à vos proche.' . "\n" . '<li><b>Historique de commande</b> - Consulter l\'historique de vos achats que vous avez éfectué chez nous.' . "\n" . '<li><b>Commentaire produit</b> - Partagez vos opinions sur les produits avec d\'autres clients.' . "\n\n");
 define('EMAIL_CONTACT', 'Vous avez besoin d\'aider avec un de nos services en ligne, contacter nous par courriel, nous nous ferons un plaisir de vous répondre: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n");
 define('EMAIL_WARNING', '<b>Note:</b> Cette adresse mail nous a été donné par l\'un de nos clients. Si vous ne vous avez pas inscrire comme membre, envoyez nous un courriel à ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n");

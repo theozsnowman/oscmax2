@@ -1302,9 +1302,7 @@ class osC_onePageCheckout {
 
       $email_text .= EMAIL_WELCOME;
 
-      $email_text .= 'You can log into your account using the following' . "\n" .
-      'Username: ' . $onepage['customer']['email_address'] . "\n" .
-      'Password: ' . $onepage['customer']['password'] . "\n\n";
+      $email_text .= 'Username: ' . $onepage['customer']['email_address'] . "\n" . 'Password: ' . $onepage['customer']['password'] . "\n\n";
 
       $email_text .= EMAIL_TEXT . EMAIL_CONTACT . EMAIL_WARNING;
 

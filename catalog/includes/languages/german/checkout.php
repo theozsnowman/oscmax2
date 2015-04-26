@@ -73,7 +73,7 @@ define('EMAIL_SUBJECT', 'Willkommen bei ' . STORE_NAME);
 define('EMAIL_GREET_MR', 'Sehr geehrter Herr %s,' . "\n\n");
 define('EMAIL_GREET_MS', 'Sehr geehrte Frau %s,' . "\n\n");
 define('EMAIL_GREET_NONE', 'Hallo %s' . "\n\n");
-define('EMAIL_WELCOME', 'Willkommen im Onlineshop von <b>' . STORE_NAME . '</b>.' . "\n\n");
+define('EMAIL_WELCOME', 'Willkommen im Onlineshop von <b>' . STORE_NAME . '</b>.' . "\n\n" . 'Sie können unter Verwendung der folgenden in Ihrem Konto anmelden' . "\n\n");
 define('EMAIL_TEXT', 'Sie können nun die <b>erweiterten Funktionen</b> nutzen, die unser Shop für Sie bereit hält, wie etwa:' . "\n\n" . '<li><b>Persönlicher Warenkorb</b> - Der aktuelle Inhalt Ihres Warenkorbes wird beim Abmelden gespeichert und steht Ihnen bei der nächsten Anmeldung wieder zur Verfügung.' . "\n" . '<li><b>Adressbuch</b> - Speichern Sie unterschiedliche Lieferanschriften für künftige Bestellungen in Ihrem persönlichen Adressbuch ab.' . "\n" . '<li><b>Frühere Bestellungen</b> - Sie erhalten eine Übersicht aller von Ihnen getätigten Bestellungen.' . "\n" . '<li><b>Produktbewertungen</b> - Verfassen Sie einen Erfahrungsbericht zu unseren Produkten und veröffentlichen Sie ihn online.' . "\n\n");
 define('EMAIL_CONTACT', 'Bei Fragen zu unserem Onlineshop wenden Sie sich bitte an: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n");
 define('EMAIL_WARNING', '<b>Hinweis:</b> Diese email-Adresse wird von einem Kundenkonto in unserem Onlineshop verwendet. Falls Sie sich nicht als Kunde in unserem Onlineshop angemeldtet haben, senden Sie bitte eine email an ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n");
