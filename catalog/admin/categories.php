@@ -374,6 +374,8 @@ $Id$
             tep_db_query("delete from " . TABLE_PRODUCTS_PRICE_BREAK . " where products_id = '" . (int)$product_id . "'");
 // EOF QPBPP for SPPC
 
+			tep_db_query("delete from " . TABLE_PRODUCTS_SHIPPING . " where products_id = '" . (int)$product_id . "'");
+
           $product_categories_query = tep_db_query("select count(*) as total from " . TABLE_PRODUCTS_TO_CATEGORIES . " where products_id = '" . (int)$product_id . "'");
           $product_categories = tep_db_fetch_array($product_categories_query);
 
